@@ -1,0 +1,12 @@
+{% extends 'ca/base.html' %} 
+{% load static %}
+
+{% block title %} User page{%endblock %}
+
+{% block body %}
+<h1>
+     Hello  {{user.username}} Good Job<br>the link back to ca page
+     <a href="{% url 'ca:college_ambassador' %}">Click me</a>
+      
+</h1>
+{% endblock %}
