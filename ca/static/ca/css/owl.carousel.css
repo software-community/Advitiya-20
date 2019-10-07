@@ -67,6 +67,7 @@
 .owl-carousel .owl-item img
 {
     display: block;
+    position: fixed;
     width: 100%;
 }
 .owl-carousel .owl-nav.disabled,
@@ -92,18 +93,18 @@
 }
 .owl-carousel.owl-loading
 {
-    opacity: 0;
+    opacity: 0.8;
     display: block;
 }
 .owl-carousel.owl-hidden
 {
-    opacity: 0;
+    opacity: 0.8;
 }
 .owl-carousel.owl-refresh .owl-item
 {
     visibility: hidden;
 }
-.owl-carousel.owl-drag .owl-item
+/* .owl-carousel.owl-drag .owl-item
 {
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -122,7 +123,7 @@
 .owl-carousel.owl-rtl .owl-item
 {
     float: right;
-}
+} */
 
 /* No Js */
 .no-js .owl-carousel
@@ -177,26 +178,26 @@
 /*
  * 	Owl Carousel - Lazy Load Plugin
  */
-.owl-carousel .owl-item .owl-lazy
+/* .owl-carousel .owl-item .owl-lazy
 {
     opacity: 0;
-    transition: opacity 400ms ease;
-}
+    transition: opacity 800ms ease;
+} */
 
-.owl-carousel .owl-item img.owl-lazy
+/* .owl-carousel .owl-item img.owl-lazy
 {
     transform-style: preserve-3d;
-}
+} */
 
 /*
  * 	Owl Carousel - Video Plugin
  */
-.owl-carousel .owl-video-wrapper
+/* .owl-carousel .owl-video-wrapper
 {
     position: relative;
     height: 100%;
     background: #000;
-}
+} */
 
 .owl-carousel .owl-video-play-icon
 {

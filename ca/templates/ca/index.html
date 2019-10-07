@@ -7,14 +7,14 @@
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
       <header class="masthead mb-auto">
         <div class="inner">
-          <h2 class="masthead-brand"><a href="{% url 'ca:index' %}">ADVITIYA 2k20</a></h2>
+          <div class="logo_img"><img src="{% static 'ca/img/logo.png'  %}" alt="" height="95px;"></div>
         </div>
       </header>
 
       <main role="main" class="inner cover">
-        <h1 class="cover-heading">WELCOME</h1>
+        <img src="{% static 'ca/img/welcome.png'  %}" alt="" height="295px;">
         <h2>Hold onto your horses.</h2>
-        <p class="lead">The site will be live soon.Meanwhile register with through the link given below.</p>
+        <p class="lead">Campus Ambassador portal is live now.Register here.</p>
         <p class="lead">
           <h1><strong>COLLEGE AMBASSADOR</strong></h1>
           <a href= "{% url 'ca:college_ambassador' %}" class="btn btn-lg btn-secondary">Learn more</a>
