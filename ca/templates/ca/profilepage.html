@@ -1,0 +1,75 @@
+{%load static %}
+<!DOCTYPE html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<link href="{% static 'ca/css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container emp-profile">
+            <div class="inner">
+                    <div class="logo_img"><a href="{% url 'ca:college_ambassador' %}"><img src="{% static 'ca/img/logo.png'  %}" alt="" height="95px;"></div></a>
+                  </div>
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h5>
+                                        {{user.username}}
+                                    </h5>
+                                    <h6>
+                                        College Ambassador
+                                    </h6>
+                                    <h4 style="color: black">Points : <span>0</span></h4>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                     <div class="col-md-2">
+                       <!-- <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>-->
+                    
+                    <a href="{% url 'ca:userpage' %}" style="color: black" >Update Profile</a>
+                </div> 
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-work">
+                            <!-- <p>WORK LINK</p> -->
+                            <!-- <a href="">Website Link</a><br/>
+                            <a href="">Bootsnipp Profile</a><br/>
+                            <a href="">Bootply Profile</a> -->
+                            <p>ADVITIYA LINKS</p>
+                            <a href="https://www.facebook.com/advitiya.iitrpr/">Facebook</a><br/>
+                            <a href="https://twitter.com/advitiyaiitrpr?lang=en">Twiiter</a><br/>
+                            <a href="https://www.instagram.com/advitiya_iitrpr/?hl=en">Instagram</a><br/>
+                            <a href="">IIT Roapr</a><br/>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <p>Rule1:  eaque, asperiores labore earum in debitis omnis impedit sint et, quidem perspiciatis dolores temporibus, quia explicabo. Eveniet cumque nam quibusdam?</p>
+                                        <p>Rule1:  eaque, asperiores labore earum in debitis omnis impedit sint et, quidem perspiciatis dolores temporibus, quia explicabo. Eveniet cumque nam quibusdam?</p>
+                                        <p>Rule1:  eaque, asperiores labore earum in debitis omnis impedit sint et, quidem perspiciatis dolores temporibus, quia explicabo. Eveniet cumque nam quibusdam?</p>
+                                        <p>Rule1:  eaque, asperiores labore earum in debitis omnis impedit sint et, quidem perspiciatis dolores temporibus, quia explicabo. Eveniet cumque nam quibusdam?</p>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>           
+        </div>
+</body>

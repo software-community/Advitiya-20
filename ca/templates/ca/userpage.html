@@ -1,59 +1,27 @@
+{% extends 'ca/base.html' %} 
 {% load static %}
+
 {% load crispy_forms_tags %}
 
-<!DOCTYPE html>
-<head>
-    <title>User Page</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<link href="{% static 'ca/css/owl.carousel.css' %}" rel="stylesheet">
-</head>
-
-<body >
-    <h1 class="text-center" style="color: black">
-        Hello  {{user.username}}<br> Welcome to Advitiya!!!!!<br>
-    </h1>
-        <h1 class="text-center" style="color: black">Update your details <br>
-        <a href="{% url 'ca:college_ambassador' %}"> To go back to CA page Click me</a>
-    </h1>
-    <div class="container" style="padding-left: 340px;">
-    <form method="POST">
+{% block title %} User Page {%endblock %}
+<style>
+  body {
+    background: url(back.jpg) no-repeat center center fixed;
+}
+</style>
+{% block body %}
+        <div class="jumbotron"  style= "background-color:black; opacity: .8;border-radius: 10px;height: 80%; width: 50%">
+           <header class="masthead mb-auto">
+        <div class="inner" >
+          <div class="logo_img"><a href="{% url 'ca:index' %}"><center><img src="{% static 'ca/img/logo.png'  %}" alt="" height="95px;"></center></a>
+          </div>
+        </div>
+      </header>
+          <h2 class="text-center">Register</h2>
+            <form action="" method="POST">
                 {% csrf_token %}
-
-        <!-- <div class="form-group">
-                <label for="name"name="name"></label>
-                <input type="text" class="form-control" id="name" required placeholder="name" name="name" style="width: 50%" >
-                <div class="invalid-feedback">Please fill out this field.</div>
-        </div>
-        <div class="form-group">
-                <label for="college_name"name="college_name"></label>
-                <input type="text" class="form-control" id="college_name" required placeholder="college_name" name="college_name" style="width: 50%">
-                <div class="invalid-feedback">Please fill out this field.</div>
-        </div>
-        <div class="form-group">
-                <label for="tec_head"name="tec_head"></label>
-                <input type="text" class="form-control" id="tec_head" required placeholder="tec_head" name="tec_head" style="width: 50%">
-                <div class="invalid-feedback">Please fill out this field.</div>
-        </div>
-        <div class="form-group">
-                <label for="phone"name="phone"></label>
-                <input type="number" class="form-control" id="phone" required placeholder="phone" name="phone" style="width: 50%">
-                <div class="invalid-feedback">Please fill out this field.</div>
-        </div>
-        <div class="form-group">
-                <label for="tec_head_phone"name="tec_head_phone"></label>
-                <input type="number" class="form-control" id="tec_head_phone" required placeholder="tec_head_phone" name="tec_head_phone" style="width: 50%">
-        </div>
--->
                 {{ form|crispy }}
-        <button type="submit" class="btn btn-primary">Submit</button> 
-
-      </form>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
     </div>
-</body>
-
-</html>
+{% endblock %}

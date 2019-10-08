@@ -2,39 +2,36 @@
 {% load static %}
 
 {% block body %}
-  <div class="text-center">
+<div class="text-center">
+  <div class="cover-container d-flex h-100 p-1 flex-column">
+    <header class="masthead">
+      <div class="inner">
+        <div class="logo_img"><img src="{% static 'ca/img/logo1.png'  %}" alt="" height="95px;"></div>
+      </div>
+    </header>
 
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-      <header class="masthead mb-auto">
-        <div class="inner">
-          <div class="logo_img"><img src="{% static 'ca/img/logo.png'  %}" alt="" height="95px;"></div>
+    <div class="container">
+      <div class= "row">
+        <div class = "col-12 col-sm-2 col-md-1"></div>
+        <div class = "col-12 col-sm-8 col-md-10">
+          <main role="main" class="inner cover">
+            <img src="{% static 'ca/img/wel.png'  %}" alt=""  height="150px;">
+            <h2>Hold onto your horses.</h2>
+            <p class="lead">Campus Ambassador portal is live now.<br>Register here.</p>
+            <p class="lead">
+              <h2><strong><br>COLLEGE AMBASSADOR</strong></h2>
+              <a href="{% url 'ca:college_ambassador' %}" class="btn btn-lg btn-secondary">Learn more</a>
+            </p>
+          </main>
         </div>
-      </header>
-
-      <main role="main" class="inner cover">
-        <img src="{% static 'ca/img/welcome.png'  %}" alt="" height="295px;">
-        <h2>Hold onto your horses.</h2>
-        <p class="lead">Campus Ambassador portal is live now.Register here.</p>
-        <p class="lead">
-          <h1><strong>COLLEGE AMBASSADOR</strong></h1>
-          <a href= "{% url 'ca:college_ambassador' %}" class="btn btn-lg btn-secondary">Learn more</a>
-        </p>
-      </main>
-
-      <footer class="mastfoot mt-auto">
-        <div class="inner">
-          <p>Made with love by Technical Team<a href="https://twitter.com/mdo">@IIT Ropar</a>.</p>
-        </div>
-      </footer>
+        <div class = "col-12 col-sm-2 col-md-1"></div>
+      </div>
     </div>
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../../../dist/js/bootstrap.min.js"></script>
+  </div>
+  <footer class="mastfoot navbar-fixed-bottom">
+    <div class="inner">
+      <p>Made with love by Technical Team<a href="https://twitter.com/mdo">@IIT Ropar</a>.</p>
     </div>
+  </footer>
+</div>
 {% endblock %}

@@ -39,6 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -102,6 +108,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# All Auth Options
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/accounts/redirect/'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL =True
+ACCOUNT_USERNAME_MIN_LENGTH =1
+SOCIALACCOUNT_STORE_TOKENS =True
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -121,3 +137,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+    )
+
+SITE_ID=1
