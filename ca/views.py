@@ -4,8 +4,9 @@ from .forms import registerForm,create_user
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login,authenticate
 from django.urls import reverse
+from ca import models
 from django.contrib.auth.models import User
-
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request,'ca/index.html')
@@ -13,49 +14,29 @@ def index(request):
 def college_ambassador(request):
     return render(request,'ca/ca.html' )
 
-# def userCreate(request):
-#     context={}
-#     context['user']=request.user
-#     #return render(request,"ca/userpage.html",context)
+#    college_name=models.CharField(max_length=150,blank=False)
+#     tec_head=models.CharField(max_length=50,blank=False)
+#     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 12 digits allowed.")
+#     phone = models.CharField(validators=[phone_regex], max_length=12, blank=False) # validators should be a list
+#     tec_head_phone = models.CharField(validators=[phone_regex], max_length=12, blank=False)
+#     user = models.OneToOneF
 
-#     if request.method =="POST":
-#         form = create_user(request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['password1']
-#             form.save()
-#             userT = authenticate(request, username=username, password=password)
-#             if(userT):
-#                 login(request, userT)
-#                 return redirect('ca:userpage') 
-#     else:
-#         form = create_user()
-
-#     return render (request, "ca/user_form.html", {"form":form})   
-
+@login_required(login_url='/auth/google/login/')
 def userpage(request):
-    form = registerForm(request.POST)
-    if form.is_valid():
-        form.save()
-        return redirect('ca:profile_page') 
+    if(request.method=='POST'):
+        form = registerForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+            return redirect('ca:profile_page') 
     else:
         form = registerForm()
-        return render (request, "ca/userpage.html", {"form":form})
-
-# def user_login(request):
-#     context={}
-#     if request.method=="POST":
-#         username=request.POST['username']
-#         password=request.POST['password']
-#         user=authenticate(request,username=username,password=password)
-#         if user:
-#             login(request,user)
-#             return redirect('ca:profile_page')
-#         else:
-#             context["error"]="Please enter valid details"
-#             return render(request,"ca/login.html",context)
-#     else:
-#         return render(request,"ca/login.html",context)
+        # EDIT PROFILE LOGIC
+        # u = request.user.profile
+        # if(u):
+        #     print(u.profile)
+    return render (request, "ca/userpage.html", {"form":form})
 
 def profile_page(request):
     context={}

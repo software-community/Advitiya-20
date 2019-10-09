@@ -36,7 +36,9 @@
 					<div class="home_slider_content text-center" style="opacity: 0.7" >
 						<h1><br>Campus Ambassador</h1>
 						<div class="home_slider_text">Register to boost your resume and win exciting goodies by being the campus ambassador of Advitiya in your college.</div>
-						<div class="link_button home_slider_button"><a href="{% provider_login_url 'google' %}">Register</a></div>
+						{% if not user.is_authenticated %}
+							<div class="link_button home_slider_button"><a href="{% provider_login_url 'google' %}">Register</a></div>
+						{% endif %}
 					</div>
 				</div>
 			</div>

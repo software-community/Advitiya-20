@@ -7,10 +7,10 @@ from ca.models import Profile
 def signin(request):
     return render(request, 'accounts/signin.html')
 
-
-@receiver(allauth.account.signals.user_signed_up)
-def handleReceiver(request, user, **kwarg):
-    print(user)
+# FOR FUTURE REFERENCE [ SIGNUP EMAIL ]
+# @receiver(allauth.account.signals.user_signed_up)
+# def handleReceiver(request, user, **kwarg):
+#     print(user)
 
 def handleRedirect(request):
     user = request.user
