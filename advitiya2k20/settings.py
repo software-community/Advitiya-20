@@ -1,16 +1,15 @@
 import os
 
-# Importing Project Configuration 
-import config
-
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = config.DJANGO_SECRET_KEY
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '')
 
-DEBUG = config.DEV_ENV
+if(os.environ.get('ENV', 'DEV') == 'DEV'):
+    DEBUG = True
+else:
+    DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'ca',
