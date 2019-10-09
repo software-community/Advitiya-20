@@ -34,7 +34,7 @@
 				<div class="owl-item">
 					<div class="slider_background" style="background-image:url({% static 'ca/img/home_slider.jpg' %});background-repeat:no-repeat;"></div>
 					<div class="home_slider_content text-center" style="opacity: 0.7" >
-						<h1><br>Campus Ambassador</h1>
+						<h1 {% widthratio this_value max_value 100 %}><br>Campus Ambassador</h1>
 						<div class="home_slider_text">Register to boost your resume and win exciting goodies by being the campus ambassador of Advitiya in your college.</div>
 						<div class="link_button home_slider_button"><a href="{% provider_login_url 'google' %}">Register</a></div>
 					</div>
@@ -253,7 +253,7 @@
 				<!-- Info Item -->
 				<div class="col-lg-4 info_col">
 					<div class="info_item text-center">
-						<div class="info_image"><img src="{% static 'ca/img/info_1.png'  %}" alt=""></div>
+						<div class="info_image"><img src="{% static 'ca/img/word_of_mouth.png'  %}" alt=""></div>
 						<div class="info_title">Word of Mouth</div>
 						<div class="info_text">
 							<p>Spread awareness about Advitiya-19 via word of mouth and ensure more and more people get to know about it</p>
@@ -264,7 +264,7 @@
 				<!-- Info Item -->
 				<div class="col-lg-4 info_col">
 					<div class="info_item text-center">
-						<div class="info_image"><img src="{% static 'ca/img/info_2.png'  %}" alt=""></div>
+						<div class="info_image"><img src="{% static 'ca/img/media.png'  %}" height="120%" width="140%" alt=""></div>
 						<div class="info_title">Publicity</div>
 						<div class="info_text">
 							<p>Display posters of Advitiya-19 on receiving them on college bulletin and notice boards</p>
@@ -275,7 +275,7 @@
 				<!-- Info Item -->
 				<div class="col-lg-4 info_col">
 					<div class="info_item text-center">
-						<div class="info_image"><img src="{% static 'ca/img/info_3.png'  %}" alt=""></div>
+						<div class="info_image"><img src="{% static 'ca/img/events.png'  %}" alt="" height="105%"></div>
 						<div class="info_title">Organize Events</div>
 						<div class="info_text">
 							<p>Organize workshops & events in your college or city under the guidance of Advitiya, IIT Ropar</p>
