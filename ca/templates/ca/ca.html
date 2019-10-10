@@ -32,14 +32,14 @@
 				
 				<!-- Slider Item -->
 				<div class="owl-item">
-					<div class="slider_background" style="background-image:url({% static 'ca/img/home_slider.jpg' %});background-repeat:no-repeat;"></div>
-					<div class="home_slider_content text-center" style="opacity: 0.7" >
-						<h1><br>Campus Ambassador</h1>
-						<div class="home_slider_text">Register to boost your resume and win exciting goodies by being the campus ambassador of Advitiya in your college.</div>
+					<div class="slider_background"></div>
+					<!-- <div class="home_slider_content text-center" style="opacity: 0.7" >
+						<!-- <h1><br>Campus Ambassador</h1> -->
+						<!-- <div class="home_slider_text">Register to boost your resume and win exciting goodies by being the campus ambassador of Advitiya in your college.</div>
 						{% if not user.is_authenticated %}
 							<div class="link_button home_slider_button"><a href="{% provider_login_url 'google' %}">Register</a></div>
 						{% endif %}
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -60,23 +60,15 @@
 								<div class="logo_container">
 									<div class="logo">
 										<a href="{% url 'ca:index' %}">
-											<!-- <div class="logo_line_1"><span>AD</span>vitiya</div>
-											<div class="logo_line_2">Techfest</div> -->
 											<div class="logo_line_1"><img src="{% static 'ca/img/logo.png'  %}" height="50px" alt=""></div>
 										</a>
 									</div>
 								</div>
 								 <div class="top_bar_content ml-auto">
-									<!--<div class="coins">
-										<ul>
-											<li>BTC $10200</li>
-											<li>ETH $979</li>
-											<li>LTC $230</li>
-										</ul>
-									</div> -->
+									
 									<div class="register_login">
 										{% if not user.is_authenticated %}
-											<div class="login"><a href="{% provider_login_url 'google' %}">SIGNIN WITH GOOGLE</a></div>
+											<div class="login"><a href="{% provider_login_url 'google' %}" >SIGN IN GOOGLE</a></div>
 										{% else %}
 											<div class="login"><a href="{% url 'account_logout' %}">SIGNOUT</a></div>
 										{% endif %}
@@ -100,7 +92,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6">
-					<div class="intro_image text-lg-right text-center"><img src="{% static 'ca/img/advitiya.jpg'  %}" height="350px" alt=""></div>
+					<div class="intro_image text-lg-right"><img src="{% static 'ca/img/advitiya.jpg'  %}" height="350px" alt=""></div>
 				</div>
 				<div class="col-lg-6">
 					<div class="intro_content">

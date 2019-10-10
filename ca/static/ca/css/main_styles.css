@@ -40,6 +40,7 @@
 	font-weight: bold;
 }
 
+
 /*********************************
 2. Body and some general stuff
 *********************************/
@@ -150,12 +151,26 @@ h6::selection
 {
 	color: #db5246;
 }
+
 section
 {
 	display: block;
 	position: relative;
 	box-sizing: border-box;
 }
+.slider_background
+{
+	background-image:url('/static/ca/img/home_slider.jpg');
+	background-repeat:no-repeat; 
+}
+@media only screen and (max-width: 500px){ 
+
+	.slider_background{
+		background-image:url('/static/ca/img/home_slider2.png');
+	}
+ }
+
+
 .clear
 {
 	clear: both;
