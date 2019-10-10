@@ -351,9 +351,9 @@ section
 }
 .link_button
 {
-	width: 174px;
-	height: 59px;
-	background: #ffa800;
+	width: 74px;
+	height: 50px;
+	background: blue;
 	text-align: center;
 }
 .link_button a
@@ -376,7 +376,7 @@ section
 .home_slider_button
 {
 	margin: 0 auto;
-	margin-top: 30px;
+	margin-top: 20px;
 }
 .link_button a::after
 {
@@ -408,7 +408,7 @@ section
 }
 .link_button:hover a
 {
-	color: #ffa800;
+	color: blue;
 }
 .home_slider_nav
 {
@@ -499,20 +499,20 @@ section
 {
 	color: #ffa800;
 	font-weight: bold;
+	padding-right: 20px;
 }
 .logo_line_2
 {
 	font-size: 11px;
 	color: #909090;
 	margin-top: -1px;
-	padding-left: 1px;
 }
 .logo_img
 {
 	position: absolute;
 	left: 0;
 	top: -10px;
-	width: 57px;
+	width: 5px;
 	height: 38px;
 }
 .logo_img img
@@ -1001,6 +1001,60 @@ section
 /*********************************
 7. Services
 *********************************/
+// Google Identity and Google+ Sign in buttons
+// https://developers.google.com/+/branding-guidelines
+
+.google-button {
+	width:10px;
+  height: 35px;
+  border-width: 0;
+  background: black;
+  color: #737373;
+  border-radius: 5px;
+  white-space: nowrap;
+  box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.05);
+  transition-property: background-color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+  padding: 0;
+  
+  &:focus,
+  &:hover {
+    box-shadow: 1px 4px 5px 1px rgba(0,0,0,0.1);
+  }
+  
+  &:active {
+    background-color: #e5e5e5;
+    box-shadow: none;
+    transition-duration: 5ms;
+  }
+}
+    
+.google-button__icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 8px 0 8px 8px;
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+}
+
+
+
+.google-button__text {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 12px;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Roboto',arial,sans-serif;
+  text-color: white;
+  
+}
+
+
+
+
 
 .services
 {
@@ -1025,7 +1079,7 @@ section
 	left: 0;
 	width: 100%;
 	height: 3px;
-	background: #ffa800;
+	background: blue;
 	-webkit-transition: all 400ms ease;
 	-moz-transition: all 400ms ease;
 	-ms-transition: all 400ms ease;
@@ -1156,6 +1210,7 @@ section
 	left: 0;
 	width: 100%;
 	height: 100%;
+	overflow: auto;
 }
 .converter_title
 {
