@@ -60,13 +60,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'advitiya2k20.wsgi.application'
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql', 
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASS'),
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -107,11 +116,11 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
+STATIC_FILES = os.environ.get('STATIC_FILES', '')
+STATIC_ROOT = os.path.join(STATIC_FILES, 'static')
 
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
     )
-
-SITE_ID=1
