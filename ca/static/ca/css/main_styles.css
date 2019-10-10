@@ -163,7 +163,7 @@ section
 	background-image:url('/static/ca/img/home_slider.jpg');
 	background-repeat:no-repeat; 
 }
-@media only screen and (max-width: 500px){ 
+@media only screen and (max-width: 560px){ 
 
 	.slider_background{
 		background-image:url('/static/ca/img/home_slider2.png');
