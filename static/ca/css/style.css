@@ -71,9 +71,10 @@ a:hover {
     text-decoration: none;
 }
 
-.main-back{
+.main-back {
     background-image: url('../img/hero_2.jpg');
 }
+
 h1,
 h2,
 h3,
@@ -1751,18 +1752,11 @@ h5,
 
 .wrapper {
     width: 30%;
-    height: 240px;
+    height: 350px;
 }
 
 .wrapper p {
     padding: 10px 10px 10px 0px;
-}
-
-@media only screen and (max-width: 818px) {
-    .wrapper {
-        width: 50%;
-        height: 240px;
-    }
 }
 
 .footer-heading {
@@ -1777,7 +1771,7 @@ h5,
 
 .nav-brand-logo {
     /* width: 1000px; */
-    height: 8vh;
+    height: 10vh;
 }
 
 .display-data {
@@ -1806,4 +1800,27 @@ h5,
     margin-bottom: 20px;
     text-align: center;
     align-items: center;
+}
+
+.gsignin-btn {
+    height: 10vh !important;
+}
+
+@media only screen and (max-width: 818px) {
+    .wrapper {
+        width: 50%;
+        height: 240px;
+    }
+}
+
+@media only screen and (max-width: 378px) {
+    .gsignin-btn,
+    .nav-brand-logo {
+        height: 6vh !important;
+    }
+}
+
+.signout {
+    font-size: 25px;
+    font-weight: bolder;
 }

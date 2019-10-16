@@ -100,7 +100,6 @@ ENV/
 # mypy
 .mypy_cache/
 media/
-db.sqlite3
 .DS_Store
 *.pyc
 *.db
