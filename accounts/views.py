@@ -4,9 +4,6 @@ from django.dispatch import receiver
 from ca.models import Profile
 # Create your views here.
 
-def signin(request):
-    return render(request, 'accounts/signin.html')
-
 # FOR FUTURE REFERENCE [ SIGNUP EMAIL ]
 # @receiver(allauth.account.signals.user_signed_up)
 # def handleReceiver(request, user, **kwarg):
@@ -16,12 +13,9 @@ def handleRedirect(request):
     user = request.user
     person=Profile.objects.filter(user=user)
     if(person.count()):
-        context = {
-            person: person
-        }
-        return render(request,"ca/profilepage.html",context)
+        return redirect('ca:profile')
     else:
-        return redirect('ca:userpage')
+        return redirect('ca:register_profile')
 
 
 

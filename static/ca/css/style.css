@@ -1820,7 +1820,20 @@ h5,
     }
 }
 
-.signout {
+.signout a{
     font-size: 25px;
     font-weight: bolder;
+}
+
+@media only screen and (max-width: 464px) {
+    .signout a{
+        font-size: 20px !important;
+        font-weight: bolder;
+    }
+}
+@media only screen and (max-width: 316px) {
+    .signout a{
+        font-size: 15px !important;
+        font-weight: bolder;
+    }
 }

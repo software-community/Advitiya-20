@@ -20,7 +20,7 @@
                 <div class="row align-items-center justify-content-center">
                     <div class="col-lg-6 text-center text-white">
                         <div class="heading">Basic Info</div>
-
+                        
                         <table class="table display-data text-white align-items-center">
                             <thead>
                                 <tr>
@@ -31,21 +31,25 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">Full Name:</th>
-                                    <td>Mark Otto</td>
+                                    <td>{{ profile.user.first_name }} {{ profile.user.last_name }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Phone Number:</th>
-                                    <td>+971545666</td>
+                                    <td>{{ profile.phone }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Full Name:</th>
-                                    <td>Mark Otto</td>
+                                    <th scope="row">College Name:</th>
+                                    <td>{{ profile.college_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Technical Head:</th>
+                                    <td>{{ profile.tec_head }}</td>
                                 </tr>
                             </tbody>
                         </table>
-                        <center>
-                            <button class="btn-primary primary update-pro">Update Profile</button>
-                        </center>
+                        <!-- <center>
+                            <button class="btn-primary primary update-pro"><a href="{% url 'ca:register_profile' %}"> Update</a></button>
+                        </center> -->
                     </div>
                 </div>
             </div>
