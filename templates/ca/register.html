@@ -1,51 +1,9 @@
+{% extends 'ca/base.html'%}
 {% load static %}
 {% load crispy_forms_tags %}
-<!DOCTYPE html>
-<html lang="eng">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Update profile</title>
-        <link rel="stylesheet" href="{% static 'ca/css/bootstrap.min.css' %}">
-        <link rel="stylesheet" href="{% static 'ca/css/style.css' %}">
-    </head>
-    <style>
-        .control-group{
+{% block title %} Update Profile {%endblock%}
 
-        }
-    .control-group *{
-        display: inline-flex;
-        align-content: space-around;;
-        margin: 5px 0;
-        font-size: 25px;
-        color: white;
-        font-weight: bold;
-        
-    }
-    label{
-        width: 250px;
-    }
-    @media only screen and (max-width: 800px){
-        .control-group *{
-            font-size: 20px;
-        }
-        label{
-            width: 200px;
-        }
-    }
-    @media only screen and (max-width: 534px){
-        .control-group *{
-        font-size: 15px;
-        
-        }
-        label{
-            width: 150px;
-        }
-    }
-    </style>
-    <body >
-        {% include "ca/nav.html" %}
+        {% block body %}
         
         <div class="ftco-blocks-cover-1">
                 <div class="ftco-cover-1 main-back overlay">
@@ -62,9 +20,5 @@
                     </div>
                 </div>
             </div>
-           {% include "ca/footer.html" %}
 
-           <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-           <script src="{% static 'ca/js/main.js' %}"></script>
-    </body>
-</html>
+            {% endblock %}

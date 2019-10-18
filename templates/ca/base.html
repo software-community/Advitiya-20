@@ -1,0 +1,76 @@
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'ca/css/style.css' %}" rel="stylesheet">
+    <title>{% block title %} Advitiya{%endblock%} </title>
+</head>
+
+<body>
+
+    <!--NAVBAR-->
+        <header class="site-navbar" role="banner">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6 text-left">
+                            <a href="{% url 'ca:home' %}"><img src="{% static 'ca/img/logo.png' %}" class='nav-brand-logo' alt="" srcset=""></a>
+                        </div>
+            
+                        <div class="col-6 text-right">
+                            {% if not user.is_authenticated %}
+                            <a href="{% provider_login_url 'google' %}" class="vcenter"><img src="{% static 'ca/img/gsignin.png' %}" class='gsignin-btn' alt="" srcset=""></a>
+                            {% else %}
+                            <div class="signout"><a href="{% url 'account_logout' %}">SIGN OUT</a></div>
+                            {% if person %}
+                            <div class="signout"><a href="{% url 'ca:profile' %}">Profile</a></div>
+                            {% endif %}
+                            {% endif %}
+            
+                        </div>
+                    </div>
+                </div>
+            </header>
+    
+    
+    {% block body %}
+    {% endblock %}
+  
+    
+
+<!--FOOTER-->
+        <footer class="site-footer">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-6 col-xs-12 about-company">
+                      <h2>About Us</h2>
+                      <p style="font-size:15px;">The annual technical festival of IIT ropar “Adivtiya ”, marks a 3 day journey consisting of various competitions spread across Robotics, Management, Coding, Designing, Gaming, Astronomy, Aero-modelling and Quizzing. Apart from
+                            the competitions, talks and workshops are few of the interesting events of the fest. The upcoming Advitiya is going to be held in February 2020.</p>
+                   
+                      <p><a href="https://www.facebook.com/advitiya.iitrpr/"><i class="fa fa-facebook-square mr-1"></i></a><a href="https://twitter.com/advitiyaiitrpr?lang=en"><i class="fa fa-twitter-square"></i></a><a href="https://www.instagram.com/advitiya_iitrpr/?hl=en"><i class="fa fa-instagram ml-1"></i></a></p>
+                    </div>
+                    <div class="col-lg-2 col-xs-12 about-company"></div>
+                    <div class="col-lg-4 col-xs-12 location">
+                      <h4 class="mt-lg-0 mt-sm-4">Location</h4>
+                      <p> Birla Seeds Farms, Rupnagar, Punjab 140111</p>
+                      <p class="mb-0"><i class="fa fa-phone mr-3"></i>0188 124 2105</p>
+                      <p><i class="fa fa-envelope-o mr-3"></i>info@iitrpr.ac.in</p>
+                    </div>
+                  </div>
+                  <div class="row mt-5">
+                    
+                  </div>
+                </div>
+                </footer>
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+    <script src="{% static 'ca/js/main.js' %}"></script>
+</body>
+
+</html>

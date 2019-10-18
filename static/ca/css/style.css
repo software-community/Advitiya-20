@@ -1737,8 +1737,8 @@ h5,
 }
 
 .perks-heading div {
-    color: white;
-    font-size: 40px;
+    color: red;
+    font-size: 50px;
     font-weight: bolder !important;
 }
 
@@ -1837,3 +1837,67 @@ h5,
         font-weight: bolder;
     }
 }
+
+.fa{
+    font-size: 30px;;
+}
+
+.footer-heading p{
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.control-group{
+
+}
+.control-group *{
+display: inline-flex;
+align-content: space-around;;
+margin: 5px 0;
+font-size: 25px;
+color:red;
+font-weight: bold;
+
+}
+/* .control-label{
+    color: blanchedalmond;
+}
+.controls{
+    color:black
+} */
+label{
+width: 250px;
+}
+@media only screen and (max-width: 800px){
+.control-group *{
+    font-size: 20px;
+}
+label{
+    width: 200px;
+}
+}
+@media only screen and (max-width: 534px){
+.control-group *{
+font-size: 15px;
+
+}
+label{
+    width: 150px;
+}
+}
+
+
+.footer{
+    background: black;
+    color:white;
+    height: auto;
+}
+    
+    .links{
+      ul {list-style-type: none;}
+   
+    .location{
+      i{font-size: 18px;}
+    }
+    
