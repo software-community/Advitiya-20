@@ -1,5 +1,8 @@
 import os
 
+from dotenv import load_dotenv
+load_dotenv()
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '')
@@ -12,6 +15,7 @@ else:
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    'main_page',
     'ca',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -21,7 +25,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'django.contrib.sites',
-    'accounts',
     # All Auth App
     'allauth',
     'allauth.account',
@@ -95,7 +98,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # All Auth Options
 
 SITE_ID = 1
-LOGIN_REDIRECT_URL = '/accounts/redirect/'
+LOGIN_REDIRECT_URL = 'ca:profile'
+LOGOUT_REDIRECT_URL = 'ca:home'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL =True

@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.urls import path,include
 from . import views
+from django.contrib.auth import views as auth_views
 app_name='ca'
 
 urlpatterns=[
-    path('',views.index, name='index'),
-    path('ca',views.college_ambassador, name='college_ambassador'),
-    path('ca/userpage',views.userpage,name='userpage'),
-    path('ca/profile_page',views.profile_page,name='profile_page'),
+    path('', views.home,name='home'),
+    path('profile/', views.profile,name='profile'),
+    path('profile/edit/', views.register_profile,name='register_profile'),
+    path('accounts/google/logout/', auth_views.LogoutView.as_view(), name = "account_logout"),
 ]
