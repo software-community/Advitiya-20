@@ -11,10 +11,10 @@
             <div class="row align-items-center justify-items-center">
                 <div class="col-md-6 mx-auto">
                     <Style>
-                        label{
-                            color:white;
+                        label {
+                            color: white;
                         }
-                        </Style>
+                    </Style>
                     <form method="POST" action="">
                         {% csrf_token %}
                         {{ form | crispy }}

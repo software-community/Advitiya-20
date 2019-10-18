@@ -9,7 +9,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 def home(request):
-    return render(request,'ca/index.html')
+    person = True
+    return render(request,'ca/index.html', {'person' : person})
 
 @login_required(login_url='/auth/google/login/')
 def register_profile(request):
