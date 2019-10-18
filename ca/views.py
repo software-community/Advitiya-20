@@ -8,26 +8,36 @@ from ca import models
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-def index(request):
+def home(request):
     return render(request,'ca/index.html')
 
 @login_required(login_url='/auth/google/login/')
-def userpage(request):
+def register_profile(request):
+    person=models.Profile.objects.filter(user=request.user)
+    if(person.count()):
+        form = registerForm(request.POST or None, instance=person[0])
+    else:
+        form = registerForm(request.POST or None)
     if(request.method=='POST'):
-        form = registerForm(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = request.user
             instance.save()
-            return redirect('ca:profile_page') 
-    else:
-        form = registerForm()
-    return render (request, "ca/userpage.html", {"form":form})
+            return redirect('ca:profile') 
+    return render (request, "ca/register.html", {"form":form, 'person' : person})
 
-def profile_page(request):
-    context={}
-    context['user']=request.user
-    return render(request,"ca/profilepage.html")
+@login_required(login_url='/auth/google/login/')
+def profile(request):
+    user = request.user
+    try:
+        person=models.Profile.objects.filter(user=user)
+        context = {
+            "profile": person[0],
+        }
+        print(person[0].user.first_name)
+        return render(request,"ca/profile.html",context=context)
+    except:
+        return redirect('ca:register_profile')
 
 
 
