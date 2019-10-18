@@ -15,6 +15,7 @@ else:
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    'main_page',
     'ca',
     'django.contrib.admin',
     'django.contrib.auth',

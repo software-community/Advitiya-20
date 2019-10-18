@@ -11,9 +11,6 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     return render(request,'ca/index.html')
 
-def college_ambassador(request):
-    return render(request,'ca/ca.html' )
-
 @login_required(login_url='/auth/google/login/')
 def userpage(request):
     if(request.method=='POST'):
@@ -25,10 +22,6 @@ def userpage(request):
             return redirect('ca:profile_page') 
     else:
         form = registerForm()
-        # EDIT PROFILE LOGIC
-        # u = request.user.profile
-        # if(u):
-        #     print(u.profile)
     return render (request, "ca/userpage.html", {"form":form})
 
 def profile_page(request):

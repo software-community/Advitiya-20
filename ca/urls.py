@@ -5,7 +5,6 @@ app_name='ca'
 
 urlpatterns=[
     path('',views.index, name='index'),
-    path('ca',views.college_ambassador, name='college_ambassador'),
     path('ca/userpage',views.userpage,name='userpage'),
     path('ca/profile_page',views.profile_page,name='profile_page'),
 ]
