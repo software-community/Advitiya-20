@@ -1,47 +1,61 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.conf.urls import include
-from .forms import registerForm
 from django.http import HttpResponseRedirect
-from django.contrib.auth import login,authenticate
+from django.contrib.auth import login, authenticate
 from django.urls import reverse
-from ca import models
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.contrib.staticfiles.templatetags.staticfiles import static
+import os
+
+from ca import models
+from .forms import registerForm
+
 
 def home(request):
     person = True
-    return render(request,'ca/index.html', {'person' : person})
+    return render(request, 'ca/index.html', {'person': person})
+
 
 @login_required(login_url='/auth/google/login/')
 def register_profile(request):
-    person=models.Profile.objects.filter(user=request.user)
+    person = models.Profile.objects.filter(user=request.user)
     if(person.count()):
-        form = registerForm(request.POST or None, instance=person[0])
+        return redirect('ca:profile')
     else:
         form = registerForm(request.POST or None)
-    if(request.method=='POST'):
+    if(request.method == 'POST'):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = request.user
             instance.save()
-            return redirect('ca:profile') 
-    return render (request, "ca/register.html", {"form":form, 'person' : person})
+            send_mail(subject='Successful Registration for Campus Ambassador program for Advitiya 2020',
+                      message='',
+                      from_email=os.environ.get(
+                          'EMAIL_HOST_USER', ''),
+                      recipient_list=[instance.user.email],
+                      fail_silently=True,
+                      html_message='Dear ' + str(request.user.get_full_name()) +
+                      ',<br><br>You are successfully registered for Campus Ambassador program for Advitiya 2020.' +
+                      'We are excited for your journey with us.<br><br>Your CAMPUS AMBASSADOR CODE is <b>' +
+                      str(instance.ca_code) +
+                      '.</b><br>Please read the Campus Ambassador Policy here - https://'
+                      + request.get_host() + static('ca/ca.pdf') + '<br><br>We wish you best' +
+                      'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br>Advitiya 2020 ' +
+                      'Public Relations Team')
+            return redirect('ca:profile')
+    return render(request, "ca/register.html", {"form": form, 'person': person})
+
 
 @login_required(login_url='/auth/google/login/')
 def profile(request):
     user = request.user
     try:
-        person=models.Profile.objects.filter(user=user)
+        person = models.Profile.objects.filter(user=user)
         context = {
             "profile": person[0],
         }
-        print(person[0].user.first_name)
-        return render(request,"ca/profile.html",context=context)
+        return render(request, "ca/profile.html", context=context)
     except:
         return redirect('ca:register_profile')
-
-
-
-
-
-
