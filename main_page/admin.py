@@ -1,3 +1,6 @@
 from django.contrib import admin
+from main_page.models import Events, Coordinator
 
-# Register your models here.
+admin.site.register(Events)
+admin.site.register(Coordinator)
+
