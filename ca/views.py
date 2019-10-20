@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.conf.urls import include
-from .forms import registerForm,create_user
+from .forms import registerForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login,authenticate
 from django.urls import reverse
