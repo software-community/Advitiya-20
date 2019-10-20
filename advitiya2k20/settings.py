@@ -123,6 +123,10 @@ STATIC_URL = '/static/'
 STATIC_FILES = os.environ.get('STATIC_FILES', '')
 STATIC_ROOT = os.path.join(STATIC_FILES, 'static')
 
+MEDIA_FILES = os.environ.get('STATIC_FILES', '')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(STATIC_FILES, 'media')
+
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',

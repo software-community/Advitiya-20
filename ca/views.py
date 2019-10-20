@@ -41,7 +41,7 @@ def register_profile(request):
                       'We are excited for your journey with us.<br><br>Your CAMPUS AMBASSADOR CODE is <b>' +
                       str(instance.ca_code) +
                       '.</b><br>Please read the Campus Ambassador Policy here - https://'
-                      + request.get_host() + static('ca/ca.pdf') + '<br><br>We wish you best' +
+                      + request.get_host() + static('ca/ca.pdf') + '<br><br>We wish you best ' +
                       'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br>Advitiya 2020 ' +
                       'Public Relations Team')
             return redirect('ca:profile')
