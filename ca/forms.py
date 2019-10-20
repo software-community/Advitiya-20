@@ -20,4 +20,3 @@ class registerForm(forms.ModelForm):
     class Meta:
         model= Profile
         fields=["college_name","tec_head","phone","tec_head_phone","past_exp"]
-# class registerForm(forms.ModelForm):
