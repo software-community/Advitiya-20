@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="{% static 'ca/css/style.css' %}" rel="stylesheet">
     <title>{% block title %} Advitiya{%endblock%} </title>
     <link rel="shortcut icon" type="image/png" href="{% static 'ca/img/favicon.jpg' %}">
@@ -20,19 +19,23 @@
         <div class="container">
             <div class="row">
                 <div class="col-6 text-left">
-                    <a href="{% url 'main_page:index' %}"><img src="{% static 'ca/img/logo.png' %}" class='nav-brand-logo'
-                            alt="" srcset=""></a>
+                    <a href="{% url 'main_page:index' %}"><img src="{% static 'ca/img/logo.png' %}"
+                            class='nav-brand-logo' alt="" srcset=""></a>
                 </div>
 
                 <div class="col-6 text-right">
+
                     {% if not user.is_authenticated %}
                     <a href="{% provider_login_url 'google' %}" class="vcenter"><img
                             src="{% static 'ca/img/gsignin.png' %}" class='gsignin-btn' alt="" srcset=""></a>
                     {% else %}
-                    <div class="signout"><a href="{% url 'ca:account_logout' %}">SIGN OUT</a></div>
                     {% if person %}
-                    <div class="signout"><a href="{% url 'ca:profile' %}">Profile</a></div>
+                    <a href="{% url 'ca:profile' %}" class="btn btn-secondary" style="margin-bottom: 3px;"><i
+                            class="fas fa-user-circle"></i>PROFILE</a>
                     {% endif %}
+                    <a href="{% url 'ca:account_logout' %}" class="btn btn-secondary" style="margin-bottom: 3px;"><i
+                            class="fas fa-sign-out-alt"></i>SIGN OUT</a>
+
                     {% endif %}
 
                 </div>
@@ -59,10 +62,11 @@
                         upcoming Advitiya is going to be held in February 2020.</p>
 
                     <p><a href="https://www.facebook.com/advitiya.iitrpr/"><i
-                                class="fa fa-facebook-square mr-1"></i></a><a
-                            href="https://twitter.com/advitiyaiitrpr?lang=en"><i class="fa fa-twitter-square"></i></a><a
+                                class="fab fa-facebook-square fa-3x mr-1"></i></a><a
+                            href="https://twitter.com/advitiyaiitrpr?lang=en"><i
+                                class="fab fa-twitter-square fa-3x"></i></a><a
                             href="https://www.instagram.com/advitiya_iitrpr/?hl=en"><i
-                                class="fa fa-instagram ml-1"></i></a></p>
+                                class="fab fa-instagram ml-1 fa-3x"></i></a></p>
                 </div>
                 <div class="col-lg-2 col-xs-12 about-company"></div>
                 <div class="col-lg-4 col-xs-12 location">
@@ -79,6 +83,7 @@
     </footer>
 
     <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://kit.fontawesome.com/a9af552946.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
     <script src="{% static 'ca/js/main.js' %}"></script>
 </body>
