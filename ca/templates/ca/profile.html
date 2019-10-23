@@ -34,12 +34,20 @@
                                 <th scope="row">Technical Head:</th>
                                 <td>{{ profile.tec_head }}</td>
                             </tr>
+                            <tr>
+                                <th scope="row">Technical Head Phone:</th>
+                                <td>{{ profile.tec_head_phone }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">CA Code:</th>
+                                <td>{{ profile.ca_code }}</td>
+                            </tr>
                         </tbody>
                     </table>
                     <center>
                         <button class="btn-primary primary update-pro"><a style="color: white;"
-                                href="{% url 'ca:register_profile' %}">
-                                Update</a></button>
+                                href="{% url 'ca:home' %}">
+                                Back</a></button>
                     </center>
                 </div>
             </div>
