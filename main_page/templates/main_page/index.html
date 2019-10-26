@@ -15,7 +15,7 @@
           <nav class="classy-navbar justify-content-between" id="conferNav">
 
               <!-- Logo -->
-              <a class="nav-brand" href="#"><img src="{% static 'main_page/img/core-img/logo.png' %}" alt=""></a>
+              <a class="nav-brand" href=" {% url 'main_page:index' %}"><img src="{% static 'main_page/img/core-img/logo.png' %}" alt=""></a>
 
               <!-- Navbar Toggler -->
               <div class="classy-navbar-toggler">
@@ -90,7 +90,7 @@
       </div>
 
       <!-- Single Slide -->
-      <div class="single-welcome-slide bg-img bg-overlay jarallax>
+      <div class="single-welcome-slide bg-img bg-overlay jarallax" style="background-image: url(static/main_page/img/bg-img/1.jpg);">
           <div class="container h-100">
               <div class="row h-100 align-items-center">
                   <!-- Welcome Text -->
@@ -126,9 +126,16 @@
           <!-- About Content -->
           <div class="col-12 col-md-6">
               <div class="about-content-text mb-80">
-                  <h6 class="wow fadeInUp" data-wow-delay="300ms">About Conference</h6>
-                  <h3 class="wow fadeInUp" data-wow-delay="300ms">Welcome to the Project Management</h3>
-                  <p class="wow fadeInUp" data-wow-delay="300ms">The Project Management is a platform to learn expert techniques for building successful project teams, creating efficient plans and implementing effective tracking measures to ensure your projects come in on deadline and on budget. In one fast-paced, well-designed day, we’ll cover all the essential elements of project management.</p>
+                  <h6 class="wow fadeInUp" data-wow-delay="300ms">About Advitiya</h6>
+                  <h3 class="wow fadeInUp" data-wow-delay="300ms">Welcome to IIT Ropar's Technical FEst</h3>
+                  <p class="wow fadeInUp" style="text-align:justify;" data-wow-delay="300ms">IIT Ropar is organizing the fourth edition of it's annual Technical Festival "Advitiya" in the first
+                    week of of February consisting of 72 hours of intense competitions and technical events Advitiya has
+                    already evolved into a brand within four years of its inception and a publicity paradise that ensures
+                    stupendous brand visibility for sponsors With an array of activities that consolidate the vision for
+                    times to come, Advitiya 2020 is ready to set the scientific spirits soaring and technological temper
+                    ablaze Advitiya will witness a wide range of scientific and technical activities and novel events from
+                    fields like Coding, Robotics, Finance, Design and Entrepreneurship with total prizes worth as high as 8
+                    lakh Rupees.</p>
                   <a href="#" class="btn confer-btn mt-50 wow fadeInUp" data-wow-delay="300ms">Interested <i class="zmdi zmdi-long-arrow-right"></i></a>
               </div>
           </div>
@@ -136,7 +143,7 @@
           <!-- About Thumb -->
           <div class="col-12 col-md-6">
               <div class="about-thumb mb-80 wow fadeInUp" data-wow-delay="300ms">
-                  <img src="{% static 'main_page/img/bg-img/2.png' %}" alt="">
+                  <img src="{% static 'ca/img/favicon.jpg' %}" alt="">
               </div>
           </div>
       </div>
@@ -149,7 +156,7 @@
               <div class="col-12 col-md-3">
                   <!-- Countdown Text -->
                   <div class="countdown-content-text mb-100 wow fadeInUp" data-wow-delay="300ms">
-                      <h6>Conference Date</h6>
+                      <h6>Fest Date</h6>
                       <h4>Count Every Second Until the Event</h4>
                   </div>
               </div>
