@@ -5,4 +5,5 @@ app_name='main_page'
 
 urlpatterns=[
     path('',views.index, name='index'),
+    path('events/',views.events, name='events')
 ]
