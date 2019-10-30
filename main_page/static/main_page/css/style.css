@@ -39,7 +39,7 @@ Last Update: March 14, 2019
 @import url('classy-nav.css');
 /* @import url('bootstrap.min.css'); */
 /* @import url('owl.carousel.min.css'); */
-/* @import url('magnific-popup.css'); */
+@import url('magnific-popup.css'); 
 /* @import url('font-awesome.min.css'); */
 /* @import url('material-design-iconic-font.min.css'); */
 @import url('styles.css');
@@ -371,12 +371,12 @@ input:required {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .loader {
   position: relative;
-  z-index: 1;
+  z-index: -99999999; 
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -2748,3 +2748,6 @@ input:required {
         margin-right: 3px; }
 
 /*# sourceMappingURL=style.css.map */
+
+
+
