@@ -4,3 +4,6 @@ from django.shortcuts import render
 
 def index(request):
     return render(request,'main_page/index.html')
+
+def events(request):
+    return render(request,'main_page/events.html')
