@@ -7,3 +7,6 @@ def index(request):
 
 def events(request):
     return render(request,'main_page/events.html')
+
+def accomodation(request):
+    return render(request,'main_page/accomodation.html')
