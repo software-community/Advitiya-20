@@ -30,7 +30,7 @@ def register_profile(request):
             instance = form.save(commit=False)
             instance.user = request.user
             instance.save()
-            send_mail(subject='Successful Registration for Techno School program for Advitiya 2020',
+            send_mail(subject='Successful Registration for Techno School program: Advitiya 2020',
                       message='',
                       from_email=os.environ.get(
                           'EMAIL_HOST_USER', ''),

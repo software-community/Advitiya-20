@@ -19,4 +19,4 @@ class registerForm(forms.ModelForm):
     tec_head_phone = forms.CharField(required = True, label = 'Tech-Head Phone',validators= [phone_validator],widget=forms.TextInput)
     class Meta:
         model= Profile
-        fields=["college_name","tec_head","phone","tec_head_phone","past_exp"]
+        fields=["college_name", "phone", "tec_head", "tec_head_phone","past_exp"]
