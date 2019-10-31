@@ -8,6 +8,7 @@ urlpatterns = [
     path('auth/', include('allauth.urls')),
     path('admin/', admin.site.urls),
     path('ca/', include('ca.urls')),
+    path('TSP/', include('TSP.urls')),
     path('', include('main_page.urls')),
 ] + static(settings.STATIC_URL,
            document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL,
