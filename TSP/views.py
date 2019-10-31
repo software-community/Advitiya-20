@@ -38,12 +38,14 @@ def register_profile(request):
                       fail_silently=True,
                       html_message='Dear ' + str(request.user.get_full_name()) +
                       ',<br><br>You are successfully registered for Techno School program for Advitiya 2020.' +
-                      'We are excited for your journey with us.'+
-                      '<br>Please read the TSP Brochure and Invitation at https://'
-                      + request.get_host() + static('TSP/TSP_Invitation.pdf') + ' and https://' + request.get_host() + static('TSP/TECHNO_SCHOOL_PROGRAM.pptx') + '<br><br>Regards<br>Advitiya 2020 ' +
+                      'We are excited for your journey with us.' +
+                      '<br>Please read the <b>TSP Brochure</b> at https://'
+                      + request.get_host() + static('TSP/TSP_Invitation.pdf') + ' and <b>Invitation</b> at https://'
+                      + request.get_host() + static('TSP/TECHNO_SCHOOL_PROGRAM.pptx') + '<br><br>Regards<br>Advitiya 2020 ' +
                       'Public Relations Team')
             return redirect('TSP:profile')
     return render(request, "TSP/register.html", {"form": form, 'person': person})
+
 
 @login_required(login_url='/auth/google/login/')
 def profile(request):
