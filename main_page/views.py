@@ -10,3 +10,10 @@ def events(request):
 
 def accomodation(request):
     return render(request,'main_page/accomodation.html')
+
+def event_page(request,num=1):
+    template_name='main_page/event{}.html'.format(num)
+    return render(request,template_name)
+
+
+
