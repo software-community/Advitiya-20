@@ -11,20 +11,20 @@
     </header>
 
     <div class="container">
-      <div class= "row">
-        <div class = "col-12 col-sm-2 col-md-1"></div>
-        <div class = "col-12 col-sm-8 col-md-10">
+      <div class="row">
+        <div class="col-12 col-sm-2 col-md-1"></div>
+        <div class="col-12 col-sm-8 col-md-10">
           <main role="main" class="inner cover">
-            <img src="{% static 'main_page/img/wel.png'  %}" alt=""  height="150px;">
+            <img src="{% static 'main_page/img/wel.png'  %}" alt="" height="150px;">
             <h2>Hold onto your horses.</h2>
-            <p class="lead">Campus Ambassador portal is live now.<br>Register here.</p>
+            <p class="lead"> <b>Campus Ambassador</b> and <b>TSP </b>Portals are live now.<br>Register here.</p>
             <p class="lead">
-              <h2><strong><br>CAMPUS AMBASSADOR</strong></h2><br>
-              <a href="{% url 'ca:home' %}" class="btn btn-lg btn-secondary">Register</a>
+              <a href="{% url 'ca:home' %}" class="btn btn-lg btn-secondary">CA</a>
+              <a href="{% url 'TSP:home' %}" class="btn btn-lg btn-secondary">TSP</a>
             </p>
           </main>
         </div>
-        <div class = "col-12 col-sm-2 col-md-1"></div>
+        <div class="col-12 col-sm-2 col-md-1"></div>
       </div>
     </div>
   </div>
