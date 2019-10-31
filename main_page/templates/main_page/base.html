@@ -12,58 +12,176 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-    <link href="{% static 'main_page/css/rest_style.css' %}" rel="stylesheet">
+    <link href="{% static 'main_page/css/style.css' %}" rel="stylesheet">
     <title>{% block title %} Advitiya{%endblock%} </title>
 </head>
 <body>         
-    <header>
-        <nav class="navbar bg-transparent">
-            <a class="navbar-brand" href="{% url 'main_page:index' %}">
-            <img src="{% static 'ca/img/logo.png' %}" width="150" height="80" alt="">
-            </a>
-            <div class="col-6 text-right">
-                {% if not user.is_authenticated %}
-                <a href="{% provider_login_url 'google' %}"><img src="{% static 'ca/img/gsignin.png' %}" width="100" height="80" ></a>
-                {% else %}
-                <a href="{% url 'ca:account_logout' %}" class="btn btn-secondary" style="margin-bottom: 3px;"><i
-                    class="fas fa-sign-out-alt"></i>SIGN OUT</a>
-                    {% endif %}   
-        </nav>
-    </header>
+    <header class="header-area">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <!-- Classy Menu -->
+                <nav class="classy-navbar justify-content-between" id="conferNav">
+      
+                    <!-- Logo -->
+                    <a class="navbar-brand" href="{% url 'main_page:index' %}">
+                    <img src="{% static 'ca/img/logo.png' %}" width="150" height="80" alt="">
+                  </a>
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+      
+                    <!-- Menu -->
+                    <div class="classy-menu">
+                        <!-- Menu Close Button -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul id="nav">
+                                <li class="active"><a href="{% url 'main_page:index' %}">Home</a></li>
+                                <li><a href="#">Pages</a>
+                                </li>
+                                <li><a href="#">Team</a></li>
+                                <li><a href="{% url 'main_page:events'%}">Events</a></li>
+                                <li><a href="{% url 'ca:home' %}">Campus Ambassador</a></li>
+                            </ul>
+      
+                            <!-- Signing in -->
+                            {% if not user.is_authenticated %}
+                                  <a href="{% provider_login_url 'google' %}" class="vcenter"><img
+                                          src="{% static 'ca/img/gsignin.png' %}" class='gsignin-btn' height="50px" width="50px" alt="" srcset=""></a>
+                                  {% else %}
+                                  <a href="{% url 'ca:account_logout' %}" class="btn btn-secondary" style="margin-bottom: 3px;"><i
+                                          class="fas fa-sign-out-alt"></i>SIGN OUT</a>
+      
+                                  {% endif %}
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+      </header>
     
                 
     {% block body %}
     {% endblock %}
    <!-- Footer Area Start -->
-   <div class="footer">
-        <div class="jumbotron">
-             <div class="row">
-            <div class="col-lg-6 col-xs-12 about-company">
-                <h2>About Us</h2>
-                <p style="font-size:15px;">The annual technical festival of IIT ropar “Adivtiya ”, marks a 3 day
-                    journey consisting of various competitions spread across Robotics, Management, Coding,
-                    Designing, Gaming, Astronomy, Aero-modelling and Quizzing. Apart from
-                    the competitions, talks and workshops are few of the interesting events of the fest. The
-                    upcoming Advitiya is going to be held in February 2020.</p>
+   <footer class="footer-area bg-img bg-overlay-2 section-padding-100-0">
+    <!-- Main Footer Area -->
+    <div class="main-footer-area">
+        <div class="container">
+            <div class="row">
+                <!-- Single Footer Widget Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-footer-widget mb-60 wow fadeInUp" data-wow-delay="300ms">
+                        <!-- Footer Logo -->
+                        <a href="#" class="footer-logo"><img src="{% static 'ca/img/logo.png' %}" alt=""></a>
+                        <p>To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain.</p>
 
-                <p><a href="https://www.facebook.com/advitiya.iitrpr/"><i
-                            class="fab fa-facebook-square fa-3x mr-1"></i></a><a
-                        href="https://twitter.com/advitiyaiitrpr?lang=en"><i
-                            class="fab fa-twitter-square fa-3x"></i></a><a
-                        href="https://www.instagram.com/advitiya_iitrpr/?hl=en"><i
-                            class="fab fa-instagram ml-1 fa-3x"></i></a></p>
+                        <!-- Social Info -->
+                        <div class="social-info">
+                            <a href="#"><i class="zmdi zmdi-facebook"></i></a>
+                            <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                            <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                            <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Footer Widget Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-footer-widget mb-60 wow fadeInUp" data-wow-delay="300ms">
+                        <!-- Widget Title -->
+                        <h5 class="widget-title">Contact</h5>
+
+                        <!-- Contact Area -->
+                        <div class="footer-contact-info">
+                            <p><i class="zmdi zmdi-map"></i> 184 Main Collins Street</p>
+                            <p><i class="zmdi zmdi-phone"></i> (226) 446 9371</p>
+                            <p><i class="zmdi zmdi-email"></i> confer@gmail.com</p>
+                            <p><i class="zmdi zmdi-globe"></i> www.confer.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Footer Widget Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-footer-widget mb-60 wow fadeInUp" data-wow-delay="300ms">
+                        <!-- Widget Title -->
+                        <h5 class="widget-title">Workshops</h5>
+
+                        <!-- Footer Nav -->
+                        <ul class="footer-nav">
+                            <li><a href="#">OSHA Compliance</a></li>
+                            <li><a href="#">Microsoft Excel Basics</a></li>
+                            <li><a href="#">Forum Speaker Series</a></li>
+                            <li><a href="#">Tedx Moscow Conference</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Single Footer Widget Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-footer-widget mb-60 wow fadeInUp" data-wow-delay="300ms">
+                        <!-- Widget Title -->
+                        <h5 class="widget-title">Gallery</h5>
+
+                        <!-- Footer Gallery -->
+                        <div class="footer-gallery">
+                            <div class="row">
+                                <div class="col-4">
+                                    <a href="img/bg-img/21.jpg" class="single-gallery-item"><img src="img/bg-img/21.jpg" alt=""></a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="img/bg-img/22.jpg" class="single-gallery-item"><img src="img/bg-img/22.jpg" alt=""></a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="img/bg-img/23.jpg" class="single-gallery-item"><img src="img/bg-img/23.jpg" alt=""></a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="img/bg-img/24.jpg" class="single-gallery-item"><img src="img/bg-img/24.jpg" alt=""></a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="img/bg-img/25.jpg" class="single-gallery-item"><img src="img/bg-img/25.jpg" alt=""></a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="img/bg-img/26.jpg" class="single-gallery-item"><img src="img/bg-img/26.jpg" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-2 col-xs-12 about-company"></div>
-            <div class="col-lg-4 col-xs-12 location">
-                <h4 class="mt-lg-0 mt-sm-4">Location</h4>
-                <p> Birla Seeds Farms, Rupnagar, Punjab 140111</p>
-                <p class="mb-0"><i class="fa fa-phone mr-3"></i>0188 124 2105</p>
-                <p><i class="fa fa-envelope-o mr-3"></i>info@iitrpr.ac.in</p>
-            </div>
-        </div>
         </div>
     </div>
-</div>
+
+    <!-- Copywrite Area -->
+    <div class="container">
+        <div class="copywrite-content">
+            <div class="row">
+                <!-- Copywrite Text -->
+                <div class="col-12 col-md-6">
+                    <div class="copywrite-text">
+                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    </div>
+                </div>
+                <!-- Footer Menu -->
+                <div class="col-12 col-md-6">
+                    <div class="footer-menu">
+                        <ul class="nav">
+                            <li><a href="#"><i class="zmdi zmdi-circle"></i> Terms of Service</a></li>
+                            <li><a href="#"><i class="zmdi zmdi-circle"></i> Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

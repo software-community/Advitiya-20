@@ -371,12 +371,11 @@ input:required {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  overflow: hidden;
-}
+  overflow: hidden; }
 
 .loader {
   position: relative;
-  z-index: -99999999; 
+  z-index: 1;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -479,7 +478,7 @@ input:required {
         font-size: 30px; } }
 
 /* :: 5.0 Backtotop Area CSS */
-/*#scrollUp {
+#scrollUp {
   position: fixed;
   right: 40px;
   font-size: 20px;
@@ -503,7 +502,7 @@ input:required {
       bottom: 20px; } }
   #scrollUp:focus, #scrollUp:hover {
     background-color: #000000;
-    color: #ffffff; }*/
+    color: #ffffff; }
 
 /* :: 6.0 Buttons Area CSS */
 .btn:focus {
@@ -1440,7 +1439,7 @@ input:required {
     top: 0; }
 
 /* :: 13.0 Breadcrumb CSS */
-/*.breadcrumb-area {
+.breadcrumb-area {
   position: relative;
   z-index: 1;
   height: 470px; }
@@ -1526,7 +1525,7 @@ input:required {
         color: #df42b1; }
         .breadcrumb-area.blog .breadcrumb-content .post-meta a:hover::after, .breadcrumb-area.blog .breadcrumb-content .post-meta a:focus::after {
           color: #ffffff; }
-*/
+
 /* :: 14.0 Blog Area CSS */
 .our-blog-area .row {
   margin-left: -20px;
@@ -1634,7 +1633,7 @@ input:required {
     display: inline-block; }
 
 /* :: Blog Details Page CSS */
-/*.post-details-content {
+.post-details-content {
   position: relative;
   z-index: 1; }
   .post-details-content .post-blog-thumbnail {
@@ -1661,7 +1660,7 @@ input:required {
         margin-right: 0; }
   .post-details-content img {
     border-radius: 10px; }
-*//*
+*/
 .confer-blockquote {
   padding-left: 10%;
   margin: 30px 0; }
@@ -1734,7 +1733,7 @@ input:required {
         margin-right: 0; }
       .post-tags-social-area .author-social-info a:hover, .post-tags-social-area .author-social-info a:focus {
         color: #505add; }*/
-/*
+
 .post-author-area {
   position: relative;
   z-index: 1;
@@ -1786,7 +1785,7 @@ input:required {
     @media only screen and (min-width: 480px) and (max-width: 767px) {
       .post-author-area .author-content p {
         font-size: 14px; } }
-*//*
+*/
 .pager-area {
   position: relative;
   z-index: 1; }
@@ -1849,7 +1848,7 @@ input:required {
         margin-left: 15px; }
       .pager-area .pager-single-post:last-child .post-meta {
         text-align: right; }
-*//*
+
 .comment_area {
   position: relative;
   z-index: 1; }
@@ -1955,7 +1954,7 @@ input:required {
     font-size: 25px; }*/
 
 /* :: 15.0 Widget Area CSS */
-/*.single-widget-area {
+.single-widget-area {
   position: relative;
   z-index: 1;
   margin-bottom: 60px; }
@@ -2748,6 +2747,3 @@ input:required {
         margin-right: 3px; }
 
 /*# sourceMappingURL=style.css.map */
-
-
-
