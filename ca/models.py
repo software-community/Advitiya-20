@@ -12,9 +12,9 @@ class Profile(models.Model):
         regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 12 digits allowed.")
     # validators should be a list
     phone = models.CharField(
-        validators=[phone_regex], max_length=12, blank=False)
+        validators=[phone_regex], max_length=12, blank=True)
     tec_head_phone = models.CharField(
-        validators=[phone_regex], max_length=12, blank=False)
+        validators=[phone_regex], max_length=12, blank=True)
     past_exp = models.TextField(blank=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     ca_code = models.CharField(
