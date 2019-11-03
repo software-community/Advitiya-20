@@ -7,6 +7,7 @@ from django.utils.crypto import get_random_string
 
 class Profile(models.Model):
     college_name = models.CharField(max_length=150, blank=False)
+    your_name = models.CharField(max_length=150, blank=False, default = 'Your Name')
     tec_head = models.CharField(max_length=50, blank=False)
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 12 digits allowed.")
