@@ -8,14 +8,14 @@ from django.utils.crypto import get_random_string
 class Profile(models.Model):
     college_name = models.CharField(max_length=150, blank=False)
     your_name = models.CharField(max_length=150, blank=False, default = 'Your Name')
-    tec_head = models.CharField(max_length=50, blank=False)
+    tec_head = models.CharField(max_length=50)
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 12 digits allowed.")
     # validators should be a list
     phone = models.CharField(
         validators=[phone_regex], max_length=12, blank=False)
     tec_head_phone = models.CharField(
-        validators=[phone_regex], max_length=12, blank=False)
+        validators=[phone_regex], max_length=12)
     past_exp = models.TextField(blank=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     ca_code = models.CharField(
