@@ -58,23 +58,30 @@ class Events(models.Model):
     def __str__(self):
         return self.name+"\t"+self.coordinator.name
 
+
 class Participant(models.Model):
 
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     phone_number = models.CharField(max_length=10, default=None)
     college_name = models.CharField(max_length=200, default='no college')
     participant_code = models.CharField(
-        max_length=6, verbose_name='Participant Code', unique=True, default = unique_participant_code())
-    
+        max_length=6, verbose_name='Participant Code', unique=True)
+
     def unique_participant_code(self):
         code = 'ADV_' + get_random_string(length=6).upper()
         while Participant.objects.filter(participant_code = code).exists():
             code = 'ADV_' + get_random_string(length=6).upper()
         return code
 
+    def save(self, *args, **kwargs):
+        if not self.participant_code:
+            self.participant_code = self.unique_participant_code()
+
+        super().save(*args, **kwargs)
+
 class Payment(models.Model):
 
-    participant = models.OneToOneField(Participant, primary_key = True)
+    participant = models.OneToOneField(Participant, on_delete = models.CASCADE, primary_key = True)
     payment_request_id = models.CharField(max_length = 100, default = 'none')
     transaction_id = models.CharField(max_length=100, default='none')
 
