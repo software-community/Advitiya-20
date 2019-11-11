@@ -30,7 +30,7 @@ def register_profile(request):
             instance = form.save(commit=False)
             instance.user = request.user
             instance.save()
-            send_mail(subject='Successful Registration for Campus Ambassador program for Advitiya 2020',
+            send_mail(subject='Successful Registration for Campus Ambassador program: Advitiya 2020',
                       message='',
                       from_email=os.environ.get(
                           'EMAIL_HOST_USER', ''),
@@ -43,7 +43,7 @@ def register_profile(request):
                       '.</b><br>Please read the Campus Ambassador Policy here - https://'
                       + request.get_host() + static('ca/ca.pdf') + '<br><br>We wish you best ' +
                       'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br>Advitiya 2020 ' +
-                      'Public Relations Team')
+                      '<br>Public Relations Team')
             return redirect('ca:profile')
     return render(request, "ca/register.html", {"form": form, 'person': person})
 

@@ -26,15 +26,16 @@
                 <div class="col-6 text-right">
 
                     {% if not user.is_authenticated %}
-                    <a href="{% provider_login_url 'google' %}?next={% url 'ca:profile' %}" class="vcenter"><img
-                            src="{% static 'ca/img/gsignin.png' %}" class='gsignin-btn' alt="" srcset=""></a>
+                    <a href="{% provider_login_url 'google' %}?next={% url 'ca:profile' %}" class="btn btn-secondary"
+                        style="margin-bottom: 3px;">
+                        <i class="fab fa-google"></i> Register</a>
                     {% else %}
                     {% if person %}
                     <a href="{% url 'ca:profile' %}" class="btn btn-secondary" style="margin-bottom: 3px;"><i
                             class="fas fa-user-circle"></i>PROFILE</a>
                     {% endif %}
-                    <a href="{% url 'ca:account_logout' %}?next={% url 'ca:home' %}" class="btn btn-secondary" style="margin-bottom: 3px;"><i
-                            class="fas fa-sign-out-alt"></i>SIGN OUT</a>
+                    <a href="{% url 'ca:account_logout' %}?next={% url 'ca:home' %}" class="btn btn-secondary"
+                        style="margin-bottom: 3px;"><i class="fas fa-sign-out-alt"></i>SIGN OUT</a>
 
                     {% endif %}
 
@@ -71,7 +72,8 @@
                 <div class="col-lg-2 col-xs-12 about-company"></div>
                 <div class="col-lg-4 col-xs-12 location">
                     <h4 class="mt-lg-0 mt-sm-4">Location</h4>
-                    <p>Indian Institute of Technology Ropar, Bara Phool, Birla Seed Farms, Rupnagar,Punjab, INDIA 140001 </p>
+                    <p>Indian Institute of Technology Ropar, Bara Phool, Birla Seed Farms, Rupnagar,Punjab, INDIA 140001
+                    </p>
                     <p class="mb-0"><i class="fa fa-phone mr-3"></i>+91 9690911442</p>
                     <p><i class="fa fa-envelope-o mr-3"></i>advitiya.pr@iitrpr.ac.in</p>
                 </div>
