@@ -15,7 +15,7 @@ from .forms import registerForm
 
 def home(request):
     person = True
-    return render(request, 'TSP/index.html')
+    return render(request, 'TSP/index.html', {'person': person})
 
 
 @login_required(login_url='/auth/google/login/')
@@ -30,7 +30,7 @@ def register_profile(request):
             instance = form.save(commit=False)
             instance.user = request.user
             instance.save()
-            send_mail(subject='Successful Registration for Techno School program for Advitiya 2020',
+            send_mail(subject='Successful Registration for Techno School program: Advitiya 2020',
                       message='',
                       from_email=os.environ.get(
                           'EMAIL_HOST_USER', ''),
@@ -40,9 +40,8 @@ def register_profile(request):
                       ',<br><br>You are successfully registered for Techno School program for Advitiya 2020.' +
                       'We are excited for your journey with us.' +
                       '<br>Please read the <b>TSP Brochure</b> at https://'
-                      + request.get_host() + static('TSP/TSP_Invitation.pdf') + ' and <b>Invitation</b> at https://'
-                      + request.get_host() + static('TSP/TECHNO_SCHOOL_PROGRAM.pptx') + '<br><br>Regards<br>Advitiya 2020 ' +
-                      'Public Relations Team')
+                      + request.get_host() + static('TSP/TSP_Invitation.pdf') + '<br><br>Regards<br>Advitiya 2020 ' +
+                      '<br>Public Relations Team')
             return redirect('TSP:profile')
     return render(request, "TSP/register.html", {"form": form, 'person': person})
 
