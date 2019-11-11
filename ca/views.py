@@ -42,7 +42,7 @@ def register_profile(request):
                       str(instance.ca_code) +
                       '.</b><br>Please read the Campus Ambassador Policy here - https://'
                       + request.get_host() + static('ca/ca.pdf') + '<br><br>We wish you best ' +
-                      'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br>Advitiya 2020 ' +
+                      'of luck. Give your best and earn exciting prizes !!!<br><br>For any queries, feel free to contact Mr.Kanishk(9690911442).<br><br>Regards<br>Advitiya 2020 ' +
                       '<br>Public Relations Team')
             return redirect('ca:profile')
     return render(request, "ca/register.html", {"form": form, 'person': person})
