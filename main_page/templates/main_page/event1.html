@@ -13,7 +13,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{% url 'main_page:index' %}">Home</a></li>
                             <li class="breadcrumb-item"><a href="{% url 'main_page:events' %}"> All Events</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Event_Name</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ obj.name }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -41,10 +41,11 @@
                         <!-- Post Title -->
                         <h4 class="post-title">ABOUT EVENT</h4>
 
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam magni placeat necessitatibus dolorum sunt hic quaerat illo aspernatur blanditiis. Ipsa optio soluta hic tenetur tempore saepe rem quibusdam voluptate iusto?</p>
+                        <p>{{obj.description}}</p>
                         <!-- Blockquote -->
                         <blockquote class="confer-blockquote">
-                            <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi saepe iste qui, nisi ducimus voluptas consectetur officia quidem molestiae facilis est placeat! Odit voluptate dicta mollitia enim deleniti laborum doloribus?</h5>
+                            <h5>The registration fees of the event is: {{obj.fees}} which needs to be paid once for the whole team if it's a team event or by an individual if it's an individual event</h5>
+                            <h5>The prize money of the event is {{ obj.prize }}</h5>
                         </blockquote>
 
                         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas obcaecati excepturi esse repellat ratione non cum quibusdam corrupti reprehenderit deserunt consectetur, officia repellendus nisi reiciendis ipsam ut ullam incidunt voluptate.</p>
@@ -58,7 +59,10 @@
                         </div>
 
                         <h5>Rules &amp; Team Members</h5>
-                        <p>Beyond demonstrating that marketing really works, the right analytics strategies can provide insights that inspire impactful marketing decisions, leading to increased ROI and revenue growth. Join us for our Marketing Analytics &amp; Insights Summit for a two-day deep dive into how top companies are using big data and analytics to dramatically improve the efficiency and efficacy of their marketing mix.</p>
+                        <p>The number of team members may vary from {{ obj.team_lower_limit }} to a maximum of {{ obj.team_upper_limit }}.</p>
+                        <p>
+                            The rulebook of the event can be seen here.<a href="{{ obj.rulebook }}">Click here</a>
+                        </p>
                     </div>
 
                     <!-- Post Tags & Social Info -->
@@ -98,10 +102,11 @@
                             <div class="post-author-content">
                                 
                                 
-                                <p>Venue of Event and Timings</p>
+                                <p>Venue of Event: {{obj.venue}}</p>
+                                <p>Timings: {{obj.start_date_time}}</p>
                                 <h5>Event Coordinator</h5>
-                                <span>Name</span>
-                                <span>Details</span>
+                                <span>Name: {{obj.coordinator.name}}</span> 
+                                <span>Contact Details: {{obj.coordinator.phone }}</span>
                             </div>
                         </div>
                     </div>
