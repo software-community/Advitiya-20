@@ -40,7 +40,7 @@ def register_profile(request):
                       ',<br><br>You are successfully registered for Techno School program for Advitiya 2020.' +
                       'We are excited for your journey with us.' +
                       '<br>Please read the <b>TSP Brochure</b> at https://'
-                      + request.get_host() + static('TSP/TSP_Invitation.pdf') + '<br><br>Regards<br>Advitiya 2020 ' +
+                      + request.get_host() + static('TSP/TSP_Invitation.pdf') + '<br><br>For any queries, feel free to contact Mr. Akash(8949852311), or Mr. Jishu(9110914050)<br><br>Regards<br>Advitiya 2020 ' +
                       '<br>Public Relations Team')
             return redirect('TSP:profile')
     return render(request, "TSP/register.html", {"form": form, 'person': person})
