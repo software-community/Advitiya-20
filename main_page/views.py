@@ -23,3 +23,9 @@ def event_page(request,num):
     }
     template_name='main_page/event1.html'
     return render(request,template_name,context=context)
+
+def registration_page(request):
+    return render(request,'main_page/event_registration.html')
+
+
+
