@@ -11,9 +11,9 @@
                     <h2 class="page-title">Event Details</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{% url 'main_page:index' %}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{% url 'main_page:events' %}"> All Events</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{{ obj.name }}</li>
+                            <li class="breadcrumb-item"><a href="{% url 'main_page:index' %}">Advitiya</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'main_page:events' %}"> Events</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ event.name }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -35,17 +35,17 @@
 
                         <!-- Post Thumbnail -->
                         <div class="post-blog-thumbnail mb-30">
-                            <img src="{% static 'ca/img/favicon.jpg' %}" alt="" width="450px" height="350px">
+                            <img src="{{ event.image.url }}" alt="" width="450px" height="350px">
                         </div>
 
                         <!-- Post Title -->
                         <h4 class="post-title">ABOUT EVENT</h4>
 
-                        <p>{{obj.description}}</p>
+                        <p>{{event.description}}</p>
                         <!-- Blockquote -->
                         <blockquote class="confer-blockquote">
-                            <h5>The registration fees of the event is: {{obj.fees}} which needs to be paid once for the whole team if it's a team event or by an individual if it's an individual event</h5>
-                            <h5>The prize money of the event is {{ obj.prize }}</h5>
+                            <h5>The registration fees of the event is: {{event.fees}} which needs to be paid once for the whole team if it's a team event or by an individual if it's an individual event</h5>
+                            <h5>The prize money of the event is {{ event.prize }}</h5>
                         </blockquote>
 
                         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas obcaecati excepturi esse repellat ratione non cum quibusdam corrupti reprehenderit deserunt consectetur, officia repellendus nisi reiciendis ipsam ut ullam incidunt voluptate.</p>
@@ -59,9 +59,9 @@
                         </div>
 
                         <h5>Rules &amp; Team Members</h5>
-                        <p>The number of team members may vary from {{ obj.team_lower_limit }} to a maximum of {{ obj.team_upper_limit }}.</p>
+                        <p>The number of team members may vary from {{ event.team_lower_limit }} to a maximum of {{ event.team_upper_limit }}.</p>
                         <p>
-                            The rulebook of the event can be seen here.<a href="{{ obj.rulebook }}">Click here</a>
+                            The rulebook of the event can be seen here.<a href="{{ event.rulebook }}">Click here</a>
                         </p>
                     </div>
 
@@ -102,11 +102,11 @@
                             <div class="post-author-content">
                                 
                                 
-                                <p>Venue of Event: {{obj.venue}}</p>
-                                <p>Timings: {{obj.start_date_time}}</p>
+                                <p>Venue of Event: {{event.venue}}</p>
+                                <p>Timings: {{event.start_date_time}}</p>
                                 <h5>Event Coordinator</h5>
-                                <span>Name: {{obj.coordinator.name}}</span> 
-                                <span>Contact Details: {{obj.coordinator.phone }}</span>
+                                <span>Name: {{event.coordinator.name}}</span> 
+                                <span>Contact Details: {{event.coordinator.phone }}</span>
                             </div>
                         </div>
                     </div>
