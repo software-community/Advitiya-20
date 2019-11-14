@@ -11,9 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
-
-<link rel="stylesheet" href="https://unpkg.com/flickity@2.0/dist/flickity.min.css">
-<script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2.0/dist/flickity.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <link href="{% static 'main_page/css/style.css' %}" rel="stylesheet">
     <title>{% block title %} Advitiya{%endblock%} </title>
@@ -24,11 +22,10 @@
             <div class="container">
                 <!-- Classy Menu -->
                 <nav class="classy-navbar justify-content-between" id="conferNav">
-      
                     <!-- Logo -->
                     <a class="navbar-brand" href="{% url 'main_page:index' %}">
                     <img src="{% static 'ca/img/logo.png' %}" width="150" height="80" alt="">
-                  </a>
+                    </a>
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
                         <span class="navbarToggler"><span></span><span></span><span></span></span>
@@ -40,6 +37,7 @@
                         <div class="classycloseIcon">
                             <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
                         </div>
+                    
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul id="nav">
@@ -49,18 +47,18 @@
                                 <li><a href="#">Team</a></li>
                                 <li><a href="{% url 'main_page:events'%}">Events</a>
                                     <ul class="dropdown">
-                                            <li><a href="{% url 'main_page:events'%}">-Aeromodelling</a></li>
-                                            <li><a href="{% url 'main_page:events'%}">- Automotive</a></li>
-                                            <li><a href="{% url 'main_page:events'%}">- CIM</a></li>
-                                            <li><a href="{% url 'main_page:events'%}">- Coding Club</a></li>
-                                            <li><a href="{% url 'main_page:events'%}">- Monochrome</a></li>
-                                            <li><a href="{% url 'main_page:events'%}">- Robotics</a></li>
-                                            <li><a href="{% url 'main_page:events'%}">- FNE</a></li>
-                                            <li><a href="{% url 'main_page:events'%}">- Zenith</a></li>
-                                            <li><a href="{% url 'main_page:events'%}">-Soft-Com </a></li>
-                                            <li><a href="{% url 'main_page:events'%}">- MUN</a>
-                                            </li>
-                                        </ul>
+                                        <li><a href="{% url 'main_page:events'%}">-Aeromodelling</a></li>
+                                        <li><a href="{% url 'main_page:events'%}">- Automotive</a></li>
+                                        <li><a href="{% url 'main_page:events'%}">- CIM</a></li>
+                                        <li><a href="{% url 'main_page:events'%}">- Coding Club</a></li>
+                                        <li><a href="{% url 'main_page:events'%}">- Monochrome</a></li>
+                                        <li><a href="{% url 'main_page:events'%}">- Robotics</a></li>
+                                        <li><a href="{% url 'main_page:events'%}">- FNE</a></li>
+                                        <li><a href="{% url 'main_page:events'%}">- Zenith</a></li>
+                                        <li><a href="{% url 'main_page:events'%}">-Soft-Com </a></li>
+                                        <li><a href="{% url 'main_page:events'%}">- MUN</a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 
                                 <li><a href="{% url 'ca:home' %}">Campus Ambassador</a></li>
@@ -68,22 +66,24 @@
       
                             <!-- Signing in -->
                             {% if not user.is_authenticated %}
-                                  <a href="{% provider_login_url 'google' %}" class="vcenter"><img
-                                          src="{% static 'ca/img/gsignin.png' %}" class='gsignin-btn' height="50px" width="50px" alt="" srcset=""></a>
-                                  {% else %}
-                                  <a href="{% url 'ca:account_logout' %}" class="btn btn-secondary" style="margin-bottom: 3px;"><i
-                                          class="fas fa-sign-out-alt"></i>SIGN OUT</a>
-      
-                                  {% endif %}
-                        <!-- Nav End -->
+                            <a href="{% provider_login_url 'google' %}" class="vcenter"><img
+                                    src="{% static 'ca/img/gsignin.png' %}" class='gsignin-btn' height="50px" width="50px" alt="" srcset=""></a>
+                            {% else %}
+                            <a href="{% url 'ca:account_logout' %}" class="btn btn-secondary" style="margin-bottom: 3px;"><i 
+                                class="fas fa-sign-out-alt"></i>SIGN OUT</a>
+
+                            {% endif %}
+                        </div>
                     </div>
+                        <!-- Nav End -->
                 </nav>
             </div>
         </div>
-      </header>
+    </header>
     
-                
     {% block body %}
+
+
     {% endblock %}
    <!-- Footer Area Start -->
    <footer class="footer-area bg-img bg-overlay-2 section-padding-100-0">
@@ -201,7 +201,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     </div>
 </footer>
 
-    <!-- Bootstrap core JavaScript
+    <!-- Bootstrap core JavaScript and other JavaScript Files
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://kit.fontawesome.com/a9af552946.js" crossorigin="anonymous"></script>
@@ -215,7 +215,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
     <script src="{% static 'main_page/js/confer.bundle.js' %}"></script>
-        <!-- Active -->
+    <script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>
     <script src="{% static 'main_page/js/active.js' %}"></script>    
     <!-- <script src="{% static 'main_page/js/jquery.min.js' %}"></script> -->
 </body>
