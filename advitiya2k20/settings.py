@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'main_page',
     'ca',
     'TSP',
+    'custom_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -10,6 +10,7 @@ urlpatterns = [
     path('ca/', include('ca.urls')),
     path('TSP/', include('TSP.urls')),
     path('', include('main_page.urls')),
+    path('cadmin/', include('custom_admin.urls')),
 ] + static(settings.STATIC_URL,
            document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL,
                                                         document_root=settings.MEDIA_ROOT)
