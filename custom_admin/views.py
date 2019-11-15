@@ -14,9 +14,9 @@ def gen_ca_csv(request):
 
     writer = csv.writer(response)
     cas = Profile.objects.all()
-    writer.writerow(['Name', 'College Name', 'Email', 'Mobile', 'Tech Head', 'Past Exp', 'CA CODE'])
+    writer.writerow(['Name', 'College Name', 'Email', 'Mobile', 'Tech Head', 'Tech Head Phone', 'Past Exp', 'CA CODE'])
     for ca_user in cas:
         writer.writerow([ca_user.your_name, ca_user.college_name, ca_user.user.email, ca_user.phone,
-                            ca_user.tec_head, ca_user.past_exp, ca_user.ca_code ])
+                            ca_user.tec_head, ca_user.tec_head_phone, ca_user.past_exp, ca_user.ca_code ])
 
     return response
