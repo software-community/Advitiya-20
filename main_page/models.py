@@ -80,6 +80,9 @@ class Participant(models.Model):
             self.participant_code = self.unique_participant_code()
 
         super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return self.user+"\t"+self.college_name
 
 class Payment(models.Model):
 
@@ -87,10 +90,16 @@ class Payment(models.Model):
     payment_request_id = models.CharField(max_length = 100, default = 'none')
     transaction_id = models.CharField(max_length=100, default='none')
 
+    def __str__(self):
+        return self.participant
+
 class EventRegistration(models.Model):
 
     event = models.ForeignKey(Events, on_delete = models.CASCADE)
     participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return self.participant+"\t"+self.event
 
 class Team(models.Model):
 
@@ -98,7 +107,13 @@ class Team(models.Model):
     leader = models.ForeignKey(Participant, on_delete = models.CASCADE)
     event = models.ForeignKey(Events, on_delete = models.CASCADE)
 
+    def __str__(self):
+        return self.name+"\t"+self.leader
+
 class TeamHasMembers(models.Model):
 
     team = models.ForeignKey(Team, on_delete = models.CASCADE)
     participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return self.team

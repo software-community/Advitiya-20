@@ -19,7 +19,7 @@
                 <br>
                 <div class="breadcrumb-content">
                     <h2 class="page-title">Register As Participant</h2>
-                    <form method="POST" action="{% url 'main_page:register_as_participant' %}">
+                    <form method="POST">
                         {% csrf_token %}
                         {{ team_form | crispy }}
                         {{ team_member_formset | crispy }}
@@ -27,7 +27,7 @@
                     </form>
                 </div>
             </div>
-            <br><br><br>
+            <br><br><br><br>
         </div>
     </div>
 </section>

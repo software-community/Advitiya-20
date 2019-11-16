@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse
 from django.forms import formset_factory, modelformset_factory
 from main_page.methods import payment_request
+from django.urls import reverse
 import os
 import hashlib
 import hmac
@@ -28,7 +29,8 @@ def accomodation(request):
 
 def event_page(request,num):
     context = {
-        'event' : Events.objects.get(id=num)
+        'event' : Events.objects.get(id=num),
+        'CATEGORY_CHOCIES': CATEGORY_CHOCIES
     }
     template_name='main_page/event1.html'
     return render(request,template_name,context=context)
@@ -45,7 +47,7 @@ def registerAsParticipant(request):
     if prev_participant_registration_details:
         return render(request, 'main_page/show_info.html', 
             {'message': 'You have already registered as a Participant. Your PARTICIPATION CODE IS <b>'
-             + str(prev_participant_registration_details.participant_code)+'</b>'})
+             + str(prev_participant_registration_details.participant_code)+'</b>', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
     
     if request.method == 'POST':
         participationForm = ParticipationForm(request.POST)
@@ -62,16 +64,21 @@ def registerAsParticipant(request):
                       html_message='Dear ' + str(request.user.get_full_name()) +
                       ',<br><br>You are successfully registered for participation in events at Advitiya 2020.' +
                       'We are excited for your journey with us.<br><br>Your PARTICIPATION CODE is <b>' +
-                      str(new_participation_form.participant_code) +
-                      '.</b><br><br>We wish you best ' +
+                      str(new_participation_form.participant_code) +  '''</b> <br><br> <a href="'''+
+                      reverse('main_page:payment') +'''">Click Here</a> for Payment. Your registration is 
+                                not valid unless you make the payment.'''+
+                      '<br>We wish you best ' +
                       'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br>Advitiya 2020 ' +
                       '<br>Public Relations Team')
             return render(request, 'main_page/show_info.html', {'message': '''You are successfully registered for 
                         participation in events at Advitiya.
-                                Your PARTICIPATION CODE IS <b>''' + str(new_participation_form.participant_code)+'</b>' })
+                                Your PARTICIPATION CODE IS <b>''' + str(new_participation_form.participant_code)+'</b>' +
+                                '''<br> <a href="'''+ reverse('main_page:payment') +'''">Click Here</a> for Payment. Your registration is 
+                                not valid unless you make the payment.''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES })
     else:
         participationForm = ParticipationForm()
-    return render(request, 'main_page/participation_form.html', {'participationForm': participationForm})
+    return render(request, 'main_page/participation_form.html', {'participationForm': participationForm, 
+                'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
 
 @login_required(login_url='/auth/google/login/')
 def registerForEvent(request, event_id):
@@ -86,11 +93,12 @@ def registerForEvent(request, event_id):
     except Participant.DoesNotExist:
         return render(request, 'main_page/show_info.html', {'message':'''You must register as a participant before 
                     registering for an Event.
-                    <a href="/register-as-participant" >Click Here</a>'''})
+                    <a href="/register-as-participant" >Click Here</a>''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
     
     try:
         EventRegistration.objects.get(participant = participant)
-        return render(request, 'main_page/show_info.html', {'message':"You have already registered for this event."})
+        return render(request, 'main_page/show_info.html', {'message':"You have already registered for this event.",
+                    'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
     except:
         pass
 
@@ -100,10 +108,11 @@ def registerForEvent(request, event_id):
             if payment_detail.transaction_id == 'none' or payment_detail.transaction_id == '0':
                 return render(request, 'main_page/show_info.html', {'message':'''You must pay participation fee 
                         before registering for this event. Your last payment did not complete. 
-                        Please <a href="/pay">Click Here</a> to proceed for payment.'''})
+                        Please <a href="/pay">Click Here</a> to proceed for payment.''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
         except:
             return render(request, 'main_page/show_info.html', {'message':'''You must register and pay participation fee 
-                        before registering for this event. <a href="/pay">Click Here</a> for payment.'''})
+                        before registering for this event. <a href="/pay">Click Here</a> for payment.''', 
+                            'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
         EventRegistration.objects.create(
             event = event, participant = participant
         )
@@ -120,7 +129,7 @@ def registerForEvent(request, event_id):
                       'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br>Advitiya 2020 ' +
                       '<br>Public Relations Team')
         return render(request, 'main_page/show_info.html', {'message': '''You are successfully registered for participation 
-                        in '''+ event.name +''' at Advitiya. ''' })
+                        in '''+ event.name +''' at Advitiya. ''','CATEGORY_CHOCIES': CATEGORY_CHOCIES })
     else:
         team_has_member_formSet = formset_factory(form = TeamHasMemberForm, formset = BaseTeamFormSet, extra = event.team_upper_limit, 
                 max_num = event.team_upper_limit, validate_max = True, min_num = event.team_lower_limit, validate_min = True)
@@ -141,10 +150,12 @@ def registerForEvent(request, event_id):
                         team_member_payment = Payment.objects.get(participant = team_member)
                         if team_member_payment.transaction_id == 'none' or team_member_payment.transaction_id == '0':
                             return render(request, 'main_page/show_info.html', {'message':'''Some of the Team Member has 
-                                    not paid the fees yet. Kindly check and ask them to complete their payment.'''})
+                                    not paid the fees yet. Kindly check and ask them to complete their payment.''', 
+                                    'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
                     except Payment.DoesNotExist:
                         return render(request, 'main_page/show_info.html', {'message':'''Some of the Team Member has 
-                                    not paid the fees yet. Kindly check and ask them to complete their payment.'''})
+                                    not paid the fees yet. Kindly check and ask them to complete their payment.''', 
+                                    'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
                 new_team = team_form.save(commit = False)
                 new_team.event = event
                 new_team.leader = participant
@@ -161,13 +172,16 @@ def registerForEvent(request, event_id):
                       html_message='Dear ' + str(new_team.name) +
                       ',<br><br>You have successfully registered for participation in '+ event.name +' at Advitiya 2020.' +
                       'We are excited for your journey with us.<br><br>' +
-                      'Do carry your photo identity card for your onsite registration, otherwise your registration might get cancelled.' + 
+                      'Do carry your photo identity card for your onsite registration, otherwise '+
+                      'your registration might get cancelled.' + 
                       'We wish you best ' +
                       'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br>Advitiya 2020 ' +
                       '<br>Public Relations Team')
-                return render(request, 'main_page/show_info.html', {'message': new_team.name + '''has successfully registered for participation 
-                        in '''+ event.name +''' at Advitiya. Each of the Team Members should carry their Photo Identity Cards for 
-                        onsite registration. Failure to do so might result in cancellation of the registration of the whole team.''' })
+                return render(request, 'main_page/show_info.html', {'message': new_team.name + ''' has successfully registered 
+                        for participation in '''+ event.name +''' at Advitiya. Each of the Team Members should carry their 
+                        Photo Identity Cards for onsite registration. Failure to do so might result in cancellation 
+                        of the registration of the whole team.''',
+                        'CATEGORY_CHOCIES': CATEGORY_CHOCIES })
         else:
             team_form = TeamForm()
             team_member_formset = team_has_member_formSet(
@@ -176,7 +190,8 @@ def registerForEvent(request, event_id):
         return render(request, 'main_page/register_team.html', {
             'event': event,
             'team_form': team_form,
-            'team_member_formset': team_member_formset
+            'team_member_formset': team_member_formset,
+            'CATEGORY_CHOCIES': CATEGORY_CHOCIES
         })
 
 @login_required(login_url='/auth/google/login/')
@@ -186,7 +201,7 @@ def pay_for_participation(request):
     except Participant.DoesNotExist:
         return render(request, 'main_page/show_info.html', {'message':'''You must register as a participant before 
                     registering for an Event.
-                    <a href="/register-as-participant" >Click Here</a>'''})
+                    <a href="/register-as-participant" >Click Here</a>''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
     
     payment_detail = None
 
@@ -194,7 +209,8 @@ def pay_for_participation(request):
         payment_detail = Payment.objects.get(participant = participant)
         if payment_detail.transaction_id == '0' or payment_detail.transaction_id == 'none':
             raise Exception("Previous Payment was failure!")
-        return render(request, 'main_page/show_info.html', {'message': "You have already paid the registration fee."})
+        return render(request, 'main_page/show_info.html', {'message': "You have already paid the registration fee.", 
+                'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
     except:
         pass
 
@@ -238,7 +254,8 @@ def webhook(request):
                     send_mail(
                         'Payment confirmation of ' +
                         ' to ADVITIYA 2020',
-                        'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm that your payment to ADVITIYA 2020 ' +
+                        'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
+                        'that your payment to ADVITIYA 2020 ' +
                         ' is successful.\n\nRegards\nADVITIYA 2020 Public Relations Team',
                         os.environ.get(
                           'EMAIL_HOST_USER', ''),
@@ -266,5 +283,6 @@ def payment_redirect(request):
                 'message': "<p><b>Payment Status:</b> " + request.GET['payment_status'] +
                             "</p><p><b>Payment Request ID:</b> " + request.GET['payment_request_id'] +
                             "</p><p><b>Payment Transaction ID:</b> " + request.GET['payment_id'] +
-                            "<p>" + retry_for_payment + "</p>"
+                            "<p>" + retry_for_payment + "</p>",
+                'CATEGORY_CHOCIES': CATEGORY_CHOCIES
             })
