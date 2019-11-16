@@ -3,12 +3,12 @@
 
 {% block body %}
 
-<section class="breadcrumb-area bg-img bg-gradient-overlay jarallax" style="background-image: url(img/bg-img/37.jpg);">
+<section id="event" class="breadcrumb-area bg-img bg-gradient-overlay jarallax" style="background-image: url(img/bg-img/37.jpg);">
     <div class="container h-100">
         <div class="row h-100 align-items-center">
             <div class="col-12">
                 <div class="breadcrumb-content">
-                    <h2 class="page-title">Event Details</h2>
+                    <h2 class="page-title" >Event Details</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{% url 'main_page:index' %}">Advitiya</a></li>
@@ -48,7 +48,7 @@
                             <h5>The prize money of the event is {{ event.prize }}</h5>
                         </blockquote>
 
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas obcaecati excepturi esse repellat ratione non cum quibusdam corrupti reprehenderit deserunt consectetur, officia repellendus nisi reiciendis ipsam ut ullam incidunt voluptate.</p>
+                        <!-- <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas obcaecati excepturi esse repellat ratione non cum quibusdam corrupti reprehenderit deserunt consectetur, officia repellendus nisi reiciendis ipsam ut ullam incidunt voluptate.</p>
                         <div class="row">
                             <div class="col-6">
                                 <img class="mb-30" src="{% static 'ca/img/favicon.jpg' %}" alt="">
@@ -56,10 +56,16 @@
                             <div class="col-6">
                                 <img class="mb-30" src="{% static 'ca/img/favicon.jpg' %}" alt="">
                             </div>
-                        </div>
+                        </div> -->
 
                         <h5>Rules &amp; Team Members</h5>
+                        {% if event.team_lower_limit == event.team_lower_limit %}
+                        <p>This is a solo event.</p>
+                        {{else}}
                         <p>The number of team members may vary from {{ event.team_lower_limit }} to a maximum of {{ event.team_upper_limit }}.</p>
+                        
+                        {%endif%}
+                        
                         <p>
                             The rulebook of the event can be seen here.<a href="{{ event.rulebook }}">Click here</a>
                         </p>
@@ -71,17 +77,17 @@
                         <div class="popular-tags d-flex align-items-center">
                             <p><i class="zmdi zmdi-label"></i></p>
                             <ul class="nav">
-                                <li><a href="#">Club pages</a></li>
-                                <li><a href="#">Links</a></li>
+                                <!-- <li><a href="#">{{ event.category }}</a></li> -->
+                                <li><a href="#event">{{ event.name  }}</a></li>
                             </ul>
                         </div>
 
                         <!-- Author Social Info -->
                         <div class="author-social-info">
-                            <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                            <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                            <a href="#"><i class="zmdi zmdi-instagram"></i></a>
-                            <a href="#"><i class="zmdi zmdi-facebook"></i></a>
+                            
+                            <a href="https://twitter.com/advitiyaiitrpr?lang=en"><i class="zmdi zmdi-twitter"></i></a>
+                            <a href="https://www.instagram.com/advitiya_iitrpr/?hl=en"><i class="zmdi zmdi-instagram"></i></a>
+                            <a href="https://www.facebook.com/advitiya.iitrpr/"><i class="zmdi zmdi-facebook"></i></a>
                         </div>
                     </div>
 
