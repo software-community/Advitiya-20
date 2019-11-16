@@ -10,65 +10,65 @@
         <div class="carousel" data-flickity>
             <div class="carousel-cell">
                 <h3>Club 1</h3>
-                <a class="more" href="#aero">Explore more
-                    <img
-                        src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
+                <a class="more" href="#Aeromodelling">Explore more
+                    <img    
+                        src="{% static 'main_page/img/club_logo/aeromodelling.png' %}" />
                 </a>
             </div>
             <div class="carousel-cell">
                 <h3>Club 2</h3>
-                <a class="more" href="#auto">Explore more
+                <a class="more" href="#Finance">Explore more
                     <img
-                        src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
+                        src="{% static 'main_page/img/club_logo/fincom.png' %}" />
                 </a>
             </div>
             <div class="carousel-cell">
                 <h3>Club 3</h3>
-                <a class="more" href="#cim">Explore more
+                <a class="more" href="#Coding">Explore more
                     <img
-                        src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
+                        src="{% static 'main_page/img/club_logo/coding.png' %}" />
                 </a>
             </div>
             <div class="carousel-cell">
                 <h3>Club 4</h3>
-                <a class="more" href="#fne">Explore more
+                <a class="more" href="#Robotics">Explore more
                     <img
-                        src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
+                        src="{% static 'main_page/img/club_logo/RoboticsClub.png' %}" />
                 </a>
             </div>
             <div class="carousel-cell">
                 <h3>Club 5</h3>
-                <a class="more" href="#robotics">Explore more
+                <a class="more" href="#Automotive">Explore more
                     <img
-                        src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
+                        src="{% static 'main_page/img/club_logo/automotive.png' %}" />
                 </a>
             </div>
             <div class="carousel-cell">
                 <h3>Club 6</h3>
-                <a class="more" href="#zenith">Explore more
+                <a class="more" href="#CAD">Explore more
                     <img
-                        src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
+                        src="{% static 'main_page/img/club_logo/cim.png' %}" />
                 </a>
             </div>
             <div class="carousel-cell">
                 <h3>Club 7</h3>
-                <a class="more" href="#mun">Explore more
+                <a class="more" href="#Astronomy">Explore more
                     <img
-                        src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
+                        src="{% static 'main_page/img/club_logo/zenith.png' %}" />
                 </a>
             </div>
             <div class="carousel-cell">
                 <h3>Club 8</h3>
-                <a class="more" href="#coding">Explore more
+                <a class="more" href="#Coding">Explore more
                     <img
-                        src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
+                        src="{% static 'main_page/img/club_logo/softcom.png' %}" />
                 </a>
             </div>
             <div class="carousel-cell">
                 <h3>Club 9</h3>
-                <a class="more" href="#mono">Explore more
+                <a class="more" href="#Photo Editing">Explore more
                     <img
-                        src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
+                        src="{% static 'main_page/img/club_logo/Logo.png' %}" />
                 </a>
             </div>
         </div>
@@ -80,7 +80,7 @@
 <div class="our-blog-area section-padding-100">
     <div class="container">
         {% for category, event_list in events.items %}
-        <h1>{{category}}</h1>
+        <h1 id="{{ category }}" >{{category}}</h1>
         <div class="row">
             {% for event in event_list %}
 
@@ -89,7 +89,9 @@
                 <div class="single-blog-area style-2 wow fadeInUp" data-wow-delay="300ms">
                     <!-- Single blog Thumb -->
                     <div class="single-blog-thumb">
-                        <img src="{% static 'main_page/img/bg-img/4.jpg' %}" alt="">
+                        <center>
+                        <img src="{{ event.image.url }}" alt="">
+                        </center>
                     </div>
                     <div class="single-blog-text text-center">
                         <a class="blog-title" href="#">{{event.name}}</a>
