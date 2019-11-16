@@ -49,17 +49,9 @@
                                 <li><a href="#">Team</a></li>
                                 <li><a href="{% url 'main_page:events'%}">Events</a>
                                     <ul class="dropdown">
-                                        <li><a href="{% url 'main_page:events'%}">-Aeromodelling</a></li>
-                                        <li><a href="{% url 'main_page:events'%}">- Automotive</a></li>
-                                        <li><a href="{% url 'main_page:events'%}">- CIM</a></li>
-                                        <li><a href="{% url 'main_page:events'%}">- Coding Club</a></li>
-                                        <li><a href="{% url 'main_page:events'%}">- Monochrome</a></li>
-                                        <li><a href="{% url 'main_page:events'%}">- Robotics</a></li>
-                                        <li><a href="{% url 'main_page:events'%}">- FNE</a></li>
-                                        <li><a href="{% url 'main_page:events'%}">- Zenith</a></li>
-                                        <li><a href="{% url 'main_page:events'%}">-Soft-Com </a></li>
-                                        <li><a href="{% url 'main_page:events'%}">- MUN</a>
-                                        </li>
+                                        {% for category in CATEGORY_CHOCIES %}
+                                        <li><a href="{% url 'main_page:events'%}">{{category.1}}</a></li>
+                                        {% endfor %}
                                     </ul>
                                 </li>
 
