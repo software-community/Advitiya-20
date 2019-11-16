@@ -3,16 +3,29 @@
 {% load crispy_forms_tags %}
 
 {% block body %}
-<section class="breadcrumb-area bg-img bg-gradient-overlay jarallax" style="background-image: url(img/bg-img/37.jpg);">
+<section class="bg-img bg-gradient-overlay jarallax">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-6">
-                <h2 class="page-title">Register As Participant</h2>
-                <form method="POST" action="{% url 'main_page:register_as_participant' %}">
-                    {% csrf_token %}
-                    {{ participationForm | crispy }}
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+        <style>
+            label {
+                color: white;
+            }
+
+            .invalid-feedback {
+                color: red !important;
+            }
+        </style>
+        <div class="row">
+            <div class="col-md-6">
+                <br>
+                <div class="breadcrumb-content">
+                    <h2 class="page-title">Register As Participant</h2>
+                    <form method="POST" action="{% url 'main_page:register_as_participant' %}">
+                        {% csrf_token %}
+                        {{ participationForm | crispy }}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <br><br>
             </div>
         </div>
     </div>
