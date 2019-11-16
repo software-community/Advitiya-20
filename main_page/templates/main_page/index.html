@@ -63,7 +63,7 @@
         </div>
 
         <!-- Scroll Icon -->
-        <!-- <div class="icon-scroll" id="scrollDown"></div> -->
+        <!-- <div class="icon-scroll" id="scrollDown"></div> 
     </section>
     <!-- Welcome Area End -->
 
@@ -91,8 +91,8 @@
                             fields like Coding, Robotics, Finance, Design and Entrepreneurship with total prizes worth
                             as high as 9
                             lakh Rupees.</p>
-                        <a href="#" class="btn confer-btn mt-50 wow fadeInUp" data-wow-delay="300ms">Interested <i
-                                class="zmdi zmdi-long-arrow-right"></i>
+                        <!-- <a href="#" class="btn confer-btn mt-50 wow fadeInUp" data-wow-delay="300ms">Interested <i
+                                class="zmdi zmdi-long-arrow-right"></i> -->
                         </a>
                     </div>
                 </div>
@@ -245,100 +245,154 @@
     <!-- Our Ticket Pricing Table Area Start -->
     <section class="our-ticket-pricing-table-area bg-img bg-gradient-overlay section-padding-100-0 jarallax"
         style="background-image: url(static/main_page/img/bg-img/14.jpg);">
-        <div class="container">
+        <!-- <div class="container">
             <div class="row">
                 <!-- Heading -->
-                <div class="col-12">
+                <div id="Our_Team" class="col-12">
                     <div class="section-heading text-center wow fadeInUp" data-wow-delay="300ms">
-                        <p>Choose a Accomodation</p>
-                        <h4>Accomodation Pricing</h4>
+                        
+                        <h4 >Our Team</h4>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
-                <!-- Single Ticket Pricing Table -->
-                <div class="col-12 col-lg-4">
-                    <div class="single-ticket-pricing-table text-center mb-100 wow fadeInUp" data-wow-delay="300ms">
-                        <h6 class="ticket-plan">1 day stay</h6>
-                        <!-- Ticket Icon -->
-                        <div class="ticket-icon">
-                            <img src="{% static 'main_page/img/core-img/p1.png' %}" alt="">
-                        </div>
-                        <h2 class="ticket-price">
-                            <span>Rs</span>250</h2>
-                        <a href="{% url 'main_page:accomodation' %}" class="btn confer-btn w-100 mb-30">Get Tickets <i
-                                class="zmdi zmdi-long-arrow-right"></i>
-                        </a>
-                        <!-- Ticket Pricing Table Details -->
-                        <div class="ticket-pricing-table-details">
-                            <p>
-                                <i class="zmdi zmdi-check"></i> One Day Room Ticket</p>
-                            <p>
-                                <i class="zmdi zmdi-check"></i> One Day Breakfast</p>
-                           
-                            <p>
-                                <i class="zmdi zmdi-check"></i> Free Internet Facilities</p>
-                            
-                        </div>
-                    </div>
+            
+  </div> 
+  <div class="container">
+    <div class="row">
+        <!-- Single Speaker Area -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                <!-- Thumb -->
+                <div class="speaker-single-thumb">
+                    <img src="{% static 'main_page/img/bg-img/4.jpg' %}" alt="">
                 </div>
-
-                <!-- Single Ticket Pricing Table -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-ticket-pricing-table active text-center mb-100 wow fadeInUp"
-                        data-wow-delay="300ms">
-                        <h6 class="ticket-plan">2 Day Stay</h6>
-                        <!-- Ticket Icon -->
-                        <div class="ticket-icon">
-                            <img src="{% static 'main_page/img/core-img/p1.png' %}" alt="">
-                        </div>
-                        <h2 class="ticket-price">
-                            <span>Rs</span>500</h2>
-                        <a href="{% url 'main_page:accomodation' %}" class="btn confer-btn w-100 mb-30">Get Tickets <i
-                                class="zmdi zmdi-long-arrow-right"></i>
-                        </a>
-                        <!-- Ticket Pricing Table Details -->
-                        <div class="ticket-pricing-table-details">
-                            <p>
-                                <i class="zmdi zmdi-check"></i> Two Day Room Ticket</p>
-                            <p>
-                                <i class="zmdi zmdi-check"></i> Two Day Breakfast</p>
-                           
-                            <p>
-                                <i class="zmdi zmdi-check"></i> Free Internet Facilities</p>
-                            
-                        </div>
-                    </div>
+                <!-- Social Info -->
+                <div class="social-info">
+                    <a href="#"><i class="zmdi zmdi-facebook"></i></a>
+                    <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                    <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                    <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
                 </div>
-
-          <!-- Single Ticket Pricing Table -->
-          <div class="col-12 col-md-6 col-lg-4">
-              <div class="single-ticket-pricing-table text-center mb-100 wow fadeInUp" data-wow-delay="300ms">
-                  <h6 class="ticket-plan">3 Days Stay</h6>
-                  <!-- Ticket Icon -->
-                  <div class="ticket-icon">
-                      <img src="{% static 'main_page/img/core-img/p1.png' %}" alt="">
-                  </div>
-                  <h2 class="ticket-price"><span>Rs</span>600</h2>
-                  <a href="{% url 'main_page:accomodation' %}" class="btn confer-btn w-100 mb-30">Get Tickets <i class="zmdi zmdi-long-arrow-right"></i></a>
-                  <!-- Ticket Pricing Table Details -->
-                  <div class="ticket-pricing-table-details">
-                      <p><i class="zmdi zmdi-check"></i> Three Day  Ticket</p>
-                      <p><i class="zmdi zmdi-check"></i> Three Day Breakfast</p>
-                      
-                      <p><i class="zmdi zmdi-check"></i> Internet Facilities</p>
-                      
-                  </div>
-              </div>
-          </div>
-          <div class="col-12">
-            <div class="more-speaker-btn text-center mt-20 mb-40 wow fadeInUp" data-wow-delay="300ms">
-                <a class="btn confer-btn-white" href="{% url 'main_page:accomodation' %}">View Full Details<i class="zmdi zmdi-long-arrow-right"></i></a>
+                <!-- Info -->
+                <div class="speaker-info">
+                    <h5>Albert Barnes</h5>
+                    <p>Founder</p>
+                </div>
             </div>
         </div>
-          
-      </div>
+
+        <!-- Single Speaker Area -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                <!-- Thumb -->
+                <div class="speaker-single-thumb">
+                    <img src="{% static 'main_page/img/bg-img/4.jpg' %}" alt="">
+                </div>
+                <!-- Social Info -->
+                <div class="social-info">
+                    <a href="#"><i class="zmdi zmdi-facebook"></i></a>
+                    <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                    <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                    <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                </div>
+                <!-- Info -->
+                <div class="speaker-info">
+                    <h5>Patricia Stanley</h5>
+                    <p>Product Lead</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Single Speaker Area -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                <!-- Thumb -->
+                <div class="speaker-single-thumb">
+                    <img src="{% static 'main_page/img/bg-img/4.jpg' %}" alt="">
+                </div>
+                <!-- Social Info -->
+                <div class="social-info">
+                    <a href="#"><i class="zmdi zmdi-facebook"></i></a>
+                    <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                    <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                    <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                </div>
+                <!-- Info -->
+                <div class="speaker-info">
+                    <h5>Evelyn Stone</h5>
+                    <p>Photographer</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Single Speaker Area -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                <!-- Thumb -->
+                <div class="speaker-single-thumb">
+                    <img src="{% static 'main_page/img/bg-img/4.jpg' %}" alt="">
+                </div>
+                <!-- Social Info -->
+                <div class="social-info">
+                    <a href="#"><i class="zmdi zmdi-facebook"></i></a>
+                    <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                    <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                    <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                </div>
+                <!-- Info -->
+                <div class="speaker-info">
+                    <h5>Evelyn Stone</h5>
+                    <p>Photographer</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Single Speaker Area -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                <!-- Thumb -->
+                <div class="speaker-single-thumb">
+                    <img src="{% static 'main_page/img/bg-img/4.jpg' %}" alt="">
+                </div>
+                <!-- Social Info -->
+                <div class="social-info">
+                    <a href="#"><i class="zmdi zmdi-facebook"></i></a>
+                    <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                    <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                    <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                </div>
+                <!-- Info -->
+                <div class="speaker-info">
+                    <h5>Susan Hopkins</h5>
+                    <p>UX Manager</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Single Speaker Area -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                <!-- Thumb -->
+                <div class="speaker-single-thumb">
+                    <img src="{% static 'main_page/img/bg-img/4.jpg' %}" alt="">
+                </div>
+                <!-- Social Info -->
+                <div class="social-info">
+                    <a href="#"><i class="zmdi zmdi-facebook"></i></a>
+                    <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                    <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                    <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                </div>
+                <!-- Info -->
+                <div class="speaker-info">
+                    <h5>Michael Fowler</h5>
+                    <p>Product Design</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
   </div>
 </section>
 
