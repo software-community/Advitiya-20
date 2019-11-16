@@ -3,10 +3,12 @@ from main_page.models import  Coordinator, Events, Participant, EventRegistratio
 from django.contrib.auth.decorators import login_required
 from main_page.forms import ParticipationForm, TeamHasMemberForm, BaseTeamFormSet, TeamForm
 from django.core.mail import send_mail
-from django.http import HttpResponseNotFound, HttpResponseServerError
+from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse
 from django.forms import formset_factory, modelformset_factory
 from main_page.methods import payment_request
 import os
+import hashlib
+import hmac
 
 # Create your views here.
 
@@ -44,7 +46,9 @@ def registerAsParticipant(request):
         prev_participant_registration_details = None
     
     if prev_participant_registration_details:
-        return render(request, 'main_page/show_info.html', {'message': 'You have already registered as a Participant'})
+        return render(request, 'main_page/show_info.html', 
+            {'message': 'You have already registered as a Participant. Your PARTICIPATION CODE IS <b>'
+             + str(prev_participant_registration_details.participant_code)+'</b>'})
     
     if request.method == 'POST':
         participationForm = ParticipationForm(request.POST)
@@ -67,7 +71,7 @@ def registerAsParticipant(request):
                       '<br>Public Relations Team')
             return render(request, 'main_page/show_info.html', {'message': '''You are successfully registered for 
                         participation in events at Advitiya.
-                                Your PARTICIPATION CODE IS ''' + str(new_participation_form.participant_code) })
+                                Your PARTICIPATION CODE IS <b>''' + str(new_participation_form.participant_code)+'</b>' })
     else:
         participationForm = ParticipationForm()
     return render(request, 'main_page/participation_form.html', {'participationForm': participationForm})
@@ -77,7 +81,7 @@ def registerForEvent(request, event_id):
 
     try:
         event = Events.objects.get(id = event_id)
-    except Event.DoesNotExist:
+    except Events.DoesNotExist:
         return HttpResponseNotFound()
     
     try:
