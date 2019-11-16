@@ -33,9 +33,6 @@ def event_page(request,num):
     template_name='main_page/event1.html'
     return render(request,template_name,context=context)
 
-def registration_page(request):
-    return render(request,'main_page/event_registration.html')
-
 @login_required(login_url='/auth/google/login/')
 def registerAsParticipant(request):
     try:
@@ -190,6 +187,9 @@ def pay_for_participation(request):
         return render(request, 'main_page/show_info.html', {'message':'''You must register as a participant before 
                     registering for an Event.
                     <a href="/register-as-participant" >Click Here</a>'''})
+    
+    payment_detail = None
+
     try:
         payment_detail = Payment.objects.get(participant = participant)
         if payment_detail.transaction_id == '0' or payment_detail.transaction_id == 'none':
@@ -258,9 +258,13 @@ def webhook(request):
 
 def payment_redirect(request):
 
+    if request.GET['payment_status'] == 'Failed':
+        retry_for_payment = '<a href="/pay">Click Here</a> for retry Payment.'
+
     return render(request, 'main_page/show_info.html',
             {
                 'message': "<p><b>Payment Status:</b> " + request.GET['payment_status'] +
                             "</p><p><b>Payment Request ID:</b> " + request.GET['payment_request_id'] +
-                            "</p><p><b>Payment Transaction ID:</b> " + request.GET['payment_id']
+                            "</p><p><b>Payment Transaction ID:</b> " + request.GET['payment_id'] +
+                            "<p>" + retry_for_payment + "</p>"
             })
