@@ -4,6 +4,7 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.crypto import get_random_string
 import os
+from ca.models import Profile
 
 # Create your models here.
 
@@ -64,6 +65,7 @@ class Participant(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     phone_number = models.CharField(max_length=10, default=None)
     college_name = models.CharField(max_length=200, default='no college')
+    ca_code = models.ForeignKey(Profile , verbose_name = 'CA Code', null = True, blank= True, on_delete = models.CASCADE)
     participant_code = models.CharField(
         max_length=6, verbose_name='Participant Code', unique=True)
 
