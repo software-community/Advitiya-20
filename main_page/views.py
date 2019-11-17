@@ -16,6 +16,14 @@ import hmac
 def index(request):
     return render(request,'main_page/index.html', {'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
 
+@login_required(login_url='/auth/google/login/')
+def profile(request):
+    try:
+        participant = Participant.objects.get(user=request.user)
+    except:
+        participant = None
+    return render(request,'main_page/profile.html', {'participant' : participant,'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+
 def events(request):
     events_list = {}
     for category in CATEGORY_CHOCIES:
@@ -54,6 +62,8 @@ def registerAsParticipant(request):
         if participationForm.is_valid():
             new_participation_form = participationForm.save(commit = False)
             new_participation_form.user = request.user
+            new_participation_form.save()
+            new_participation_form.participant_code = 'ADV_20' + str(1000 + new_participation_form.id)
             new_participation_form.save()
             send_mail(subject='Successful Registration as participant at ADVITIYA\'20',
                       message='',
@@ -229,6 +239,7 @@ def pay_for_participation(request):
             payment_detail = Payment.objects.create(participant = participant, payment_request_id = payment_request_id)
         return redirect(url)
     else:
+        print(response)
         return HttpResponseServerError()
 
 
