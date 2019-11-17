@@ -65,6 +65,7 @@ def registerAsParticipant(request):
             new_participation_form = participationForm.save(commit = False)
             new_participation_form.user = request.user
             new_participation_form.save()
+            new_participation_form = Participant.objects.get(user = request.user)
             new_participation_form.participant_code = 'ADV_20' + str(1000 + new_participation_form.id)
             new_participation_form.save()
             send_mail(subject='Successful Registration as participant at ADVITIYA\'20',
