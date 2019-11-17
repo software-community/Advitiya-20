@@ -25,6 +25,8 @@ def profile(request):
     return render(request,'main_page/profile.html', {'participant' : participant,'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
 
 def events(request):
+    return render(request, 'main_page/show_info.html', {'message':"This Section is revealing soon.",
+                    'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
     events_list = {}
     for category in CATEGORY_CHOCIES:
         events_list[category[1]] = Events.objects.filter(category = category[0])
