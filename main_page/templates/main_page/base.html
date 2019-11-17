@@ -26,7 +26,7 @@
                 <nav class="classy-navbar justify-content-between" id="conferNav">
                     <!-- Logo -->
                     <a class="navbar-brand" href="{% url 'main_page:index' %}">
-                        <img src="{% static 'ca/img/logo.png' %}" width="150" height="80" alt="">
+                        <img src="{% static 'ca/img/logo.png' %}" width="200" alt="">
                     </a>
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -42,13 +42,23 @@
 
                         <!-- Nav Start -->
                         <div class="classynav">
-                            <ul id="nav">
+                            <ul id="nav" style="display: flex;">
                                 <li><a href="{% url 'main_page:index' %}">Home</a></li>
                                 <li><a href="{% url 'TSP:home' %}">TSP</a>
                                 </li>
                                 <li><a href="{% url 'main_page:events'%}">Events</a></li>
 
                                 <li><a href="{% url 'ca:home' %}">Campus Ambassador</a></li>
+                                {% if user.is_authenticated %}
+                                <li><a href="#"><i class="fas fa-user-circle fa-3x"></i></a>
+                                    <ul class="dropdown">
+                                        <li><a href="{% url 'main_page:profile' %}">Profile</a></li>
+                                        <li><a
+                                                href="{% url 'main_page:account_logout' %}?next={% url 'main_page:index' %}">Logout</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                {% endif %}
                             </ul>
 
                             <!-- Signing in -->
@@ -56,11 +66,6 @@
                             <a href="{% provider_login_url 'google' %}?next={% url 'main_page:index' %}"
                                 class="vcenter"><img src="{% static 'ca/img/gsignin.png' %}" class='gsignin-btn'
                                     height="50px" width="50px" alt="" srcset=""></a>
-                            {% else %}
-                            <a href="{% url 'main_page:account_logout' %}?next={% url 'main_page:index' %}"
-                                class="btn btn-secondary" style="margin-bottom: 3px;"><i
-                                    class="fas fa-sign-out-alt"></i>SIGN OUT</a>
-
                             {% endif %}
                         </div>
                     </div>

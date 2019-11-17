@@ -4,6 +4,7 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.crypto import get_random_string
 import os
+import string
 from ca.models import Profile
 
 # Create your models here.
@@ -63,23 +64,12 @@ class Events(models.Model):
 class Participant(models.Model):
 
     user = models.OneToOneField(User, on_delete = models.CASCADE)
+    name = models.CharField(max_length=100, blank=False, default = 'Your Name')
     phone_number = models.CharField(max_length=10, default=None)
     college_name = models.CharField(max_length=200, default='no college')
     ca_code = models.ForeignKey(Profile , verbose_name = 'CA Code', null = True, blank= True, on_delete = models.CASCADE)
     participant_code = models.CharField(
         max_length=6, verbose_name='Participant Code', unique=True)
-
-    def unique_participant_code(self):
-        code = 'ADV_' + get_random_string(length=6).upper()
-        while Participant.objects.filter(participant_code = code).exists():
-            code = 'ADV_' + get_random_string(length=6).upper()
-        return code
-
-    def save(self, *args, **kwargs):
-        if not self.participant_code:
-            self.participant_code = self.unique_participant_code()
-
-        super().save(*args, **kwargs)
     
     def __str__(self):
         return self.user.username+"\t"+self.college_name
@@ -91,7 +81,7 @@ class Payment(models.Model):
     transaction_id = models.CharField(max_length=100, default='none')
 
     def __str__(self):
-        return self.participant
+        return self.participant.__str__()
 
 class EventRegistration(models.Model):
 
@@ -99,7 +89,7 @@ class EventRegistration(models.Model):
     participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
 
     def __str__(self):
-        return self.participant+"\t"+self.event
+        return self.participant.__str__()+"\t"+self.event.__str__()
 
 class Team(models.Model):
 
@@ -108,7 +98,7 @@ class Team(models.Model):
     event = models.ForeignKey(Events, on_delete = models.CASCADE)
 
     def __str__(self):
-        return self.name+"\t"+self.leader
+        return self.name+"\t"+self.leader.__str__()
 
 class TeamHasMembers(models.Model):
 
@@ -116,4 +106,4 @@ class TeamHasMembers(models.Model):
     participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
 
     def __str__(self):
-        return self.team
+        return self.team.__str__()

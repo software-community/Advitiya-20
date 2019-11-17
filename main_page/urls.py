@@ -16,4 +16,5 @@ urlpatterns=[
     path('payment_redirect/', views.payment_redirect, name = 'payment_redirect'),
     path('webhook/', csrf_exempt(views.webhook), name= 'webhook'),
     path('accounts/google/logout/', auth_views.LogoutView.as_view(), name = "account_logout"),
+    path('profile/', views.profile, name = "profile"),
 ]

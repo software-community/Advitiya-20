@@ -15,11 +15,12 @@ phone_validator = RegexValidator(regex=phone_re, message='Invalid phone number')
 class ParticipationForm(forms.ModelForm):
     phone_number = forms.CharField(required = True, label = 'Participant Phone',validators= [phone_validator],widget=forms.TextInput)
     college_name = forms.CharField(label="College Name",widget=forms.TextInput)
+    name = forms.CharField(label="Name",widget=forms.TextInput)
     ca_code = forms.CharField(label="CA Code", widget=forms.TextInput, required = False)
 
     class Meta:
         model= Participant
-        fields=["phone_number","college_name","ca_code"]
+        fields=["name", "phone_number", "college_name", "ca_code"]
     
     def clean_ca_code(self):
         ref_ca_code = self.cleaned_data['ca_code']
