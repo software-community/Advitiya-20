@@ -59,9 +59,9 @@
                         </div> -->
 
                         <h5>Rules &amp; Team Members</h5>
-                        {% if event.team_lower_limit == event.team_lower_limit %}
+                        {% if event.team_upper_limit == 1 %}
                         <p>This is a solo event.</p>
-                        {{else}}
+                        {%else%}
                         <p>The number of team members may vary from {{ event.team_lower_limit }} to a maximum of {{ event.team_upper_limit }}.</p>
                         
                         {%endif%}
@@ -103,17 +103,18 @@
                         <!-- Post Author Widget -->
                         <div class="post-author-widget">
                             <!-- Thumbnail -->
-                            <a href="{% url 'main_page:register_for_event' event.id  %}" class="btn btn-primary">Register Now!!!</a>
+                            <a href="{{ event.rulebook }}" class="btn btn-primary">Rulebook</a>
                             <!-- Co-ordinator Content -->
                             <div class="post-author-content">
                                 
-                                
-                                <p>Venue of Event: {{event.venue}}</p>
-                                <p>Timings: {{event.start_date_time}}</p>
+                                <br>
+                                <!-- <p>Venue of Event: {{event.venue}}</p>
+                                <p>Timings: {{event.start_date_time}}</p> -->
                                 <h5>Event Coordinator</h5>
                                 <span>Name: {{event.coordinator.name}}</span> 
                                 <span>Contact Details: {{event.coordinator.phone }}</span>
                             </div>
+                            <a href="{% url 'main_page:register_for_event' event.id  %}" class="btn btn-primary">Register Now!!!</a>
                         </div>
                     </div>
 
