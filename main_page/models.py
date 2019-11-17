@@ -69,7 +69,7 @@ class Participant(models.Model):
     college_name = models.CharField(max_length=200, default='no college')
     ca_code = models.ForeignKey(Profile , verbose_name = 'CA Code', null = True, blank= True, on_delete = models.CASCADE)
     participant_code = models.CharField(
-        max_length=6, verbose_name='Participant Code', unique=True)
+        max_length=11, verbose_name='Participant Code', unique=True)
     
     def __str__(self):
         return self.user.username+"\t"+self.college_name
