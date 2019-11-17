@@ -82,7 +82,7 @@ class Participant(models.Model):
         super().save(*args, **kwargs)
     
     def __str__(self):
-        return self.user+"\t"+self.college_name
+        return self.user.username+"\t"+self.college_name
 
 class Payment(models.Model):
 
