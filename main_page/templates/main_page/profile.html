@@ -1,0 +1,105 @@
+{% extends "main_page/base.html" %}
+{% load static %}
+
+{% block body %}
+<section class="bg-img bg-gradient-overlay jarallax">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12">
+                <br><br><br><br><br>
+            </div>
+            <section class="our-schedule-area section-padding-50" style="width: 100%;">
+                <div class="container">
+                    <div class="breadcrumb-content">
+                        <div class="row">
+                            <!-- Heading -->
+                            <div class="col-12">
+                                <div class="section-heading-2 text-center wow fadeInUp" data-wow-delay="300ms">
+                                    {% if participant %}
+                                    <h4>{{participant.name}}</h4>
+                                    <h5 style="color: white;"><b>Email : </b>{{participant.user.email}}</h5>
+                                    <h5 style="color: white;"><b>Advitiya ID : </b>{{participant.participant_code}}</h5>
+                                    {% else %}
+                                    <h5 style="color: white;"><a style="color: brown;"
+                                            href="{% url 'main_page:register_as_participant' %}">Click Here</a>
+                                        for register</h5>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="schedule-tab">
+                                    <!-- Nav Tabs -->
+                                    <ul class="nav nav-tabs wow fadeInUp" data-wow-delay="300ms" id="conferScheduleTab"
+                                        role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="monday-tab" data-toggle="tab"
+                                                href="#step-one" role="tab" aria-controls="step-one"
+                                                aria-expanded="true">Registered Events</a>
+                                        </li>
+                                        <!-- Nav Item -->
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="tuesday-tab" data-toggle="tab" href="#step-two"
+                                                role="tab" aria-controls="step-two" aria-expanded="true">Payment</a>
+                                        </li>
+                                        <!-- Nav Item -->
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="wednesday-tab" data-toggle="tab" href="#step-three"
+                                                role="tab" aria-controls="step-three"
+                                                aria-expanded="true">Certificate</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Tab Content -->
+                                <div class="tab-content" id="conferScheduleTabContent">
+                                    <div class="tab-pane fade show active" id="step-one" role="tabpanel">
+                                        <!-- Single Tab Content -->
+                                        <div class="single-tab-content">
+                                            <div class="row">
+                                                <div class="col-12">
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="step-two" role="tabpanel">
+                                        <!-- Single Tab Content -->
+                                        <div class="single-tab-content">
+                                            <div class="row">
+                                                <div class="col-12">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="step-three" role="tabpanel"
+                                        aria-labelledby="wednesday-tab">
+                                        <!-- Single Tab Content -->
+                                        <div class="single-tab-content">
+                                            <div class="row">
+                                                <div class="col-12">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br><br><br>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    </div>
+</section>
+
+
+{% endblock %}

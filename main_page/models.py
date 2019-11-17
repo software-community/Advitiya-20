@@ -1,7 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.utils.crypto import get_random_string
 import os
+import string
+from ca.models import Profile
 
 # Create your models here.
 
@@ -46,7 +50,7 @@ class Events(models.Model):
     venue = models.CharField(max_length=100)
     team_lower_limit = models.IntegerField()
     team_upper_limit = models.IntegerField()
-    fees = models.IntegerField()
+    fees = models.IntegerField(default = 400)
     coordinator = models.ForeignKey(Coordinator, on_delete=models.CASCADE)
     prize = models.IntegerField()
     rulebook = models.URLField()
@@ -55,3 +59,51 @@ class Events(models.Model):
 
     def __str__(self):
         return self.name+"\t"+self.coordinator.name
+
+
+class Participant(models.Model):
+
+    user = models.OneToOneField(User, on_delete = models.CASCADE)
+    name = models.CharField(max_length=100, blank=False, default = 'Your Name')
+    phone_number = models.CharField(max_length=10, default=None)
+    college_name = models.CharField(max_length=200, default='no college')
+    ca_code = models.ForeignKey(Profile , verbose_name = 'CA Code', null = True, blank= True, on_delete = models.CASCADE)
+    participant_code = models.CharField(
+        max_length=6, verbose_name='Participant Code', unique=True)
+    
+    def __str__(self):
+        return self.user.username+"\t"+self.college_name
+
+class Payment(models.Model):
+
+    participant = models.OneToOneField(Participant, on_delete = models.CASCADE, primary_key = True)
+    payment_request_id = models.CharField(max_length = 100, default = 'none')
+    transaction_id = models.CharField(max_length=100, default='none')
+
+    def __str__(self):
+        return self.participant.__str__()
+
+class EventRegistration(models.Model):
+
+    event = models.ForeignKey(Events, on_delete = models.CASCADE)
+    participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return self.participant.__str__()+"\t"+self.event.__str__()
+
+class Team(models.Model):
+
+    name = models.CharField(max_length = 100)
+    leader = models.ForeignKey(Participant, on_delete = models.CASCADE)
+    event = models.ForeignKey(Events, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return self.name+"\t"+self.leader.__str__()
+
+class TeamHasMembers(models.Model):
+
+    team = models.ForeignKey(Team, on_delete = models.CASCADE)
+    participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return self.team.__str__()

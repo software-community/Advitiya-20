@@ -1,0 +1,65 @@
+{% extends "main_page/base.html" %}
+{% load static %}
+
+{% block body %}
+<section class="breadcrumb-area bg-img bg-gradient-overlay jarallax">
+    <div class="container">
+        <br>
+        <br>
+        <p>
+            <li  style = "margin-top: 4.5em">
+                <ul><h3>Abcff;vnlnva feknfs fcncnK fCIOEWjcl csiOHNSLA</h3></ul>
+                <ul><h3>Abcff;vnlnva feknfs fcncnK fCIOEWjcl csiOHNSLA</h3></ul>
+                <ul><h3>Abcff;vnlnva feknfs fcncnK fCIOEWjcl csiOHNSLA</h3></ul>
+                <ul><h3>Abcff;vnlnva feknfs fcncnK fCIOEWjcl csiOHNSLA</h3></ul>
+            </li>
+        </p>>
+        <br>
+        <br>
+    </div>
+
+</section>
+<!-- Breadcrumb Area End -->
+
+<!-- Our Blog Area Start -->
+<div class="our-blog-area section-padding-100">
+    <div class="container">
+        {% for category, event_list in events.items %}
+        <h1 id="{{ category }}">{{category}}</h1>
+        <div class="row">
+            {% for event in event_list %}
+
+            <!-- Single Blog Area -->
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="single-blog-area style-2 wow fadeInUp" data-wow-delay="300ms">
+                    <!-- Single blog Thumb -->
+                    <div class="single-blog-thumb">
+                        <center><a href="{% url 'main_page:event_page' event.id  %}">
+                                <img src="{{ event.image.url }}" style="height: 200px;" alt=""></a>
+                        </center>
+                    </div>
+                    <div class="single-blog-text text-center">
+                        <a class="blog-title" href="{% url 'main_page:event_page' event.id  %}">{{event.name}}</a>
+                        <!-- Post Meta -->
+                        <div class="post-meta">
+                            <a class="post-date"><i class="zmdi zmdi-alarm-check"></i> {{event.start_date_time}}</a>
+                            <a class="post-author"><i class="zmdi zmdi-account"></i> {{event.coordinator.name}}</a>
+                        </div>
+                        <!-- <p>{{event.description}}
+                        </p> -->
+                    </div>
+                    <div class="blog-btn">
+                        <a href="{% url 'main_page:event_page' event.id  %}"><i
+                                class="zmdi zmdi-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+{%endblock%}
