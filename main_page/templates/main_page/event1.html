@@ -44,8 +44,12 @@
                         <p>{{event.description}}</p>
                         <!-- Blockquote -->
                         <blockquote class="confer-blockquote">
-                            <h5>The registration fees of the event is: {{event.fees}} which needs to be paid once for the whole team if it's a team event or by an individual if it's an individual event</h5>
-                            <h5>The prize money of the event is {{ event.prize }}</h5>
+                            {%if event.team_upper_limit == 1%}
+                            <h5>The registration fees of the event is {{event.fees}} which needs to be paid by the participant prior to registration</h5>
+                            {%else%}
+                            <h5>The registration fees of the event is {{event.fees}} per particicipant. Each participant needs to register at Advitiya, and pay the registration fee. The Team Leader may then register the participants using the participation code provided to each participant.</h5>
+                            <h5>The prize money of this event is {{ event.prize }} thousands.</h5>
+                            {%endif%}
                         </blockquote>
 
                         <!-- <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas obcaecati excepturi esse repellat ratione non cum quibusdam corrupti reprehenderit deserunt consectetur, officia repellendus nisi reiciendis ipsam ut ullam incidunt voluptate.</p>
