@@ -71,8 +71,17 @@
                                         <!-- Single Tab Content -->
                                         <div class="single-tab-content">
                                             <div class="row">
-                                                <div class="col-12">
+                                                <div class="col-12 text-center">
+                                                    {% if participant.payment.transaction_id == '' or participant.payment.transaction_id == 'none' or participant.payment.transaction_id == '0' %}
 
+                                                    <h4 style="color: white;"><a style="color: red;"
+                                                            href="{% url 'main_page:payment' %}">Click Here</a> for
+                                                        Payment</h4>
+                                                    {% else  %}
+                                                    <h4 style="color: white;">Payment Transaction ID :
+                                                        {{participant.payment.transaction_id}}
+                                                    </h4>
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                         </div>
