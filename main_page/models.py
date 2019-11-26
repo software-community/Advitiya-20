@@ -93,7 +93,7 @@ class EventRegistration(models.Model):
 
 class Team(models.Model):
 
-    name = models.CharField(max_length = 100)
+    name = models.CharField(max_length = 100, verbose_name = 'Team Name')
     leader = models.ForeignKey(Participant, on_delete = models.CASCADE)
     event = models.ForeignKey(Events, on_delete = models.CASCADE)
 

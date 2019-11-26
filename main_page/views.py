@@ -288,7 +288,8 @@ def webhook(request):
 
 
 def payment_redirect(request):
-
+    
+    retry_for_payment = 'Payment was Successfull <a href="/events">Click Here</a> for event Registration.'
     if request.GET['payment_status'] == 'Failed':
         retry_for_payment = '<a href="/pay">Click Here</a> for retry Payment.'
 
