@@ -997,6 +997,16 @@ h3 {
   @media only screen and (max-width: 767px) {
     .single-welcome-slide {
       height: 700px; } }
+
+      video {
+        object-fit: cover;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+  
   .single-welcome-slide .welcome-text {
     position: relative;
     z-index: 1; }
