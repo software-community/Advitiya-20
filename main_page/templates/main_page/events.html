@@ -2,22 +2,31 @@
 {% load static %}
 
 {% block body %}
-<section class="breadcrumb-area bg-img bg-gradient-overlay jarallax">
+<section class="bg-img bg-gradient-overlay jarallax">
     <div class="container">
-        <br>
-        <br>
-        <p>
-            <li  style = "margin-top: 4.5em">
-                <ul><h3>Abcff;vnlnva feknfs fcncnK fCIOEWjcl csiOHNSLA</h3></ul>
-                <ul><h3>Abcff;vnlnva feknfs fcncnK fCIOEWjcl csiOHNSLA</h3></ul>
-                <ul><h3>Abcff;vnlnva feknfs fcncnK fCIOEWjcl csiOHNSLA</h3></ul>
-                <ul><h3>Abcff;vnlnva feknfs fcncnK fCIOEWjcl csiOHNSLA</h3></ul>
-            </li>
-        </p>>
-        <br>
-        <br>
+        <div class="row align-items-center">
+            <div class="col-md-12 mx-auto">
+                <div class="breadcrumb-content">
+                    <br><br>
+                    <div class="alert alert-primary mx-auto" role="alert">
+                        <h3>Important</h3>
+                        <br>
+                        <ul>
+                            <li style="list-style-type:disc;">
+                                Prior to registration, please ensure that you registered <a
+                                    href="{% url 'main_page:register_as_participant' %}">(Click Here)</a> at
+                                Advitiya, and paid <a href="{% url 'main_page:payment' %}">(Click Here)</a> the
+                                registration fee.
+                            </li>
+                        </ul>
+                        <br>
+                    </div>
+                    <br><br>
+                </div>
+            </div>
+        </div>
     </div>
-
+    </div>
 </section>
 <!-- Breadcrumb Area End -->
 

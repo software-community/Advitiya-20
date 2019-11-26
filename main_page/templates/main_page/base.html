@@ -62,7 +62,7 @@
                                     <ul class="dropdown">
                                         <li><a href="{% url 'main_page:profile' %}">Profile</a></li>
                                         <li><a
-                                                href="{% url 'main_page:account_logout' %}?next={% url 'main_page:index' %}">Logout</a>
+                                                href="{% url 'main_page:account_logout' %}?next={{ request.path}}">Logout</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -74,7 +74,7 @@
                             <!-- <a href="{% provider_login_url 'google' %}?next={% url 'main_page:index' %}"
                                 class="vcenter"><img src="{% static 'ca/img/gsignin.png' %}" class='gsignin-btn'
                                     height="50px" width="50px" alt="" srcset="">google</a> -->
-                            <a href="{% provider_login_url 'google' %}?next={% url 'main_page:index' %}"
+                            <a href="{% provider_login_url 'google' %}?next={{ request.path}}"
                                 class="btn btn-secondary" style="margin-bottom: 3px;">
                                 <i class="fab fa-google"></i> Sign In</a>
                             {% endif %}
