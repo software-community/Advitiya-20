@@ -9,6 +9,7 @@ from ca.models import Profile
 
 @staff_member_required
 def gen_ca_csv(request):
+    
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="ca_detail.csv"'
 
