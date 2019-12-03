@@ -38,12 +38,21 @@
                                 <th scope="row">Point of Contact Phone:</th>
                                 <td>{{ profile.point_of_contact_phone }}</td>
                             </tr>
+                            <tr>
+                                <th scope="row">Paid for Category A(9-10th class):</th>
+                                <td>{{ num_cat_a }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Paid for Category B(11-12th class)</th>
+                                <td>{{ num_cat_b }}</td>
+                            </tr>
                         </tbody>
                     </table>
                     <center>
-                        <button class="btn-primary primary update-pro"><a style="color: white;"
-                                href="{% url 'TSP:home' %}">
-                                Back</a></button>
+                        <a class="btn-primary primary " style="color: white;" href="{% url 'TSP:home' %}">
+                            Back</a>
+                        <a class="btn-primary primary " style="color: white;" href="{% url 'TSP:payment_view' %}">
+                            Pay Fee</a>
                     </center>
                 </div>
             </div>
