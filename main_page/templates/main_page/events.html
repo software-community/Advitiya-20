@@ -33,6 +33,16 @@
 <!-- Our Blog Area Start -->
 <div class="our-blog-area section-padding-100">
     <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn-group flex-wrap" role="group" aria-label="Basic example">
+                    {% for category, event_list in events.items %}
+                    <a href="#{{category}}" type="button" style="color: white;" class="btn btn-secondary">{{category}}</a>
+                    {% endfor %}
+                </div>
+                <br><br>
+            </div>
+        </div>
         {% for category, event_list in events.items %}
         <h1 id="{{ category }}">{{category}}</h1>
         <div class="row">

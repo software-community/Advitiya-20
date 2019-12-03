@@ -53,7 +53,7 @@
                                 <li><a href="{% url 'main_page:index' %}">Home</a></li>
 
                                 <li><a href="{% url 'main_page:events'%}">Events</a></li>
-                                
+
                                 <li><a href="{% url 'TSP:home' %}">TSP</a></li>
 
                                 <li><a href="{% url 'ca:home' %}">Campus Ambassador</a></li>
@@ -74,8 +74,8 @@
                             <!-- <a href="{% provider_login_url 'google' %}?next={% url 'main_page:index' %}"
                                 class="vcenter"><img src="{% static 'ca/img/gsignin.png' %}" class='gsignin-btn'
                                     height="50px" width="50px" alt="" srcset="">google</a> -->
-                            <a href="{% provider_login_url 'google' %}?next={{ request.path}}"
-                                class="btn btn-secondary" style="margin-bottom: 3px;">
+                            <a href="{% provider_login_url 'google' %}?next={{ request.path}}" class="btn btn-secondary"
+                                style="margin-bottom: 3px;">
                                 <i class="fab fa-google"></i> Sign In</a>
                             {% endif %}
                         </div>
@@ -125,6 +125,7 @@
                             <p>Indian Institute of Technology Ropar, Bara Phool, Birla Seed Farms, Rupnagar,Punjab,
                                 INDIA 140001
                             </p>
+                            <p><i class="fa fa-phone mr-3"></i>+91 9915405007</p>
                             <p><i class="fa fa-phone mr-3"></i>+91 8619174962</p>
                             <p><i class="fa fa-envelope-o mr-3"></i>advitiya@iitrpr.ac.in</p>
                         </div>
