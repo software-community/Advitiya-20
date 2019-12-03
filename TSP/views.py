@@ -121,8 +121,7 @@ def webhook(request):
                     payment_detail.transaction_id = data['payment_id']
                     # str(participantpaspaid.paid_subcategory) inlcudes name of category also
                     send_mail(
-                        'Payment confirmation of ' +
-                        ' to TSP | ADVITIYA 2020',
+                        'Payment confirmation of TSP | ADVITIYA 2020',
                         'Dear ' + str(payment_detail.profile.user.get_full_name()) + '\n\nThis is to confirm '+
                         'that your payment to ADVITIYA 2020 ' +
                         ' is successful.\n\n'+

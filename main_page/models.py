@@ -19,16 +19,16 @@ def get_file_path(instance, filename):
 
 CATEGORY_CHOCIES = (
     ('1', 'Aeromodelling'),
-    ('2', 'Finance'),
-    ('3', 'Coding'),
-    ('4', 'Robotics'),
+    ('7', 'Astronomy'),
     ('5', 'Automotive'),
     ('6', 'CAD'),
-    ('7', 'Astronomy'),
-    ('8', 'Gaming'),
-    ('9', 'Quizzing'),
+    ('3', 'Coding'),
     ('10', 'Entrepreneurship'),
+    ('2', 'Finance'),
+    ('8', 'Gaming'),
     ('11', 'Photo Editing'),
+    ('4', 'Robotics'),
+    ('9', 'Quizzing'),
 )
 
 
