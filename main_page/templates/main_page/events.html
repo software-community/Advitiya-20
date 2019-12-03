@@ -31,20 +31,23 @@
 <!-- Breadcrumb Area End -->
 
 <!-- Our Blog Area Start -->
-<div class="our-blog-area section-padding-100">
+<div class="our-blog-area">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <br>
                 <div class="btn-group flex-wrap" role="group" aria-label="Basic example">
                     {% for category, event_list in events.items %}
-                    <a href="#{{category}}" type="button" style="color: white;" class="btn btn-secondary">{{category}}</a>
+                    <a href="#{{category}}" style="color: white; text-transform: uppercase;"
+                        class="btn confer-btn">{{category}}
+                    </a>
                     {% endfor %}
                 </div>
                 <br><br>
             </div>
         </div>
         {% for category, event_list in events.items %}
-        <h1 id="{{ category }}">{{category}}</h1>
+        <h1 id="{{ category }}" style="text-transform: uppercase;">{{category}}</h1>
         <div class="row">
             {% for event in event_list %}
 

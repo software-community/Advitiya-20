@@ -28,8 +28,8 @@ class Profile(models.Model):
 
 class Payment(models.Model):
     profile = models.ForeignKey(Profile, on_delete = models.CASCADE)
-    category_a = models.PositiveSmallIntegerField(verbose_name="Category A(9-10th class)")
-    category_b = models.PositiveSmallIntegerField(verbose_name="Category B(11-12th class)")
+    category_a = models.PositiveSmallIntegerField(verbose_name="Category A (9-10th class)")
+    category_b = models.PositiveSmallIntegerField(verbose_name="Category B (11-12th class)")
     payment_request_id = models.CharField(max_length = 100, default = 'none')
     transaction_id = models.CharField(max_length=100, default='none')
 
