@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 import re
-from TSP.models import Profile
+from TSP.models import Profile, Payment
 
 
 phone_re = re.compile(r'[0-9]{10,10}')
@@ -20,3 +20,9 @@ class registerForm(forms.ModelForm):
     class Meta:
         model= Profile
         fields=["school_name","school_address","school_phone","point_of_contact_name","point_of_contact_phone"]
+
+class PaymentForm(forms.ModelForm):
+
+    class Meta:
+        model = Payment
+        fields=["category_a", "category_b"]
