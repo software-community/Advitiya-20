@@ -29,6 +29,7 @@ CATEGORY_CHOCIES = (
     ('11', 'Photo Editing'),
     ('4', 'Robotics'),
     ('9', 'Quizzing'),
+    ('12', 'Departmental Events'),
 )
 
 
