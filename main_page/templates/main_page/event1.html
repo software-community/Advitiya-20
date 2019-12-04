@@ -8,12 +8,12 @@
         <div class="row h-100 align-items-center">
             <div class="col-12">
                 <div class="breadcrumb-content">
-                    <h2 class="page-title" >Event Details</h2>
+                    <h2 class="page-title" >{{ event.name }}</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{% url 'main_page:index' %}">Advitiya</a></li>
                             <li class="breadcrumb-item"><a href="{% url 'main_page:events' %}"> Events</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{{ event.name }}</li>
+                            <!-- <li class="breadcrumb-item active" aria-current="page">{{ event.name }}</li> -->
                         </ol>
                     </nav>
                 </div>
