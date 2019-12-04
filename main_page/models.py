@@ -46,7 +46,7 @@ class Events(models.Model):
     category = models.CharField(max_length=20, choices=CATEGORY_CHOCIES)
     image = models.ImageField(
         upload_to=get_file_path, null=True, blank=True)
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     venue = models.CharField(max_length=100)
     team_lower_limit = models.IntegerField()
