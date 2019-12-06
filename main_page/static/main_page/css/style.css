@@ -595,15 +595,15 @@ h3 {
   height: 40px;
   bottom: 40px;
   
-  color: #ffffff;
+  color: blue;
   text-align: center;
   -webkit-transition-duration: 500ms;
   -o-transition-duration: 500ms;
   transition-duration: 500ms;
   border-radius: 50%;
-  -webkit-box-shadow: 0 2px 40px 8px rgba(15, 15, 15, 0.15);
-  box-shadow: 0 2px 40px 8px rgba(15, 15, 15, 0.15);
-  z-index: 15962536; }
+  /* -webkit-box-shadow: 0 2px 40px 8px rgba(10, 10, 10, 0.973); */
+   /* box-shadow: 0 2px 40px 8px rgba(156, 151, 151, 0.925); */
+  z-index: 15962536; } 
   @media only screen and (max-width: 767px) {
     #scrollUp {
       right: 20px;
@@ -1560,10 +1560,10 @@ h3 {
 .breadcrumb-area {
   position: relative;
   z-index: 1;
-  height: 470px; }
+  height: 320px; }
   @media only screen and (max-width: 767px) {
     .breadcrumb-area {
-      height: 300px; } }
+      height: 180px; } }
   .breadcrumb-area .page-title {
     color: #ffffff;
     font-size: 45px;
