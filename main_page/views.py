@@ -56,7 +56,7 @@ def registerAsParticipant(request):
     
     if prev_participant_registration_details:
         return render(request, 'main_page/show_info.html', 
-            {'message': 'You have already registered as a Participant. Your PARTICIPATION CODE IS <b>'
+            {'message': 'You have already registered as a Participant. Your ADVITIYA ID IS <b>'
              + str(prev_participant_registration_details.participant_code)+'</b>', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
     
     if request.method == 'POST':
@@ -76,7 +76,7 @@ def registerAsParticipant(request):
                       fail_silently=True,
                       html_message='Dear ' + str(request.user.get_full_name()) +
                       ',<br><br>You are successfully registered for participation in events at Advitiya 2020.' +
-                      'We are excited for your journey with us.<br><br>Your PARTICIPATION CODE is <b>' +
+                      'We are excited for your journey with us.<br><br>Your ADVITIYA ID is <b>' +
                       str(new_participation_form.participant_code) +  '''</b> <br><br> <a href="'''+
                       reverse('main_page:payment') +'''">Click Here</a> for Payment. Your registration is 
                                 not valid unless you make the payment.'''+
@@ -85,7 +85,7 @@ def registerAsParticipant(request):
                       '<br>Public Relations Team')
             return render(request, 'main_page/show_info.html', {'message': '''You are successfully registered for 
                         participation in events at Advitiya.
-                                Your PARTICIPATION CODE IS <b>''' + str(new_participation_form.participant_code)+'</b>' +
+                                Your ADVITIYA ID IS <b>''' + str(new_participation_form.participant_code)+'</b>' +
                                 '''<br> <a href="'''+ reverse('main_page:payment') +'''">Click Here</a> for Payment. Your registration is 
                                 not valid unless you make the payment.''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES })
     else:

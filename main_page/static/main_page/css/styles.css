@@ -38,7 +38,7 @@ you can use the generic selector below, but it's slower:
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 }
-/*.arrow_up:before {
+.arrow_up:before {
 	content: "\21";
 }
 .arrow_down:before {
@@ -1117,7 +1117,7 @@ you can use the generic selector below, but it's slower:
 }
 .icon_clipboard:before {
 	content: "\e0e6";
-}*/
+}
 
 
 	.glyph {
