@@ -41,27 +41,9 @@
                         <!-- Post Title -->
                         <h4 class="post-title">ABOUT EVENT</h4>
 
+                        <h5>The prize money for this event is {{ event.prize }} thousands.</h5>
                         <p>{{event.description}}</p>
-                        <!-- Blockquote -->
-                        <blockquote class="confer-blockquote">
-                            {%if event.team_upper_limit == 1%}
-                            <h5>The registration fees of the event is {{event.fees}} which needs to be paid by the participant prior to registration</h5>
-                            {%else%}
-                            <h5>The registration fees of the event is {{event.fees}} per particicipant. Each participant needs to register at Advitiya, and pay the registration fee. The Team Leader may then register the participants using the participation code provided to each participant.</h5>
-                            <h5>The prize money of this event is {{ event.prize }} thousands.</h5>
-                            {%endif%}
-                        </blockquote>
-
-                        <!-- <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas obcaecati excepturi esse repellat ratione non cum quibusdam corrupti reprehenderit deserunt consectetur, officia repellendus nisi reiciendis ipsam ut ullam incidunt voluptate.</p>
-                        <div class="row">
-                            <div class="col-6">
-                                <img class="mb-30" src="{% static 'ca/img/favicon.jpg' %}" alt="">
-                            </div>
-                            <div class="col-6">
-                                <img class="mb-30" src="{% static 'ca/img/favicon.jpg' %}" alt="">
-                            </div>
-                        </div> -->
-
+<br>
                         <h5>Rules &amp; Team Members</h5>
                         {% if event.team_upper_limit == 1 %}
                         <p>This is a solo event.</p>
@@ -73,27 +55,28 @@
                         <p>
                             The rulebook of the event can be seen here.<a href="{{ event.rulebook }}">Click here</a>
                         </p>
+
+                        <br>
+                        {%if event.team_upper_limit != 1%}
+                            <!-- Blockquote -->
+                            <blockquote class="confer-blockquote">
+                                <p>Each participant needs to register at Advitiya, and pay the registration fee. The Team Leader may then register the participants using the participation code provided to each participant.</p>
+                            </blockquote>
+                        {%endif%}
+
+                        <!-- <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas obcaecati excepturi esse repellat ratione non cum quibusdam corrupti reprehenderit deserunt consectetur, officia repellendus nisi reiciendis ipsam ut ullam incidunt voluptate.</p>
+                        <div class="row">
+                            <div class="col-6">
+                                <img class="mb-30" src="{% static 'ca/img/favicon.jpg' %}" alt="">
+                            </div>
+                            <div class="col-6">
+                                <img class="mb-30" src="{% static 'ca/img/favicon.jpg' %}" alt="">
+                            </div>
+                        </div> -->
+
                     </div>
 
                     <!-- Post Tags & Social Info -->
-                    <div class="post-tags-social-area mt-30 pb-5 d-flex flex-wrap align-items-center">
-                        <!-- Popular Tags -->
-                        <div class="popular-tags d-flex align-items-center">
-                            <p><i class="zmdi zmdi-label"></i></p>
-                            <ul class="nav">
-                                <!-- <li><a href="#">{{ event.category }}</a></li> -->
-                                <li><a href="#event">{{ event.name  }}</a></li>
-                            </ul>
-                        </div>
-
-                        <!-- Author Social Info -->
-                        <div class="author-social-info">
-                            
-                            <a href="https://twitter.com/advitiyaiitrpr?lang=en"><i class="zmdi zmdi-twitter"></i></a>
-                            <a href="https://www.instagram.com/advitiya_iitrpr/?hl=en"><i class="zmdi zmdi-instagram"></i></a>
-                            <a href="https://www.facebook.com/advitiya.iitrpr/"><i class="zmdi zmdi-facebook"></i></a>
-                        </div>
-                    </div>
 
                 </div>
             </div>
