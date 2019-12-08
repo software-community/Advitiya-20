@@ -1668,6 +1668,10 @@ h3 {
         padding-left: 15px;
         padding-right: 15px; } }
 
+.our-blog-area .events{
+  padding: 15px; border: groove; border-width: thick; border-radius: 10px;
+}
+
 .single-blog-area {
   position: relative;
   z-index: 1;
