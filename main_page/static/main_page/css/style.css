@@ -353,6 +353,15 @@ input:required {
   padding-top: 100px;
   padding-bottom: 0; }
 
+.section-padding-50-0 {
+  padding-top: 50px;
+  padding-bottom: 0; }
+
+.section-padding-50-0 .btn-primary{
+  font-weight: bold;
+  border: solid;
+}
+
 /* :: 3.0 Preloader Area CSS */
 #preloader {
   position: fixed;
@@ -1482,7 +1491,6 @@ h3 {
           @media only screen and (min-width: 480px) and (max-width: 767px) {
             .about-us-countdown-area .countdown-up-area .countdown-timer #clock div span {
               font-size: 12px; } }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* :: 12.0 Speaker Area CSS */
 .our-speaker-area {
   position: relative;
@@ -1668,6 +1676,10 @@ h3 {
         padding-left: 15px;
         padding-right: 15px; } }
 
+.our-blog-area .events{
+  padding: 15px; border: groove; border-width: thick; border-radius: 10px;
+}
+
 .single-blog-area {
   position: relative;
   z-index: 1;
@@ -1754,6 +1766,12 @@ h3 {
 .post-details-content {
   position: relative;
   z-index: 1; }
+  .post-details-content h5{
+    font-size: 18px;
+  }
+  .post-details-content p{
+    color: black;
+  }
   .post-details-content .post-blog-thumbnail {
     position: relative;
     z-index: 1;
@@ -1782,12 +1800,12 @@ h3 {
 .confer-blockquote {
   padding-left: 10%;
   margin: 30px 0; }
-  .confer-blockquote h5 {
-    font-size: 18px;
+  .confer-blockquote p {
+    font-size: 16px;
     font-style: italic;
     font-weight: 400;
     line-height: 1.6;
-    color: #111343;
+    color: #7a7b95;
     border-left: 3px solid black;
     padding-left: 10px;
     margin-bottom: 0; }

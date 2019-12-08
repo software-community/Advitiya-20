@@ -22,7 +22,12 @@ def profile(request):
         participant = Participant.objects.get(user=request.user)
     except:
         participant = None
-    return render(request,'main_page/profile.html', {'participant' : participant,'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+    try:
+        events_participated = EventRegistration.objects.filter(participant=participant)
+    except:
+        events_participated = None
+    return render(request,'main_page/profile.html', {'participant' : participant,'CATEGORY_CHOCIES': CATEGORY_CHOCIES,
+                'EVENTS_PARTICIPATED': events_participated,})
 
 def events(request):
     # return render(request, 'main_page/show_info.html', {'message':"This Section is revealing soon.",
@@ -109,8 +114,9 @@ def registerForEvent(request, event_id):
                     <a href="/register-as-participant" >Click Here</a>''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
     
     try:
-        EventRegistration.objects.get(participant = participant)
-        return render(request, 'main_page/show_info.html', {'message':"You have already registered for this event.",
+        already_participant = EventRegistration.objects.get(participant = participant, event = event)
+        if(len(already_participant)!=0):
+            return render(request, 'main_page/show_info.html', {'message':"You have already registered for this event.",
                     'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
     except:
         pass

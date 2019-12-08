@@ -11,7 +11,7 @@
                     <div class="alert alert-primary mx-auto" role="alert">
                         <h3>Important Note</h3>
                             <ul>
-                            After you pay the nominal registration fee of Rs. 400, you may participate in any number of events.
+                                The registration fee for the events is Rs. 400 per participant. After paying this nominal fee, one can participate in any no. of events.
                             </ul>
                             <br>
                         <h3>Event Registration Process</h3>
@@ -55,8 +55,9 @@
             </div>
         </div>
         {% for category, event_list in events.items %}
-        <h1 id="{{ category }}" style="text-transform: uppercase;">{{category}}</h1>
-        <div class="row">
+        <br>
+        <h2 id="{{ category }}" style="text-transform: uppercase;">{{category}}</h2>
+        <div class="row events">
             {% for event in event_list %}
 
             <!-- Single Blog Area -->
