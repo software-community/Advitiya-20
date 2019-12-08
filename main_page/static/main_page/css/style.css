@@ -353,6 +353,15 @@ input:required {
   padding-top: 100px;
   padding-bottom: 0; }
 
+.section-padding-50-0 {
+  padding-top: 50px;
+  padding-bottom: 0; }
+
+.section-padding-50-0 .btn-primary{
+  font-weight: bold;
+  border: solid;
+}
+
 /* :: 3.0 Preloader Area CSS */
 #preloader {
   position: fixed;
@@ -1482,7 +1491,6 @@ h3 {
           @media only screen and (min-width: 480px) and (max-width: 767px) {
             .about-us-countdown-area .countdown-up-area .countdown-timer #clock div span {
               font-size: 12px; } }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* :: 12.0 Speaker Area CSS */
 .our-speaker-area {
   position: relative;

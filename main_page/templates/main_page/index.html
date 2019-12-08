@@ -59,8 +59,16 @@
     <!-- Welcome Area End -->
 
         <!-- About Us And Countdown Area Start -->
-        <section class="about-us-countdown-area section-padding-100-0" id="about">
+        <section class="about-us-countdown-area section-padding-50-0" id="about">
+            <center>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'main_page:events'%}" class="btn btn-primary">Register For Events!!!</a>
+                {% else %}
+                    <a href="{% provider_login_url 'google' %}?next={% url 'main_page:events'%}" class="btn btn-primary">Register For Events!!!</a>
+                {% endif %}
+            </center>
             <div class="container">
+                <br><br>
                 <div class="row align-items-center">
                     <!-- About Content -->
                     <div class="col-12 col-md-6">
@@ -246,369 +254,6 @@
 </section>
 <!-- Our Schedule Area End -->
 
-<!-- Our Ticket Pricing Table Area Start -->
-<section class="our-ticket-pricing-table-area bg-img bg-gradient-overlay section-padding-100-0 jarallax"
-    style="background-image: url(static/main_page/img/bg-img/14.jpg);">
-    <!-- <div class="container">
-            <div class="row">
-                 Heading -->
-    <div id="Our_Team" class="col-12">
-        <div class="section-heading text-center wow fadeInUp" data-wow-delay="300ms">
-            <h4>Our Team</h4>
-        </div>
-    </div>
-    </div>
-
-
-    </div>
-    <div class="container">
-        <div class="row">
-             <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
-                  
-                    <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Rahul_OC.jpg' %}" style="height: 280px;"
-                            alt="">
-                    </div>
-                   
-                    <div class="social-info">
-                        <a href="mailto:2017chb1052@iitrpr.ac.in?Subject=Regarding%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
-                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
-                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                    </div>
-                  
-                    <div class="speaker-info">
-                        <h5>Rahul Bharti</h5>
-                        <p>Overall Coordinator</p>
-                    </div>
-                </div>
-            </div>
-
-            
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
-                  
-                    <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Ashish_finance.jpeg' %}"style="height: 280px;"
-                            alt="">
-                    </div>
-                   
-                    <div class="social-info">
-                        <a href="mailto:2017eeb1131@iitrpr.ac.in?Subject=Regarding%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
-                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
-                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                    </div>
-                  
-                    <div class="speaker-info">
-                        <h5>Ashish Bedi</h5>
-                        <p>Finance Head</p>
-                    </div>
-                </div>
-            </div>
-
-            
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
-                  
-                    <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Abhinash_Event_Head.jpg' %}"style="height: 280px;"
-                            alt="">
-                    </div>
-                   
-                    <div class="social-info">
-                        <a href="mailto:2017meb1183@iitrpr.ac.in?Subject=Regarding%20Events%20at%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
-                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
-                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                    </div>
-                  
-                    <div class="speaker-info">
-                        <h5>Abhinash Barnwal</h5>
-                        <p>Events Head</p>
-                    </div>
-                </div>
-            </div>
-
-            
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
-                  
-                    <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Shubhendra_event.jpg' %}"style="height: 280px;"
-                            alt="">
-                    </div>
-                   
-                    <div class="social-info">
-                        <a href="mailto:2017eeb1169@iitrpr.ac.in?Subject=Regarding%20Events%20at%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
-                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
-                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                    </div>
-                  
-                    <div class="speaker-info">
-                        <h5>Shubhendra Gautam</h5>
-                        <p>Events Head</p>
-                    </div>
-                </div>
-            </div>
-
-            
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
-                  
-                    <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Kanishk_public_relations.jpg' %}"style="height: 280px;"
-                            alt="">
-                    </div>
-                   
-                    <div class="social-info">
-                        <a href="mailto:2017chb1045@iitrpr.ac.in?Subject=Regarding%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
-                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
-                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                    </div>
-                  
-                    <div class="speaker-info">
-                        <h5>Kanishk Kumar</h5>
-                        <p>Public Relations Head</p>
-                    </div>
-                </div>
-            </div>
-
-            
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
-                  
-                    <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Ujjwal_marketing.jpg' %}"style="height: 280px;"
-                            alt="">
-                    </div>
-                   
-                    <div class="social-info">
-                        <a href="mailto:2017meb1246@iitrpr.ac.in?Subject=Regarding%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
-                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
-                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                    </div>
-                  
-                    <div class="speaker-info">
-                        <h5>Ujjwal Goel</h5>
-                        <p>Marketing Head</p>
-                    </div>
-                </div>
-            </div>
-
-            
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
-                  
-                    <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Abhishek_hospitality_head.jpg' %}"style="height: 280px;"
-                            alt="">
-                    </div>
-                   
-                    <div class="social-info">
-                        <a href="mailto:2017eeb1121@iitrpr.ac.in?Subject=Hospitality%20at%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
-                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
-                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                    </div>
-                  
-                    <div class="speaker-info">
-                        <h5>Abhishek Balhara</h5>
-                        <p>Head, Hospitality Team</p>
-                    </div>
-                </div>
-            </div>
-
-            
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
-                  
-                    <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Akash_tsp.jpg' %}"style="height: 280px;"
-                            alt="">
-                    </div>
-                   
-                    <div class="social-info">
-                        <a href="mailto:2017ceb1002@iitrpr.ac.in?Subject=Regarding%20Techno%20School%20Program%20at%Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
-                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
-                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                    </div>
-                  
-                    <div class="speaker-info">
-                        <h5>Akash Jangid</h5>
-                        <p>School Outreach Program Head</p>
-                    </div>
-                </div>
-            </div>
-
-            
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
-                  
-                    <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Vineet_special_talks.jpg' %}"style="height: 280px;"
-                            alt="">
-                    </div>
-                   
-                    <div class="social-info">
-                        <a href="mailto:2017csb1119@iitrpr.ac.in?Subject=Regarding%20Special%20Lectures%20at%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
-                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
-                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                    </div>
-                  
-                    <div class="speaker-info">
-                        <h5>Vineet Madan</h5>
-                        <p>Organizer, Special Lectures</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
-                  
-                    <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Adarsh_web.jpg' %}"style="height: 280px;"
-                            alt="">
-                    </div>
-                   
-                    <div class="social-info">
-                        <a href="mailto:2017csb1064@iitrpr.ac.in?Subject=Regarding%20Advitiya%20Website" target="_top"><i class="zmdi zmdi-email"></i></a>
-                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
-                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                    </div>
-                  
-                    <div class="speaker-info">
-                        <h5>Adarsh Kumar</h5>
-                        <p>Head, Web Development Team</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
-                  
-                    <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Dilip_web.jpg' %}"style="height: 280px;"
-                            alt="">
-                    </div>
-                   
-                    <div class="social-info">
-                        <a href="mailto:2017csb1073@iitrpr.ac.in?Subject=Regarding%20Advitiya%20Website" target="_top"><i class="zmdi zmdi-email"></i></a>
-                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
-                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                    </div>
-                  
-                    <div class="speaker-info">
-                        <h5>Dilip Sharma</h5>
-                        <p>Head, Web Development Team</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
-                  
-                    <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Rohit_posters.jpg' %}"style="height: 280px;"
-                            alt="">
-                    </div>
-                   
-                    <div class="social-info">
-                        <a href="mailto:2017csb1087@iitrpr.ac.in?Subject=Regarding%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
-                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
-                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                    </div>
-                  
-                    <div class="speaker-info">
-                        <h5>Rohit Katle</h5>
-                        <p>Head, Creativity Team</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
-                  
-                    <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Mayank_decoration.jpg' %}"style="height: 280px;"
-                            alt="">
-                    </div>
-                   
-                    <div class="social-info">
-                        <a href="mailto:2017eeb1150@iitrpr.ac.in?Subject=Regarding%20Decoration%20at%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
-                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
-                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                    </div>
-                  
-                    <div class="speaker-info">
-                        <h5>Mayank Raj</h5>
-                        <p>Head, Decoration Team</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
-                  
-                    <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Hardik_pronites.jpg' %}"style="height: 280px;"
-                            alt="">
-                    </div>
-                   
-                    <div class="social-info">
-                        <a href="mailto:2017ceb1007@iitrpr.ac.in?Subject=Regarding%20Entertainment%20Nights%at%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
-                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
-                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                    </div>
-                  
-                    <div class="speaker-info" >
-                        <h5>Hardik Goyal</h5>
-                        <p>Pronites Head</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
-                  
-                    <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Vedant_content_writing.jpg' %}"style="height: 280px;"
-                            alt="">
-                    </div>
-                   
-                    <div class="social-info">
-                        <a href="mailto:2017meb1247@iitrpr.ac.in?Subject=Regarding%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
-                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
-                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
-                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
-                    </div>
-                  
-                    <div class="speaker-info">
-                        <h5>Vedant Paithane</h5>
-                        <p>Head, Content Writing Team</p>
-                    </div>
-                </div>
-            </div> 
-            
-            
-
-        </div>
-    </div>
-    </div>
-</section>
-
-<!-- Our Speakings Area Start -->
 <section class="our-sponsor-client-area section-padding-100">
     <div class="container">
         <div class="row">
@@ -705,6 +350,371 @@
 
 
 </section>
+
+<!-- Our Ticket Pricing Table Area Start -->
+<section class="our-ticket-pricing-table-area bg-img bg-gradient-overlay section-padding-100-0 jarallax"
+    style="background-image: url(static/main_page/img/bg-img/14.jpg);">
+    <!-- <div class="container">
+            <div class="row">
+                 Heading -->
+    <div id="Our_Team" class="col-12">
+        <div class="section-heading text-center wow fadeInUp" data-wow-delay="300ms">
+            <h4>Our Team</h4>
+        </div>
+    </div>
+    </div>
+
+
+    </div>
+    <div class="container">
+        <div class="row">
+             <div class="col-12 col-md-6 col-lg-3">
+                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                  
+                    <div class="speaker-single-thumb">
+                        <img src="{% static 'main_page/img/core_team/Rahul_OC.jpg' %}"
+                            alt="">
+                    </div>
+                   
+                    <div class="social-info">
+                        <a href="mailto:2017chb1052@iitrpr.ac.in?Subject=Regarding%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
+                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                    </div>
+                  
+                    <div class="speaker-info">
+                        <h5>Rahul Bharti</h5>
+                        <p>Overall Coordinator</p>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                  
+                    <div class="speaker-single-thumb">
+                        <img src="{% static 'main_page/img/core_team/Ashish_finance.jpeg' %}"
+                            alt="">
+                    </div>
+                   
+                    <div class="social-info">
+                        <a href="mailto:2017eeb1131@iitrpr.ac.in?Subject=Regarding%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
+                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                    </div>
+                  
+                    <div class="speaker-info">
+                        <h5>Ashish Bedi</h5>
+                        <p>Finance Head</p>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                  
+                    <div class="speaker-single-thumb">
+                        <img src="{% static 'main_page/img/core_team/Abhinash_Event_Head.jpg' %}"
+                            alt="">
+                    </div>
+                   
+                    <div class="social-info">
+                        <a href="mailto:2017meb1183@iitrpr.ac.in?Subject=Regarding%20Events%20at%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
+                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                    </div>
+                  
+                    <div class="speaker-info">
+                        <h5>Abhinash Barnwal</h5>
+                        <p>Events Head</p>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                  
+                    <div class="speaker-single-thumb">
+                        <img src="{% static 'main_page/img/core_team/Shubhendra_event.jpg' %}"
+                            alt="">
+                    </div>
+                   
+                    <div class="social-info">
+                        <a href="mailto:2017eeb1169@iitrpr.ac.in?Subject=Regarding%20Events%20at%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
+                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                    </div>
+                  
+                    <div class="speaker-info">
+                        <h5>Shubhendra Gautam</h5>
+                        <p>Events Head</p>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                  
+                    <div class="speaker-single-thumb">
+                        <img src="{% static 'main_page/img/core_team/Kanishk_public_relations.jpg' %}"
+                            alt="">
+                    </div>
+                   
+                    <div class="social-info">
+                        <a href="mailto:2017chb1045@iitrpr.ac.in?Subject=Regarding%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
+                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                    </div>
+                  
+                    <div class="speaker-info">
+                        <h5>Kanishk Kumar</h5>
+                        <p>Public Relations Head</p>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                  
+                    <div class="speaker-single-thumb">
+                        <img src="{% static 'main_page/img/core_team/Ujjwal_marketing.jpg' %}"
+                            alt="">
+                    </div>
+                   
+                    <div class="social-info">
+                        <a href="mailto:2017meb1246@iitrpr.ac.in?Subject=Regarding%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
+                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                    </div>
+                  
+                    <div class="speaker-info">
+                        <h5>Ujjwal Goel</h5>
+                        <p>Marketing Head</p>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                  
+                    <div class="speaker-single-thumb">
+                        <img src="{% static 'main_page/img/core_team/Abhishek_hospitality_head.jpg' %}"
+                            alt="">
+                    </div>
+                   
+                    <div class="social-info">
+                        <a href="mailto:2017eeb1121@iitrpr.ac.in?Subject=Hospitality%20at%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
+                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                    </div>
+                  
+                    <div class="speaker-info">
+                        <h5>Abhishek Balhara</h5>
+                        <p>Head, Hospitality Team</p>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                  
+                    <div class="speaker-single-thumb">
+                        <img src="{% static 'main_page/img/core_team/Akash_tsp.jpg' %}"
+                            alt="">
+                    </div>
+                   
+                    <div class="social-info">
+                        <a href="mailto:2017ceb1002@iitrpr.ac.in?Subject=Regarding%20Techno%20School%20Program%20at%Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
+                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                    </div>
+                  
+                    <div class="speaker-info">
+                        <h5>Akash Jangid</h5>
+                        <p>School Outreach Program Head</p>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                  
+                    <div class="speaker-single-thumb">
+                        <img src="{% static 'main_page/img/core_team/Vineet_special_talks.jpg' %}"
+                            alt="">
+                    </div>
+                   
+                    <div class="social-info">
+                        <a href="mailto:2017csb1119@iitrpr.ac.in?Subject=Regarding%20Special%20Lectures%20at%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
+                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                    </div>
+                  
+                    <div class="speaker-info">
+                        <h5>Vineet Madan</h5>
+                        <p>Organizer, Special Lectures</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                  
+                    <div class="speaker-single-thumb">
+                        <img src="{% static 'main_page/img/core_team/Adarsh_web.jpg' %}"
+                            alt="">
+                    </div>
+                   
+                    <div class="social-info">
+                        <a href="mailto:2017csb1064@iitrpr.ac.in?Subject=Regarding%20Advitiya%20Website" target="_top"><i class="zmdi zmdi-email"></i></a>
+                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                    </div>
+                  
+                    <div class="speaker-info">
+                        <h5>Adarsh Kumar</h5>
+                        <p>Head, Web Development Team</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                  
+                    <div class="speaker-single-thumb">
+                        <img src="{% static 'main_page/img/core_team/Dilip_web.jpg' %}"
+                            alt="">
+                    </div>
+                   
+                    <div class="social-info">
+                        <a href="mailto:2017csb1073@iitrpr.ac.in?Subject=Regarding%20Advitiya%20Website" target="_top"><i class="zmdi zmdi-email"></i></a>
+                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                    </div>
+                  
+                    <div class="speaker-info">
+                        <h5>Dilip Sharma</h5>
+                        <p>Head, Web Development Team</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                  
+                    <div class="speaker-single-thumb">
+                        <img src="{% static 'main_page/img/core_team/Rohit_posters.jpg' %}"
+                            alt="">
+                    </div>
+                   
+                    <div class="social-info">
+                        <a href="mailto:2017csb1087@iitrpr.ac.in?Subject=Regarding%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
+                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                    </div>
+                  
+                    <div class="speaker-info">
+                        <h5>Rohit Katle</h5>
+                        <p>Head, Creativity Team</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                  
+                    <div class="speaker-single-thumb">
+                        <img src="{% static 'main_page/img/core_team/Mayank_decoration.jpg' %}"
+                            alt="">
+                    </div>
+                   
+                    <div class="social-info">
+                        <a href="mailto:2017eeb1150@iitrpr.ac.in?Subject=Regarding%20Decoration%20at%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
+                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                    </div>
+                  
+                    <div class="speaker-info">
+                        <h5>Mayank Raj</h5>
+                        <p>Head, Decoration Team</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                  
+                    <div class="speaker-single-thumb">
+                        <img src="{% static 'main_page/img/core_team/Hardik_pronites.jpg' %}"
+                            alt="">
+                    </div>
+                   
+                    <div class="social-info">
+                        <a href="mailto:2017ceb1007@iitrpr.ac.in?Subject=Regarding%20Entertainment%20Nights%at%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
+                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                    </div>
+                  
+                    <div class="speaker-info" >
+                        <h5>Hardik Goyal</h5>
+                        <p>Pronites Head</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                  
+                    <div class="speaker-single-thumb">
+                        <img src="{% static 'main_page/img/core_team/Vedant_content_writing.jpg' %}"
+                            alt="">
+                    </div>
+                   
+                    <div class="social-info">
+                        <a href="mailto:2017meb1247@iitrpr.ac.in?Subject=Regarding%20Advitiya" target="_top"><i class="zmdi zmdi-email"></i></a>
+                        <a href="#"><i class="zmdi zmdi-instagram"></i></a>
+                        <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                        <a href="#"><i class="zmdi zmdi-linkedin"></i></a>
+                    </div>
+                  
+                    <div class="speaker-info">
+                        <h5>Vedant Paithane</h5>
+                        <p>Head, Content Writing Team</p>
+                    </div>
+                </div>
+            </div> 
+            
+            
+
+        </div>
+    </div>
+    </div>
+</section>
+
+<!-- Our Speakings Area Start -->
+
 <!-- Our Speakings Area End -->
 
 {% endblock %}
