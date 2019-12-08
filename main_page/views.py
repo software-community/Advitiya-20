@@ -22,8 +22,10 @@ def profile(request):
         participant = Participant.objects.get(user=request.user)
     except:
         participant = None
-    events_participated = []
-    events_participated = EventRegistration.objects.filter(participant=participant)
+    try:
+        events_participated = EventRegistration.objects.filter(participant=participant)
+    except:
+        events_participated = None
     return render(request,'main_page/profile.html', {'participant' : participant,'CATEGORY_CHOCIES': CATEGORY_CHOCIES,
                 'EVENTS_PARTICIPATED': events_participated,})
 
