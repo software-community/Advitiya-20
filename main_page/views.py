@@ -115,8 +115,7 @@ def registerForEvent(request, event_id):
     
     try:
         already_participant = EventRegistration.objects.get(participant = participant, event = event)
-        if(len(already_participant)!=0):
-            return render(request, 'main_page/show_info.html', {'message':"You have already registered for this event.",
+        return render(request, 'main_page/show_info.html', {'message':"You have already registered for this event.",
                     'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
     except:
         pass
