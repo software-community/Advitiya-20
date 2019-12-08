@@ -62,9 +62,9 @@
         <section class="about-us-countdown-area section-padding-50-0" id="about">
             <center>
                 {% if user.is_authenticated %}
-                    <a href="{% url 'main_page:events'%}" class="btn btn-primary">Register For Events</a>
+                    <a href="{% url 'main_page:events'%}" class="btn confer-btn-white">Register For Events</a>
                 {% else %}
-                    <a href="{% provider_login_url 'google' %}?next={% url 'main_page:events'%}" class="btn btn-primary">Register For Events!!!</a>
+                    <a href="{% provider_login_url 'google' %}?next={% url 'main_page:events'%}" class="btn confer-btn-white">Register For Events</a>
                 {% endif %}
             </center>
             <div class="container">
