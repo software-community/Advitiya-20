@@ -1754,6 +1754,12 @@ h3 {
 .post-details-content {
   position: relative;
   z-index: 1; }
+  .post-details-content h5{
+    font-size: 18px;
+  }
+  .post-details-content p{
+    color: black;
+  }
   .post-details-content .post-blog-thumbnail {
     position: relative;
     z-index: 1;
@@ -1782,12 +1788,12 @@ h3 {
 .confer-blockquote {
   padding-left: 10%;
   margin: 30px 0; }
-  .confer-blockquote h5 {
-    font-size: 18px;
+  .confer-blockquote p {
+    font-size: 16px;
     font-style: italic;
     font-weight: 400;
     line-height: 1.6;
-    color: #111343;
+    color: #7a7b95;
     border-left: 3px solid black;
     padding-left: 10px;
     margin-bottom: 0; }

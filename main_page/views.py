@@ -22,7 +22,10 @@ def profile(request):
         participant = Participant.objects.get(user=request.user)
     except:
         participant = None
-    return render(request,'main_page/profile.html', {'participant' : participant,'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+    events_participated = []
+    events_participated = EventRegistration.objects.filter(participant=participant)
+    return render(request,'main_page/profile.html', {'participant' : participant,'CATEGORY_CHOCIES': CATEGORY_CHOCIES,
+                'EVENTS_PARTICIPATED': events_participated,})
 
 def events(request):
     # return render(request, 'main_page/show_info.html', {'message':"This Section is revealing soon.",
