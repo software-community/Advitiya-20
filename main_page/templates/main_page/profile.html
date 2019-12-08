@@ -59,8 +59,14 @@
                                         <!-- Single Tab Content -->
                                         <div class="single-tab-content">
                                             <div class="row">
-                                                <div class="col-12">
-
+                                                <div class="col-12 text-center">
+                                                    <ul>
+                                                        {% if EVENTS_PARTICIPATED %}
+                                                            {% for event in EVENTS_PARTICIPATED %}
+                                                                <h4 style="color: white;"><li>{{event.event.name}}</li></h4>
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                    </ul>
                                                 </div>
 
                                             </div>
