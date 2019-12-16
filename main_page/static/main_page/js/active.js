@@ -225,8 +225,8 @@
     // :: 13.0 Countdown Active Code
     // ****************************
     if ($.fn.countdown) {
-        $("#clock").countdown("2020/02/7", function (event) {
-            $(this).html(event.strftime("<div>%m <span>Months</span></div> <div>%w <span>Days</span></div> <div>%H <span>Hours</span></div> <div>%M <span>Minutes</span></div> <div>%S <span>Seconds</span></div>"));
+        $("#clock").countdown("2020/02/07", function (event) {
+            $(this).html(event.strftime("<div>%m<span>Months</span></div> <div>%w <span>Days</span></div> <div>%H <span>Hours</span></div> <div>%M <span>Minutes</span></div> <div>%S <span>Seconds</span></div>"));
         });
     }
 
