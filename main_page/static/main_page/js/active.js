@@ -224,10 +224,38 @@
     // ****************************
     // :: 13.0 Countdown Active Code
     // ****************************
+    
     if ($.fn.countdown) {
-        $("#clock").countdown("2020/02/07", function (event) {
-            $(this).html(event.strftime("<div>%m<span>Months</span></div> <div>%w <span>Days</span></div> <div>%H <span>Hours</span></div> <div>%M <span>Minutes</span></div> <div>%S <span>Seconds</span></div>"));
-        });
+        function makeTimer() {
+
+        //		var endTime = new Date("29 April 2018 9:56:00 GMT+01:00");	
+            var endTime = new Date("7 February 2020 0:00:00 GMT+05:30");			
+                endTime = (Date.parse(endTime) / 1000);
+    
+                var now = new Date();
+                now = (Date.parse(now) / 1000);
+    
+                var timeLeft = endTime - now;
+    
+                var days = Math.floor(timeLeft / 86400); 
+                var hours = Math.floor((timeLeft - (days * 86400)) / 3600);
+                var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
+                var seconds = Math.floor((timeLeft - (days * 86400) - (hours * 3600) - (minutes * 60)));
+        
+                if (hours < "10") { hours = "0" + hours; }
+                if (minutes < "10") { minutes = "0" + minutes; }
+                if (seconds < "10") { seconds = "0" + seconds; }
+    		
+                $("#clock").html("<div>" + days + "<span>Days</span></div> <div>" + hours + "<span>Hours</span></div> <div>" 
+                    + minutes + "<span>Minutes</span></div> <div>" + seconds + "<span>Seconds</span></div>");
+        }
+    
+        setInterval(function() { makeTimer(); }, 1000);
+
+        // $("#clock").countdown("2020/02/07", function (event) {
+            
+        //     $(this).html(event.strftime("<div>%m<span>Months</span></div> <div>%w <span>Days</span></div> <div>%H <span>Hours</span></div> <div>%M <span>Minutes</span></div> <div>%S <span>Seconds</span></div>"));
+        // });
     }
 
     // ****************************
