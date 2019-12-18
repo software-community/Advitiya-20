@@ -39,27 +39,13 @@
                     <div class="row h-100 align-items-center">
                         <!-- Welcome Text -->
                         <div class="col-12">
-                            <video autoplay muted loop>
-                                <source src="../../static/main_page/img/bg-img/Advitiya_theme.mp4" type="video/mp4">
-                            </video>
-                            <!-- <div class="welcome-text-two text-center">
-                                <h5 data-animation="fadeInUp" data-delay="100ms">The event consistently</h5>
-                                <h2 data-animation="fadeInUp" data-delay="300ms">OSHA Compliance</h2>
-                                
-                                <div class="event-meta" data-animation="fadeInUp" data-delay="500ms">
-                                    <a class="event-date" href="#">
-                                        <i class="zmdi zmdi-account"></i> January 14, 2019</a>
-                                    <a class="event-author" href="#">
-                                        <i class="zmdi zmdi-alarm-check"></i> Laura Green</a>
-                                </div>-->
-                            <!-- <div class="hero-btn-group" data-animation="fadeInUp" data-delay="700ms">
-                                    <a href="#" class="btn confer-btn m-2">View more <i
-                                            class="zmdi zmdi-long-arrow-right"></i>
-                                    </a>
-                                    <a href="#" class="btn confer-btn m-2">Get Tickets <i
-                                            class="zmdi zmdi-long-arrow-right"></i>
-                                    </a>
-                                </div> -->
+                                <div class="welcome-text text-right">
+                                    <!-- <h2 data-animation="fadeInUp" data-delay="300ms">Science <br>Conference</h2>
+                              <h6 data-animation="fadeInUp" data-delay="500ms">Shangri-La Hotel, Bangkok, Bangkok, Thailand</h6>-->
+                                    <div class="hero-btn-group" data-animation="fadeInUp" data-delay="700ms">
+                                        <!-- <a href="{% url 'ca:home' %}" class="btn confer-btn">More Information <i class="zmdi zmdi-long-arrow-right"></i></a> -->
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -73,8 +59,16 @@
     <!-- Welcome Area End -->
 
         <!-- About Us And Countdown Area Start -->
-        <section class="about-us-countdown-area section-padding-100-0" id="about">
+        <section class="about-us-countdown-area section-padding-50-0" id="about">
+            <center>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'main_page:events'%}" class="btn confer-btn-white">Register For Events</a>
+                {% else %}
+                    <a href="{% provider_login_url 'google' %}?next={% url 'main_page:events'%}" class="btn confer-btn-white">Register For Events</a>
+                {% endif %}
+            </center>
             <div class="container">
+                <br><br>
                 <div class="row align-items-center">
                     <!-- About Content -->
                     <div class="col-12 col-md-6">
@@ -83,23 +77,17 @@
                             </h6>
                             <h3 class="wow fadeInUp" data-wow-delay="300ms">Welcome to IIT Ropar's Technical FEst</h3>
                             <p class="wow fadeInUp" style="text-align:justify;" data-wow-delay="300ms">IIT Ropar is
-                                organizing the fourth edition of it's annual Technical Festival "Advitiya" in the first
-                                week of of February consisting of 72 hours of intense competitions and technical events
-                                Advitiya has
-                                already evolved into a brand within four years of its inception and a publicity paradise
-                                that ensures
-                                stupendous brand visibility for sponsors With an array of activities that consolidate
-                                the
-                                vision for
+                                organizing the fourth edition of it's annual Science & Technology Festival "Advitiya" in the first
+                                week of of February consisting of 72 hours of intense competitions and technical events.
+                                Advitiya has already evolved into a brand within four years of its inception. 
+                                Advitiya achieved more than 15k footfall and conducted 30+ events in its previous edition. 
+                                Advitiya, in its past few editions, not only has created a buzz in the minds of Techno-enthusiasts 
+                                but has also provided its partners and sponsors a platform for their publicity. 
+                                With an array of activities that consolidate the vision for
                                 times to come, Advitiya 2020 is ready to set the scientific spirits soaring and
-                                technological temper
-                                ablaze Advitiya will witness a wide range of scientific and technical activities and
-                                novel
-                                events from
-                                fields like Coding, Robotics, Finance, Design and Entrepreneurship with total prizes
-                                worth
-                                as high as 9
-                                lakh Rupees.</p>
+                                technological temper ablaze. Advitiya will witness a wide range of scientific and technical activities, 
+                                and novel events from fields like Coding, Aeromodelling, Robotics, Finance, Design and Entrepreneurship 
+                                with total prizes worth as high as 9 lakh Rupees.</p>
                             <!-- <a href="#" class="btn confer-btn mt-50 wow fadeInUp" data-wow-delay="300ms">Interested <i
                                 class="zmdi zmdi-long-arrow-right"></i> -->
                             </a>
@@ -269,6 +257,103 @@
 </section>
 <!-- Our Schedule Area End -->
 
+<section class="our-sponsor-client-area section-padding-100">
+    <div class="container">
+        <div class="row">
+            <!-- Heading -->
+            <div class="col-12">
+                <div class="section-heading-2 text-center wow fadeInUp" data-wow-delay="300ms">
+                    <p>Partners &amp; Sponsors</p>
+                    <h4>PREVIOUS SPONSOR</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <!-- Our Sponsor area -->
+                <div class="our-sponsor-area d-flex flex-wrap">
+                    <!-- Single Sponsor -->
+                    <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+                        <a href="#"><img src="{% static 'main_page/img/core-img/ncc.jpg' %}" alt=""></a>
+                    </div>
+                    <!-- Single Sponsor -->
+                    <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+                        <a href="#"><img src="{% static 'main_page/img/core-img/tees.png' %}" alt=""></a>
+                    </div>
+                    <!-- Single Sponsor -->
+                    <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+                        <a href="#"><img src="{% static 'main_page/img/core-img/grab.png' %}" alt=""></a>
+                    </div>
+                    <!-- Single Sponsor -->
+                    <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+                        <a href="#"><img src="{% static 'main_page/img/core-img/spartan.jpg' %}" alt=""></a>
+                    </div>
+                    <!-- Single Sponsor -->
+                    <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+                        <a href="#"><img src="{% static 'main_page/img/core-img/web.png' %}" alt=""></a>
+                    </div>
+                    <!-- Single Sponsor -->
+                    <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+                        <a href="#"><img src="{% static 'main_page/img/core-img/jeol.png' %}" alt=""></a>
+                    </div>
+                    <!-- Single Sponsor -->
+                    <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+                        <a href="#"><img src="{% static 'main_page/img/core-img/sbi.png' %}" alt=""></a>
+                    </div>
+                    <!-- Single Sponsor -->
+                    <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+                        <a href="#"><img src="{% static 'main_page/img/core-img/hover.jpg' %}" alt=""></a>
+                    </div>
+                    <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+                        <a href="#"><img src="{% static 'main_page/img/core-img/nvi.png' %}" alt=""></a>
+                    </div>
+                    <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+                        <a href="#"><img src="{% static 'main_page/img/core-img/ansys.png' %}" alt=""></a>
+                    </div>
+                    <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+                        <a href="#"><img src="{% static 'main_page/img/core-img/ralson.png' %}" alt=""></a>
+                    </div>
+                    <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+                        <a href="#"><img src="{% static 'main_page/img/core-img/safe.png' %}" alt=""></a>
+                    </div>
+                    <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+                        <a href="#"><img src="{% static 'main_page/img/core-img/chand.png' %}" alt=""></a>
+                    </div>
+                    <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+                        <a href="#"><img src="{% static 'main_page/img/core-img/story.png' %}" alt=""></a>
+                    </div>
+                    <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+                        <a href="#"><img src="{% static 'main_page/img/core-img/dunia.png' %}" alt=""></a>
+                    </div>
+                    <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+                        <a href="#"><img src="{% static 'main_page/img/core-img/punjab.jpg' %}" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="our-speaker-area bg-img bg-gradient-overlay section-padding-100-60"
+    style="background-image: url(static/main_page/img/bg-img/3.jpg);">
+    <div class="container">
+        <div class="row">
+            <!-- Heading -->
+            <div class="col-12">
+                <div class="section-heading text-center wow fadeInUp" data-wow-delay="300ms">
+                    <p>Revealing Soon</p>
+                    <h4>Lecture Series</h4>
+                </div>
+            </div>
+        </div>
+
+
+</section>
+
 <!-- Our Ticket Pricing Table Area Start -->
 <section class="our-ticket-pricing-table-area bg-img bg-gradient-overlay section-padding-100-0 jarallax"
     style="background-image: url(static/main_page/img/bg-img/14.jpg);">
@@ -290,7 +375,7 @@
                 <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
                   
                     <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Rahul_OC.jpg' %}" style="height: 280px;"
+                        <img src="{% static 'main_page/img/core_team/Rahul_OC.jpg' %}"
                             alt="">
                     </div>
                    
@@ -313,7 +398,7 @@
                 <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
                   
                     <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Ashish_finance.jpeg' %}"style="height: 280px;"
+                        <img src="{% static 'main_page/img/core_team/Ashish_finance.jpeg' %}"
                             alt="">
                     </div>
                    
@@ -336,7 +421,7 @@
                 <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
                   
                     <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Abhinash_Event_Head.jpg' %}"style="height: 280px;"
+                        <img src="{% static 'main_page/img/core_team/Abhinash_Event_Head.jpg' %}"
                             alt="">
                     </div>
                    
@@ -359,7 +444,7 @@
                 <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
                   
                     <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Shubhendra_event.jpg' %}"style="height: 280px;"
+                        <img src="{% static 'main_page/img/core_team/Shubhendra_event.jpg' %}"
                             alt="">
                     </div>
                    
@@ -382,7 +467,7 @@
                 <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
                   
                     <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Kanishk_public_relations.jpg' %}"style="height: 280px;"
+                        <img src="{% static 'main_page/img/core_team/Kanishk_public_relations.jpg' %}"
                             alt="">
                     </div>
                    
@@ -405,7 +490,7 @@
                 <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
                   
                     <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Ujjwal_marketing.jpg' %}"style="height: 280px;"
+                        <img src="{% static 'main_page/img/core_team/Ujjwal_marketing.jpg' %}"
                             alt="">
                     </div>
                    
@@ -428,7 +513,7 @@
                 <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
                   
                     <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Abhishek_hospitality_head.jpg' %}"style="height: 280px;"
+                        <img src="{% static 'main_page/img/core_team/Abhishek_hospitality_head.jpg' %}"
                             alt="">
                     </div>
                    
@@ -451,7 +536,7 @@
                 <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
                   
                     <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Akash_tsp.jpg' %}"style="height: 280px;"
+                        <img src="{% static 'main_page/img/core_team/Akash_tsp.jpg' %}"
                             alt="">
                     </div>
                    
@@ -474,7 +559,7 @@
                 <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
                   
                     <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Vineet_special_talks.jpg' %}"style="height: 280px;"
+                        <img src="{% static 'main_page/img/core_team/Vineet_special_talks.jpg' %}"
                             alt="">
                     </div>
                    
@@ -496,7 +581,7 @@
                 <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
                   
                     <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Adarsh_web.jpg' %}"style="height: 280px;"
+                        <img src="{% static 'main_page/img/core_team/Adarsh_web.jpg' %}"
                             alt="">
                     </div>
                    
@@ -518,7 +603,7 @@
                 <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
                   
                     <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Dilip_web.jpg' %}"style="height: 280px;"
+                        <img src="{% static 'main_page/img/core_team/Dilip_web.jpg' %}"
                             alt="">
                     </div>
                    
@@ -540,7 +625,7 @@
                 <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
                   
                     <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Rohit_posters.jpg' %}"style="height: 280px;"
+                        <img src="{% static 'main_page/img/core_team/Rohit_posters.jpg' %}"
                             alt="">
                     </div>
                    
@@ -562,7 +647,7 @@
                 <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
                   
                     <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Mayank_decoration.jpg' %}"style="height: 280px;"
+                        <img src="{% static 'main_page/img/core_team/Mayank_decoration.jpg' %}"
                             alt="">
                     </div>
                    
@@ -584,7 +669,7 @@
                 <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
                   
                     <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Hardik_pronites.jpg' %}"style="height: 280px;"
+                        <img src="{% static 'main_page/img/core_team/Hardik_pronites.jpg' %}"
                             alt="">
                     </div>
                    
@@ -606,7 +691,7 @@
                 <div class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
                   
                     <div class="speaker-single-thumb">
-                        <img src="{% static 'main_page/img/core_team/Vedant_content_writing.jpg' %}"style="height: 280px;"
+                        <img src="{% static 'main_page/img/core_team/Vedant_content_writing.jpg' %}"
                             alt="">
                     </div>
                    
@@ -632,6 +717,7 @@
 </section>
 {% comment %}
 <!-- Our Speakings Area Start -->
+<<<<<<< HEAD
 <section class="our-sponsor-client-area section-padding-100">
     <div class="container">
         <div class="row">
@@ -725,8 +811,9 @@
             </div>
         </div>
 
+=======
+>>>>>>> 9bb49a15e73654a9a575765984485d40b6229cf5
 
-</section>
 <!-- Our Speakings Area End -->
 
 {% endblock %}
