@@ -9,6 +9,7 @@ urlpatterns=[
     path('',views.index, name='index'),
     path('events/',views.events, name='events'),
     path('accomodation/',views.accomodation, name='accomodation'),
+    path('sponsors/',views.sponsors, name='sponsors'),
     path('events/<int:num>/',views.event_page,name='event_page'),
     path('register-as-participant', views.registerAsParticipant, name = 'register_as_participant'),
     path('pay/', views.pay_for_participation, name = 'payment'),
