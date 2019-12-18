@@ -16,6 +16,9 @@ import hmac
 def index(request):
     return render(request,'main_page/index.html', {'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
 
+def sponsors(request):
+    return render(request,'main_page/sponsors.html', {'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+
 @login_required(login_url='/auth/google/login/')
 def profile(request):
     try:
