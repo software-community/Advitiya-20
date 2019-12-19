@@ -19,6 +19,9 @@ def index(request):
 def sponsors(request):
     return render(request,'main_page/sponsors.html', {'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
 
+def workshop(request):
+    return render(request,'main_page/workshop.html', {'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+
 @login_required(login_url='/auth/google/login/')
 def profile(request):
     try:
