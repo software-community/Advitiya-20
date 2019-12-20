@@ -19,4 +19,5 @@ urlpatterns=[
     path('webhook/', csrf_exempt(views.webhook), name= 'webhook'),
     path('accounts/google/logout/', auth_views.LogoutView.as_view(), name = "account_logout"),
     path('profile/', views.profile, name = "profile"),
+    path('workshop_register/',views.workshop_register,name="workshop_register")
 ]
