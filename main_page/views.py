@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from main_page.models import  Coordinator, Events, Participant, EventRegistration, Payment, Team, TeamHasMembers, CATEGORY_CHOCIES
 from django.contrib.auth.decorators import login_required
-from main_page.forms import ParticipationForm, TeamHasMemberForm, BaseTeamFormSet, TeamForm
+from main_page.forms import ParticipationForm, TeamHasMemberForm, BaseTeamFormSet, TeamForm, WorkshopForm
 from django.core.mail import send_mail
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse
 from django.forms import formset_factory, modelformset_factory
@@ -312,3 +312,52 @@ def payment_redirect(request):
                             "<p>" + retry_for_payment + "</p>",
                 'CATEGORY_CHOCIES': CATEGORY_CHOCIES
             })
+    
+    
+    
+    
+    
+    
+@login_required(login_url='/auth/google/login/')    
+def workshop_register(request):
+    
+    try:
+        participant = Participant.objects.get(user = request.user)
+    except Participant.DoesNotExist:
+        return render(request, 'main_page/show_info.html', {'message':'''You must register as a participant before 
+                    registering for an Event.
+                    <a href="/register-as-participant" >Click Here</a>''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+        
+    if request.method == 'POST':
+        workshopForm = WorkshopForm(request.POST)
+        if workshopForm.is_valid():
+            new_workshop_form = workshopForm.save(commit = False)
+            new_workshop_form.user = request.user
+            new_workshop_form.save()
+            send_mail(subject='Successful Registration for workshops at ADVITIYA\'20',
+                    message='',
+                    from_email=os.environ.get(
+                        'EMAIL_HOST_USER', ''),
+                    recipient_list=[request.user.email],
+                    fail_silently=True,
+                    html_message='Dear ' + str(request.user.get_full_name()) +
+                    ',<br><br>You are successfully registered for participation in events at Advitiya 2020.' +
+                    'We are excited for your journey with us.<br><br> <a href="'''+
+                    reverse('main_page:pay_for_participation') +'''">Click Here</a> for Payment. Your registration is 
+                                not valid unless you make the payment.'''+
+                    '<br>We wish you best ' +
+                    'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br>Advitiya 2020 ' +
+                    '<br>Public Relations Team')
+            return render(request, 'main_page/show_info.html', {'message': '''You are successfully registered for 
+                        participation in events at Advitiya.
+                                Your ADVITIYA ID IS <b>''' + str(new_workshop_form.participant_code)+'</b>' +
+                                '''<br> <a href="'''+ reverse('main_page:pay_for_participation') +'''">Click Here</a> for Payment. Your registration is 
+                                not valid unless you make the payment.''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES })
+    else:
+        workshopForm = WorkshopForm()
+    return render(request, 'main_page/workshopform.html', {'workshopForm': workshopForm, 
+                'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+    
+        
+    
+    
