@@ -1,0 +1,35 @@
+{% extends "main_page/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+<section class="bg-img bg-gradient-overlay jarallax">
+    <div class="container">
+        <style>
+            label {
+                color: white;
+            }
+
+            .invalid-feedback {
+                color: red !important;
+            }
+        </style>
+        <div class="row">
+            <div class="col-md-6">
+                <br>
+                <div class="breadcrumb-content">
+                    <h2 class="page-title">Register for workshop</h2>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ workshopForm | crispy }}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <br><br>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
