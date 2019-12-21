@@ -15,6 +15,8 @@ else:
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    'techconnect',
+    'phonenumber_field',
     'main_page',
     'ca',
     'TSP',

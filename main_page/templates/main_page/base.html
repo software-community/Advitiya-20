@@ -50,14 +50,12 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul id="nav" class="resizeflex">
-                                <li><a href="{% url 'main_page:index' %}">Home</a></li>
-
                                 <li><a href="{% url 'main_page:events'%}">Events</a></li>
-
+                                <li><a href="{% url 'techconnect:index'%}">TechConnect</a></li>
+                                <li><a href="{% url 'main_page:sponsors'%}">Sponsors</a></li>
                                 <li><a href="{% url 'TSP:home' %}">TSP</a></li>
 
-                                <li><a href="{% url 'ca:home' %}">Campus Ambassador</a></li>
-                                <li><a href="{% url 'main_page:sponsors'%}">Sponsors</a></li>
+                                <li><a href="{% url 'ca:home' %}">CA</a></li>
                                 {% if user.is_authenticated %}
                                 <li><a href="#"><i class="fas fa-user-circle fa-3x"></i></a>
                                     <ul class="dropdown">

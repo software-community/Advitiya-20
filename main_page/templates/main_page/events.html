@@ -2,40 +2,45 @@
 {% load static %}
 
 {% block body %}
-<section class="bg-img bg-gradient-overlay jarallax">
+<section class="about-us-countdown-area section-padding-100-0"
+ style="background-image:url({% static 'main_page/img/bg-img/college_bg.jpg' %}); background-repeat:
+    no-repeat; background-size: cover;" id="about">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-md-12 mx-auto">
-                <div class="breadcrumb-content">
-                    <br><br>
-                    <div class="alert alert-primary mx-auto" role="alert">
-                        <h3>Important Note</h3>
-                            <ul>
-                                The registration fee for the events is Rs. 400 per participant. After paying this nominal fee, one can participate in any no. of events.
-                            </ul>
-                            <br>
-                        <h3>Event Registration Process</h3>
-                        <br>
-                        <ul>
-                            <li style="list-style-type:disc;">
-                                Step 1: Register as a participant and get your ADVITIYA ID. <a href="{% url 'main_page:register_as_participant' %}">(Click Here)</a>
-                            </li>
-                            <li style="list-style-type:disc;">
-                                Step 2: Pay the registration fee. <a href="{% url 'main_page:payment' %}">(Click Here)</a>
-                            </li>
-                            <li style="list-style-type:disc;">
-                                Step 3: Register in the events you wish to participate using your ADVITIYA ID.
-                            </li>
-                        </ul>
-                        <br>
-                    </div>
-                    <br><br>
+            <!-- About Content -->
+            <div class="col-md-8 mx-auto" style="background-color: rgba(0, 0, 0, 0.7); margin-top: 50px;
+             margin-bottom: 50px; border-radius: 20px; padding: 50px;">
+                <br>
+                <div class="about-content-text" style="color: white;">
+                    <h3>Important Note</h3>
+                    <ul>
+                        The registration fee for the events is Rs. 400 per participant. After paying this nominal
+                        fee, one can participate in any no. of events.
+                    </ul>
+                    <br>
+                    <h3>Event Registration Process</h3>
+                    <br>
+                    <ul>
+                        <li style="list-style-type:disc;">
+                            Step 1: Register as a participant and get your ADVITIYA ID. <a
+                                href="{% url 'main_page:register_as_participant' %}"
+                                style="color: blue;">(Click Here)</a>
+                        </li>
+                        <li style="list-style-type:disc;">
+                            Step 2: Pay the registration fee. <a href="{% url 'main_page:payment' %}"
+                            style="color: blue;">(Click
+                                Here)</a>
+                        </li>
+                        <li style="list-style-type:disc;">
+                            Step 3: Register in the events you wish to participate using your ADVITIYA ID.
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-    </div>
 </section>
+
 <!-- Breadcrumb Area End -->
 
 <!-- Our Blog Area Start -->
