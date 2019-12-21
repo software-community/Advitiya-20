@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 import re
-from main_page.models import Participant, Team, TeamHasMembers
+from main_page.models import Participant, Team, TeamHasMembers, Workshop
 from ca.models import Profile
 
 
@@ -69,3 +69,13 @@ class BaseTeamFormSet(forms.BaseFormSet):
                 message = "Each Participant in the team must be unique"
                 form.add_error('team_member', forms.ValidationError(message = message, code = "SameParticipant"))
             team_members.add(team_member)
+                       
+class WorkshopForm(forms.ModelForm):
+    phone_number = forms.CharField(required = True, label = 'Participant Phone',validators= [phone_validator],widget=forms.TextInput)
+    college_name = forms.CharField(label="College Name",widget=forms.TextInput)
+    name = forms.CharField(label="Name",widget=forms.TextInput)
+    city_name=forms.CharField(label='City',widget=forms.TextInput)
+
+    class Meta:
+        model= Participant
+        fields=["name", "phone_number", "college_name", "city_name"]            

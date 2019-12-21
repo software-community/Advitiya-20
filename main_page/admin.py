@@ -1,5 +1,6 @@
 from django.contrib import admin
-from main_page.models import Events, Coordinator, Participant, Payment, EventRegistration, Team, TeamHasMembers
+from main_page.models import (Events, Coordinator, Participant, Payment, EventRegistration,
+                        Team, TeamHasMembers)
 
 class EventsAdminView(admin.ModelAdmin):
     list_display = [field.name for field in Events._meta.fields]

@@ -108,3 +108,15 @@ class TeamHasMembers(models.Model):
 
     def __str__(self):
         return self.team.__str__()
+    
+    
+class Workshop(models.Model):
+    
+    user = models.OneToOneField(User, on_delete = models.CASCADE)
+    name = models.CharField(max_length=100, blank=False, verbose_name = 'Your Name')
+    phone_number = models.CharField(max_length=10, default=None)
+    college_name = models.CharField(max_length=200, default='no college')
+    city_name=models.CharField(max_length=100, default='no city')
+   
+    def __str__(self):
+        return self.user.username+"\t"+self.college_name
