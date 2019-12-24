@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
-from main_page.models import  Coordinator, Events, Participant, EventRegistration, Payment, Team, TeamHasMembers, CATEGORY_CHOCIES
+from main_page.models import  Coordinator, Events, Participant, EventRegistration, Payment, Team, TeamHasMembers, CATEGORY_CHOCIES, WorkshopRegistration, Workshop
 from django.contrib.auth.decorators import login_required
-from main_page.forms import ParticipationForm, TeamHasMemberForm, BaseTeamFormSet, TeamForm, WorkshopForm
+from main_page.forms import ParticipationForm, TeamHasMemberForm, BaseTeamFormSet, TeamForm
 from django.core.mail import send_mail
-from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse
+from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse, HttpResponseRedirect
 from django.forms import formset_factory, modelformset_factory
-from main_page.methods import payment_request
+from main_page.methods import payment_request, workshop_payment_request
 from django.urls import reverse
 import os
 import hashlib
@@ -20,7 +20,11 @@ def sponsors(request):
     return render(request,'main_page/sponsors.html', {'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
 
 def workshop(request):
-    return render(request,'main_page/workshop.html', {'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+    workshops = Workshop.objects.all()
+    return render(request,'main_page/workshop.html', {
+        'CATEGORY_CHOCIES': CATEGORY_CHOCIES,
+        'workshops': workshops,
+    })
 
 @login_required(login_url='/auth/google/login/')
 def profile(request):
@@ -94,7 +98,12 @@ def registerAsParticipant(request):
                       '<br>We wish you best ' +
                       'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br>Advitiya 2020 ' +
                       '<br>Public Relations Team')
-            return render(request, 'main_page/show_info.html', {'message': '''You are successfully registered for 
+
+            next_url = request.GET.get('next')
+            if next_url:
+                return HttpResponseRedirect(next_url)
+            else:
+                return render(request, 'main_page/show_info.html', {'message': '''You are successfully registered for 
                         participation in events at Advitiya.
                                 Your ADVITIYA ID IS <b>''' + str(new_participation_form.participant_code)+'</b>' +
                                 '''<br> <a href="'''+ reverse('main_page:payment') +'''">Click Here</a> for Payment. Your registration is 
@@ -300,7 +309,7 @@ def webhook(request):
 
 def payment_redirect(request):
     
-    retry_for_payment = 'Payment was Successfull <a href="/events">Click Here</a> for event Registration.'
+    retry_for_payment = 'Payment was Successfull. <a href="/events">Click Here</a> for event Registration.'
     if request.GET['payment_status'] == 'Failed':
         retry_for_payment = '<a href="/pay">Click Here</a> for retry Payment.'
 
@@ -313,51 +322,105 @@ def payment_redirect(request):
                 'CATEGORY_CHOCIES': CATEGORY_CHOCIES
             })
     
-    
-    
-    
-    
-    
-@login_required(login_url='/auth/google/login/')    
-def workshop_register(request):
+
+
+@login_required(login_url='/auth/google/login/')  
+def workshop_register(request, workshop_id):
     
     try:
         participant = Participant.objects.get(user = request.user)
     except Participant.DoesNotExist:
         return render(request, 'main_page/show_info.html', {'message':'''You must register as a participant before 
-                    registering for an Event.
-                    <a href="/register-as-participant" >Click Here</a>''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
-        
-    if request.method == 'POST':
-        workshopForm = WorkshopForm(request.POST)
-        if workshopForm.is_valid():
-            new_workshop_form = workshopForm.save(commit = False)
-            new_workshop_form.user = request.user
-            new_workshop_form.save()
-            send_mail(subject='Successful Registration for workshops at ADVITIYA\'20',
-                    message='',
-                    from_email=os.environ.get(
-                        'EMAIL_HOST_USER', ''),
-                    recipient_list=[request.user.email],
-                    fail_silently=True,
-                    html_message='Dear ' + str(request.user.get_full_name()) +
-                    ',<br><br>You are successfully registered for participation in events at Advitiya 2020.' +
-                    'We are excited for your journey with us.<br><br> <a href="'''+
-                    reverse('main_page:pay_for_participation') +'''">Click Here</a> for Payment. Your registration is 
-                                not valid unless you make the payment.'''+
-                    '<br>We wish you best ' +
-                    'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br>Advitiya 2020 ' +
-                    '<br>Public Relations Team')
-            return render(request, 'main_page/show_info.html', {'message': '''You are successfully registered for 
-                        participation in events at Advitiya.
-                                Your ADVITIYA ID IS <b>''' + str(new_workshop_form.participant_code)+'</b>' +
-                                '''<br> <a href="'''+ reverse('main_page:pay_for_participation') +'''">Click Here</a> for Payment. Your registration is 
-                                not valid unless you make the payment.''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES })
+                    registering for the workshops.
+                    <a href="'''+reverse('main_page:register_as_participant')+'''?next='''+
+                        reverse('main_page:workshop_register', args=[workshop_id])+'''" >Click Here</a>''', 
+                        'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+    
+    workshop=Workshop.objects.get(id=workshop_id)
+    
+    already_participant = None
+
+    try:
+        already_participant = WorkshopRegistration.objects.get(participant=participant, workshop= workshop)
+        if already_participant.transaction_id != 'none' and already_participant.transaction_id != '0':
+            return render(request, 'main_page/show_info.html',{
+                'message': '''You have already registered for this workshop !!'''
+            })
+    except:
+        pass
+
+    # Pay for the workshop
+    purpose = "Registration Fee for the workshop on " + workshop.name + " at Advitiya 2020"
+    response = workshop_payment_request(participant.name, str(workshop.fees), purpose,
+            request.user.email, str(participant.phone_number))
+    
+    if response['success']:
+        url = response['payment_request']['longurl']
+        payment_request_id = response['payment_request']['id']
+
+        if already_participant:
+            already_participant.payment_request_id = payment_request_id
+            already_participant.save()
+        else:
+            WorkshopRegistration.objects.create(workshop = workshop,participant=participant, payment_request_id= payment_request_id)
+        return redirect(url)
     else:
-        workshopForm = WorkshopForm()
-    return render(request, 'main_page/workshopform.html', {'workshopForm': workshopForm, 
-                'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+        print(response)
+        return HttpResponseServerError()
+
+
+def workshop_webhook(request):
+
+    if request.method == "POST":
+        data = request.POST.copy()
+        mac_provided = data.pop('mac')[0]
+
+        message = "|".join(v for k, v in sorted(
+            data.items(), key=lambda x: x[0].lower()))
+        mac_calculated = hmac.new(
+            (os.getenv('PRIVATE_SALT')).encode('utf-8'), message.encode('utf-8'), hashlib.sha1).hexdigest()
+
+        if mac_provided == mac_calculated:
+            try:
+                payment_detail = WorkshopRegistration.objects.get(
+                    payment_request_id=data['payment_request_id'])
+                if data['status'] == "Credit":
+                    # Payment was successful, mark it as completed in your database.
+                    payment_detail.transaction_id = data['payment_id']
+                    # str(participantpaspaid.paid_subcategory) inlcudes name of category also
+                    send_mail(
+                        'Payment confirmation of ' +
+                        ' to ADVITIYA 2020',
+                        'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
+                        'that your payment to ADVITIYA 2020 ' +
+                        ' is successful.\n\nRegards\nADVITIYA 2020 Public Relations Team',
+                        os.environ.get(
+                          'EMAIL_HOST_USER', ''),
+                        [payment_detail.participant.user.email],
+                        fail_silently=True,
+                    )
+                else:
+                    # Payment was unsuccessful, mark it as failed in your database.
+                    payment_detail.transaction_id = '0'
+                payment_detail.save()
+            except Exception as err:
+                print(err)
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=400)
+
+
+def workshop_payment_redirect(request):
     
-        
-    
-    
+    retry_for_payment = 'Payment was Successfull. You have successfully registered for this workshop.'
+    if request.GET['payment_status'] == 'Failed':
+        retry_for_payment = '<a href="'+reverse('main_page:workshop')+'">Click Here</a> to go back to Workshops page.'
+
+    return render(request, 'main_page/show_info.html',
+            {
+                'message': "<p><b>Payment Status:</b> " + request.GET['payment_status'] +
+                            "</p><p><b>Payment Request ID:</b> " + request.GET['payment_request_id'] +
+                            "</p><p><b>Payment Transaction ID:</b> " + request.GET['payment_id'] +
+                            "<p>" + retry_for_payment + "</p>",
+                'CATEGORY_CHOCIES': CATEGORY_CHOCIES
+            })
