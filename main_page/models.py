@@ -88,6 +88,7 @@ class EventRegistration(models.Model):
 
     event = models.ForeignKey(Events, on_delete = models.CASCADE)
     participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.participant.__str__()+"\t"+self.event.__str__()
@@ -108,15 +109,21 @@ class TeamHasMembers(models.Model):
 
     def __str__(self):
         return self.team.__str__()
-    
-    
+
 class Workshop(models.Model):
-    
-    user = models.OneToOneField(User, on_delete = models.CASCADE)
-    name = models.CharField(max_length=100, blank=False, verbose_name = 'Your Name')
-    phone_number = models.CharField(max_length=10, default=None)
-    college_name = models.CharField(max_length=200, default='no college')
-    city_name=models.CharField(max_length=100, default='no city')
-   
+    name = models.CharField(max_length=200)
+    fees = models.IntegerField(default = 1000)
+
     def __str__(self):
-        return self.user.username+"\t"+self.college_name
+        return self.name.__str__()
+
+class WorkshopRegistration(models.Model):
+    
+    workshop = models.ForeignKey(Workshop, on_delete = models.CASCADE)
+    participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
+    payment_request_id = models.CharField(max_length = 100, default = 'none')
+    transaction_id = models.CharField(max_length=100, default='none')
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.participant.__str__()+"\t"+self.workshop.__str__()
