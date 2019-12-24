@@ -10,7 +10,6 @@ urlpatterns=[
     path('events/',views.events, name='events'),
     path('accomodation/',views.accomodation, name='accomodation'),
     path('sponsors/',views.sponsors, name='sponsors'),
-    path('workshop/',views.workshop,name='workshop'),
     path('events/<int:num>/',views.event_page,name='event_page'),
     path('register-as-participant', views.registerAsParticipant, name = 'register_as_participant'),
     path('pay/', views.pay_for_participation, name = 'payment'),
@@ -19,5 +18,9 @@ urlpatterns=[
     path('webhook/', csrf_exempt(views.webhook), name= 'webhook'),
     path('accounts/google/logout/', auth_views.LogoutView.as_view(), name = "account_logout"),
     path('profile/', views.profile, name = "profile"),
-    path('workshop_register/',views.workshop_register,name="workshop_register")
+    # Workshops
+    path('workshop/',views.workshop,name='workshop'),
+    path('workshop_register/<int:workshop_id>/',views.workshop_register,name="workshop_register"),
+    path('workshop_payment_redirect/', views.workshop_payment_redirect, name = 'workshop_payment_redirect'),
+    path('workshop_webhook/', csrf_exempt(views.workshop_webhook), name= 'workshop_webhook'),
 ]
