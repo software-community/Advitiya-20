@@ -19,8 +19,7 @@ def workshop_accomodation(request):
         return render(request, 'main_page/show_info.html', {'message':'''You must register as a participant before 
                     registering for the workshops and taking accomodation.
                     <a href="'''+reverse('main_page:register_as_participant')+'''?next='''+
-                        reverse('main_page:workshop')+'''" >Click Here</a>''', 
-                        'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+                        reverse('main_page:workshop')+'''" >Click Here</a>''',})
 
     participant_registrations = WorkshopRegistration.objects.filter(participant=participant)
     bool_participated = False
@@ -65,8 +64,9 @@ def workshop_accomodation(request):
     
     #Payment
     days = previous_accomodation.no_of_days()
+    fee = os.environ.get('ACCOMODATION_FEE', '250')
     purpose = "Accomodation Charges for "+ str(days) +" days for workshop participant at Advitiya 2020"
-    response = workshop_accomodation_payment_request(participant.name, str(250*days), purpose,
+    response = workshop_accomodation_payment_request(participant.name, str(int(fee)*days), purpose,
             request.user.email, str(participant.phone_number))
     
     if response['success']:
@@ -134,5 +134,4 @@ def workshop_accomodation_payment_redirect(request):
                             "</p><p><b>Payment Request ID:</b> " + request.GET['payment_request_id'] +
                             "</p><p><b>Payment Transaction ID:</b> " + request.GET['payment_id'] +
                             "<p>" + retry_for_payment + "</p>",
-                'CATEGORY_CHOCIES': CATEGORY_CHOCIES
             })
