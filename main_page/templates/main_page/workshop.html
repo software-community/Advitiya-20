@@ -15,8 +15,12 @@
                 <div class="about-content-text" style="color: white;">
                     <h3>Important Note</h3>
                     <ul>
-                        Exclusively for the workshop participants, we provide accomodation at cheaper rates. Get accomodation @ Rs.250 
-                            per day and enjoy a relaxing stay with 2 meals included.
+                        <li>1. Exclusively for the workshop participants, we provide accomodation at cheaper rates. 
+                            Get accomodation @ Rs.250 per day and enjoy a relaxing stay with 2 meals included.</li>
+                        <br>
+                        <li>2. A single participant may opt to attend two workshops (One on 'Personality Development and Placement 
+                            Preparation' and other on any one of the below mentioned technical topics.)</li>
+                        
                     </ul>
                     <br>
                     <h3>Workshop Registration Process</h3>
@@ -71,7 +75,17 @@
                         </div>
                         <h5>{{workshop.name}}</h5>
                         <h6>Fee: Rs {{ workshop.fees }}</h6>
-                        <!-- <p>Register for this workshop here</p> -->
+                        {% if workshop.name != "Personality Development and Placement Preparation" %}
+                            <div class="post-meta">
+                                <a class="post-date"><i class="zmdi zmdi-time-interval"></i> 2 Days</a><br>
+                                <a class="post-date"><i class="zmdi zmdi-calendar-check"></i> 8th & 9th February, 2020</a>
+                            </div>
+                        {% else %}
+                            <div class="post-meta">
+                                <a class="post-date"><i class="zmdi zmdi-time-interval"></i> 1 Day</a><br>
+                                <a class="post-date"><i class="zmdi zmdi-calendar-check"></i> 7th February, 2020</a>
+                            </div>
+                        {% endif %}
                         <br>
                     <a href="{% url 'main_page:workshop_register' workshop.id  %}" class="btn confer-btn-white" 
                         style = "border: 2px solid rgb(43, 2, 143); color: black;" 
