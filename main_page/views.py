@@ -345,7 +345,10 @@ def workshop_register(request, workshop_id):
         already_participant = WorkshopRegistration.objects.get(participant=participant, workshop= workshop)
         if already_participant.transaction_id != 'none' and already_participant.transaction_id != '0':
             return render(request, 'main_page/show_info.html',{
-                'message': '''You have already registered for this workshop !!'''
+                'message': '''You have already registered for this workshop !! As we offer subsidized charges for 
+                    accomodation to our workshop participants, we wonder if you are interested to book yours before its too 
+                    late, and all the rooms are filled. If you haven't booked your accomodation yet,<a href="'''+
+                        reverse('main_page:workshop_accomodation')+'''"> click Here </a> to get accomodation during the fest dates'''
             })
     except:
         pass
@@ -379,7 +382,7 @@ def workshop_webhook(request):
         message = "|".join(v for k, v in sorted(
             data.items(), key=lambda x: x[0].lower()))
         mac_calculated = hmac.new(
-            (os.getenv('PRIVATE_SALT')).encode('utf-8'), message.encode('utf-8'), hashlib.sha1).hexdigest()
+            (os.getenv('WORKSHOP_PRIVATE_SALT')).encode('utf-8'), message.encode('utf-8'), hashlib.sha1).hexdigest()
 
         if mac_provided == mac_calculated:
             try:
@@ -390,11 +393,15 @@ def workshop_webhook(request):
                     payment_detail.transaction_id = data['payment_id']
                     # str(participantpaspaid.paid_subcategory) inlcudes name of category also
                     send_mail(
-                        'Payment confirmation of ' +
-                        ' to ADVITIYA 2020',
+                        'Payment confirmation for participation in workshop at' +
+                        ' ADVITIYA, IIT Ropar.',
                         'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
-                        'that your payment to ADVITIYA 2020 ' +
-                        ' is successful.\n\nRegards\nADVITIYA 2020 Public Relations Team',
+                        'that your payment for participation in workshop at ADVITIYA, IIT Ropar is successful. \nAs we '+
+                        'charge a subsidized amount for accomodation to our workshop participants, we believe that you might wish to ' +
+                        'book your accomodation during the fest dates before its too late and there are no rooms left. '+
+                        '\n<a href="'+reverse('main_page:workshop_accomodation')+'"> Click Here </a> to book accomodation during the '+
+                        'fest dates'+
+                        '\n\nRegards\nADVITIYA 2020 Public Relations Team',
                         os.environ.get(
                           'EMAIL_HOST_USER', ''),
                         [payment_detail.participant.user.email],

@@ -101,10 +101,10 @@ def workshop_accomodation_webhook(request):
                     payment_detail.transaction_id = data['payment_id']
                     # str(participantpaspaid.paid_subcategory) inlcudes name of category also
                     send_mail(
-                        'Payment confirmation of ' +
-                        ' to ADVITIYA 2020',
+                        'Payment confirmation for accomodation during workshop dates ' +
+                        'at ADVITIYA 2020',
                         'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
-                        'that your payment to ADVITIYA 2020 ' +
+                        'that your payment to ADVITIYA 2020 for accomodation during the fest' +
                         ' is successful.\n\nRegards\nADVITIYA 2020 Public Relations Team',
                         os.environ.get(
                           'EMAIL_HOST_USER', ''),
