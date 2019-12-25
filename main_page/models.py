@@ -127,3 +127,22 @@ class WorkshopRegistration(models.Model):
 
     def __str__(self):
         return self.participant.__str__()+"\t"+self.workshop.__str__()
+
+class WorkshopAccomodation(models.Model):
+    participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
+    accomodation_on_7th = models.BooleanField(default=False)
+    accomodation_on_8th = models.BooleanField(default=False)
+    accomodation_on_9th = models.BooleanField(default=False)
+    payment_request_id = models.CharField(max_length = 100, default = 'none')
+    transaction_id = models.CharField(max_length=100, default='none')
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def no_of_days(self):
+        days = 0
+        if self.accomodation_on_7th == True:
+            days= days+1
+        if self.accomodation_on_8th == True:
+            days= days+1
+        if self.accomodation_on_9th == True:
+            days= days+1
+        return days

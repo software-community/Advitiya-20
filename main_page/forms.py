@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 import re
-from main_page.models import Participant, Team, TeamHasMembers, Workshop
+from main_page.models import Participant, Team, TeamHasMembers, WorkshopAccomodation
 from ca.models import Profile
 
 
@@ -69,3 +69,15 @@ class BaseTeamFormSet(forms.BaseFormSet):
                 message = "Each Participant in the team must be unique"
                 form.add_error('team_member', forms.ValidationError(message = message, code = "SameParticipant"))
             team_members.add(team_member)
+                       
+class WorkshopAccomodationForm(forms.ModelForm):
+    accomodation_on_7th = forms.BooleanField(required= False, label="Accomodation for 7th February", 
+            widget=forms.CheckboxInput, initial= False,)
+    accomodation_on_8th = forms.BooleanField(required= False, label="Accomodation for 8th February", 
+            widget=forms.CheckboxInput, initial= False,)
+    accomodation_on_9th = forms.BooleanField(required= False, label="Accomodation for 9th February", 
+            widget=forms.CheckboxInput, initial= False,)
+
+    class Meta:
+        model= WorkshopAccomodation
+        fields=["accomodation_on_7th", "accomodation_on_8th", "accomodation_on_9th"]            

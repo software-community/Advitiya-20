@@ -30,6 +30,9 @@
             <div class="col-12">
                 <div class="section-heading-3 text-center wow fadeInUp" data-wow-delay="300ms">
                     <h2>Workshops at IIT Ropar</h2>
+                    <a href="{% url 'main_page:workshop_accomodation'  %}" class="btn confer-btn-white" 
+                        style = "border: 2px solid rgb(43, 2, 143); color: black;" 
+                        onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">Get Accomodation</a>
                 </div>
             </div>
         </div>
@@ -45,7 +48,9 @@
                         </div>
                         <h5>{{workshop.name}}</h5>
                         <p>Register for this workshop here</p>
-                    <a href="{% url 'main_page:workshop_register' workshop.id  %}" class="btn btn-primary">Register Now!!!</a>
+                    <a href="{% url 'main_page:workshop_register' workshop.id  %}" class="btn confer-btn-white" 
+                        style = "border: 2px solid rgb(43, 2, 143); color: black;" 
+                        onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">Register Now!!!</a>
                 
                     </div>
                 
