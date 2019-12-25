@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path,include
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import views as auth_views
-from . import views
+from . import views, accomodation_views
 app_name='main_page'
 
 urlpatterns=[
@@ -23,4 +23,10 @@ urlpatterns=[
     path('workshop_register/<int:workshop_id>/',views.workshop_register,name="workshop_register"),
     path('workshop_payment_redirect/', views.workshop_payment_redirect, name = 'workshop_payment_redirect'),
     path('workshop_webhook/', csrf_exempt(views.workshop_webhook), name= 'workshop_webhook'),
+    # Workshop Accomodation
+    path('workshop_accomodation/',accomodation_views.workshop_accomodation,name='workshop_accomodation'),
+    path('workshop_accomodation_payment_redirect/', accomodation_views.workshop_accomodation_payment_redirect, 
+        name = 'workshop_accomodation_payment_redirect'),
+    path('workshop_accomodation_webhook/', csrf_exempt(accomodation_views.workshop_accomodation_webhook), 
+        name= 'workshop_accomodation_webhook'),
 ]

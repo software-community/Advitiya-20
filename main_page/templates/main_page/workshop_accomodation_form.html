@@ -18,10 +18,10 @@
             <div class="col-md-6">
                 <br>
                 <div class="breadcrumb-content">
-                    <h2 class="page-title">Register for workshop</h2>
+                    <h2 class="page-title">Accomodation for Workshop Participants</h2>
                     <form method="POST">
                         {% csrf_token %}
-                        {{ workshopForm | crispy }}
+                        {{ workshop_accomodation_form | crispy }}
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
