@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from main_page.models import  Coordinator, Events, Participant, EventRegistration, Payment, Team, TeamHasMembers, CATEGORY_CHOCIES, WorkshopRegistration, Workshop
+from main_page.models import (Coordinator, Events, Participant, EventRegistration, Payment, Team, TeamHasMembers, 
+                CATEGORY_CHOCIES, WorkshopRegistration, Workshop, WorkshopAccomodation)
 from django.contrib.auth.decorators import login_required
-from main_page.forms import ParticipationForm, TeamHasMemberForm, BaseTeamFormSet, TeamForm
+from main_page.forms import ParticipationForm, TeamHasMemberForm, BaseTeamFormSet, TeamForm, WorkshopAccomodationForm
 from django.core.mail import send_mail
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse, HttpResponseRedirect
 from django.forms import formset_factory, modelformset_factory
@@ -324,7 +325,7 @@ def payment_redirect(request):
     
 
 
-@login_required(login_url='/auth/google/login/')  
+@login_required(login_url='/auth/google/login/')
 def workshop_register(request, workshop_id):
     
     try:
