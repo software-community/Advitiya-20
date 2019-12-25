@@ -112,6 +112,8 @@ class TeamHasMembers(models.Model):
 
 class Workshop(models.Model):
     name = models.CharField(max_length=200)
+    image = models.ImageField(
+        upload_to=get_file_path, null=True, blank=True)
     fees = models.IntegerField(default = 1000)
 
     def __str__(self):
