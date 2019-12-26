@@ -68,6 +68,12 @@
                                                         {% else %}
                                                             <h4 style="color: white;">You have not participated in any event yet.</h4>
                                                         {% endif %}
+                                                        {% if workshops_registered %}
+                                                            <center><h3 style="color: blue;">WORKSHOPS REGISTERED</h3></center>
+                                                            {% for workshop in workshops_registered %}
+                                                                <li><h4 style="color: white;">{{workshop}}</h4></li>
+                                                            {% endfor %}
+                                                        {% endif %}
                                                     </ul>
                                                 </div>
 

@@ -37,8 +37,18 @@ def profile(request):
         events_participated = EventRegistration.objects.filter(participant=participant)
     except:
         events_participated = None
+
+    workshops_registered = []
+
+    workshop_registrations = WorkshopRegistration.objects.filter(participant=participant)
+    for registration in workshop_registrations:
+        if registration.transaction_id != 'none' and registration.transaction_id != '0':
+            workshops_registered.append(registration.workshop)
+
     return render(request,'main_page/profile.html', {'participant' : participant,'CATEGORY_CHOCIES': CATEGORY_CHOCIES,
-                'EVENTS_PARTICIPATED': events_participated,})
+                'EVENTS_PARTICIPATED': events_participated,
+                'workshops_registered': workshops_registered,
+            })
 
 def events(request):
     # return render(request, 'main_page/show_info.html', {'message':"This Section is revealing soon.",
