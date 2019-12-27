@@ -116,6 +116,13 @@ class Workshop(models.Model):
         upload_to=get_file_path, null=True, blank=True)
     fees = models.IntegerField(default = 1000)
     rulebook = models.URLField(blank=True)
+    at_sudhir = models.BooleanField(default=False)
+
+    WORKSHOP_CHOCIES = (
+        ('t', 'Technical'),
+        ('m', 'Management'),
+    )
+    workshop_type = models.CharField(max_length=2, choices=WORKSHOP_CHOCIES)
 
     def __str__(self):
         return self.name.__str__()

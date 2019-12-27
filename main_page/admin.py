@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from main_page.models import (Events, Coordinator, Participant, Payment, EventRegistration,
                         Team, TeamHasMembers, Workshop, WorkshopRegistration, WorkshopAccomodation)
 
@@ -46,6 +47,17 @@ class WorkshopRegistrationAdminView(admin.ModelAdmin):
     list_display = [field.name for field in WorkshopRegistration._meta.fields]
 
 admin.site.register(WorkshopRegistration, WorkshopRegistrationAdminView)
+
+class WorkshopRegistrationPaidAdminView(WorkshopRegistrationAdminView): # for paid
+    def get_queryset(self, request):
+        return self.model.objects.exclude(transaction_id='none').exclude(
+            transaction_id='0').filter(workshop__at_sudhir=True)
+
+class WorkshopPaidRegistration(WorkshopRegistration):
+    class Meta:
+        proxy = True
+
+admin.site.register(WorkshopPaidRegistration, WorkshopRegistrationPaidAdminView)
 
 class WorkshopAccomodationAdminView(admin.ModelAdmin):
     list_display = [field.name for field in WorkshopAccomodation._meta.fields]
