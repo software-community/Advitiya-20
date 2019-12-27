@@ -36,11 +36,14 @@ def workshop_accomodation(request):
     # Previous Payments
     previous_accomodation = None
     try:
-        previous_accomodation= WorkshopAccomodation.objects.get(participant=participant)
+        previous_accomodation = WorkshopAccomodation.objects.get(participant=participant)
         if previous_accomodation.transaction_id != 'none' and previous_accomodation.transaction_id != '0':
             return render(request, 'main_page/show_info.html',{
                 'message': '''You have already opted and paid for accomodation !!'''
             })
+        else:
+            previous_accomodation.delete()
+            previous_accomodation = None
     except:
         pass
 
