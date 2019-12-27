@@ -20,9 +20,13 @@ def payment_request(name, amount, purpose, email, mobile):
     )
     return response
 
-def workshop_payment_request(name, amount, purpose, email, mobile):
-    api = Instamojo(api_key=os.getenv('WORKSHOP_API_AUTH_KEY'),
-                    auth_token=os.getenv('WORKSHOP_API_AUTH_TOKEN'))
+def workshop_payment_request(name, amount, purpose, email, mobile, at_sudhir):
+    if at_sudhir:
+        api = Instamojo(api_key=os.getenv('WORKSHOP_API_AUTH_KEY'),
+                        auth_token=os.getenv('WORKSHOP_API_AUTH_TOKEN'))
+    else:
+        api = Instamojo(api_key=os.getenv('API_AUTH_KEY'),
+                    auth_token=os.getenv('API_AUTH_TOKEN'))
 
     # Create a new Payment Request
     response = api.payment_request_create(

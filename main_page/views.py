@@ -366,7 +366,7 @@ def workshop_register(request, workshop_id):
     # Pay for the workshop
     purpose = "Registration Fee for the workshop on " + workshop.name + " at Advitiya 2020"
     response = workshop_payment_request(participant.name, str(workshop.fees), purpose,
-            request.user.email, str(participant.phone_number))
+            request.user.email, str(participant.phone_number), workshop.at_sudhir)
     
     if response['success']:
         url = response['payment_request']['longurl']
