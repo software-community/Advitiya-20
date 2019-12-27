@@ -121,6 +121,7 @@ class Workshop(models.Model):
     WORKSHOP_CHOCIES = (
         ('t', 'Technical'),
         ('m', 'Management'),
+        ('c', 'Career Training'),
     )
     workshop_type = models.CharField(max_length=2, choices=WORKSHOP_CHOCIES)
 
