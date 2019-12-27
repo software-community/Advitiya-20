@@ -23,7 +23,7 @@ def sponsors(request):
 def workshop(request):
     workshops = Workshop.objects.all()
     return render(request,'main_page/workshop.html', {
-        'CATEGORY_CHOCIES': CATEGORY_CHOCIES,
+        'WORKSHOP_CHOCIES': Workshop.WORKSHOP_CHOCIES,
         'workshops': workshops,
     })
 
