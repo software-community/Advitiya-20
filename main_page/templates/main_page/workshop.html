@@ -62,11 +62,12 @@ background: linear-gradient(to right, #fbc7d4, #9796f0); /* W3C, IE 10+/ Edge, F
         </div>
 
         <div class="row wow fadeInUp" data-wow-delay="0.3s">
+            {% for w_cat in WORKSHOP_CHOCIES %}
             <div class="col-md-12">
-                <h2>Technical Workshops</h2><br>
+                <h2>{{ w_cat.1 }}</h2><br>
             </div>
             {% for workshop in workshops %}
-            {% if workshop.workshop_type == "t" %}
+            {% if workshop.workshop_type == w_cat.0 %}
             <!-- Single We Offer Area -->
             <div class="col-12 col-md-6 col-xl-4">
                 <div class="single-we-offer-content text-center wow fadeInUp" data-wow-delay="0.3s">
@@ -104,51 +105,7 @@ background: linear-gradient(to right, #fbc7d4, #9796f0); /* W3C, IE 10+/ Edge, F
             </div>
             {% endif %}
             {% endfor %}
-        </div>
-
-        <div class="row wow fadeInUp" data-wow-delay="0.3s">
-            <div class="col-md-12">
-                <br><br>
-                <h2>Management Workshops</h2><br>
-            </div>
-            {% for workshop in workshops %}
-            {% if workshop.workshop_type == "m" %}
-            <!-- Single We Offer Area -->
-            <div class="col-12 col-md-6 col-xl-4">
-                <div class="single-we-offer-content text-center wow fadeInUp" data-wow-delay="0.3s">
-                    <!-- Icon -->
-                    <div class="single-blog-thumb">
-                        <center><a href="{% url 'main_page:workshop_register' workshop.id  %}">
-                                <img src="{{ workshop.image.url }}" style="height: 200px;" alt=""></a>
-                        </center>
-                    </div>
-                    <h5>{{workshop.name}}</h5>
-                    <h6>Fee: Rs {{ workshop.fees }}</h6>
-                    {% if workshop.name != "Personality Development and Placement Preparation" %}
-                    <div class="post-meta">
-                        <a class="post-date"><i class="zmdi zmdi-time-interval"></i> 2 Days</a><br>
-                        <a class="post-date"><i class="zmdi zmdi-calendar-check"></i> 8th & 9th February, 2020</a>
-                    </div>
-                    {% else %}
-                    <div class="post-meta">
-                        <a class="post-date"><i class="zmdi zmdi-time-interval"></i> 1 Day</a><br>
-                        <a class="post-date"><i class="zmdi zmdi-calendar-check"></i> 7th February, 2020</a>
-                    </div>
-                    {% endif %}
-                    <br>
-                    <a href="{% url 'main_page:workshop_register' workshop.id  %}" class="btn confer-btn-white"
-                        style="border: 2px solid rgb(43, 2, 143); color: black;"
-                        onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">Register
-                        Now</a>
-                    <a href="{{ workshop.rulebook }}" class="btn confer-btn-white"
-                        style="border: 2px solid rgb(43, 2, 143); color: black;"
-                        onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">
-                        <i class="zmdi zmdi-info zmdi-hc-lg"></i> info</a>
-
-                </div>
-
-            </div>
-            {% endif %}
+            <div class="col-md-12"><br><br></div>
             {% endfor %}
         </div>
     </div>
