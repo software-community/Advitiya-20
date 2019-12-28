@@ -79,15 +79,21 @@ background: linear-gradient(to right, #fbc7d4, #9796f0); /* W3C, IE 10+/ Edge, F
                     </div>
                     <h5>{{workshop.name}}</h5>
                     <h6>Fee: Rs {{ workshop.fees }}</h6>
-                    {% if workshop.name != "Personality Development and Placement Preparation" %}
-                    <div class="post-meta">
-                        <a class="post-date"><i class="zmdi zmdi-time-interval"></i> 2 Days</a><br>
-                        <a class="post-date"><i class="zmdi zmdi-calendar-check"></i> 8th & 9th February, 2020</a>
-                    </div>
-                    {% else %}
+                    {% if workshop.name == "Personality Development and Placement Preparation" %}
                     <div class="post-meta">
                         <a class="post-date"><i class="zmdi zmdi-time-interval"></i> 1 Day</a><br>
                         <a class="post-date"><i class="zmdi zmdi-calendar-check"></i> 7th February, 2020</a>
+
+                    </div>
+                    {% elif workshop.name == "Social Media Marketing & SEO Details" %}
+                    <div class="post-meta">
+                        <a class="post-date"><i class="zmdi zmdi-time-interval"></i> 2 Days</a><br>
+                        <a class="post-date"><i class="zmdi zmdi-calendar-check"></i> 7th & 8th February, 2020</a>
+                    </div>
+                    {% else %}
+                    <div class="post-meta">
+                        <a class="post-date"><i class="zmdi zmdi-time-interval"></i> 2 Days</a><br>
+                        <a class="post-date"><i class="zmdi zmdi-calendar-check"></i> 8th & 9th February, 2020</a>
                     </div>
                     {% endif %}
                     <br>
