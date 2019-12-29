@@ -68,6 +68,7 @@ class Participant(models.Model):
     name = models.CharField(max_length=100, blank=False, default = 'Your Name')
     phone_number = models.CharField(max_length=10, default=None)
     college_name = models.CharField(max_length=200, default='no college')
+    city = models.CharField(max_length = 50)
     ca_code = models.ForeignKey(Profile , verbose_name = 'CA Code', null = True, blank= True, on_delete = models.CASCADE)
     participant_code = models.CharField(
         max_length=11, verbose_name='Participant Code', unique=True)
