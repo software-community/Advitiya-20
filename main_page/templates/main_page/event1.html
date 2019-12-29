@@ -3,12 +3,13 @@
 
 {% block body %}
 
-<section id="event" class="breadcrumb-area bg-img bg-gradient-overlay jarallax" style="background-image: url(img/bg-img/37.jpg); ">
+<section id="event" class="breadcrumb-area bg-img bg-gradient-overlay jarallax"
+    style="background-image: url(img/bg-img/37.jpg); ">
     <div class="container h-100">
         <div class="row h-100 align-items-center">
             <div class="col-12">
                 <div class="breadcrumb-content">
-                    <h2 class="page-title" >{{ event.name }}</h2>
+                    <h2 class="page-title">{{ event.name }}</h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{% url 'main_page:index' %}">Advitiya</a></li>
@@ -24,44 +25,49 @@
 <!-- Breadcrumb Area End -->
 
 <!-- Blog Area Start -->
-<section class="confer-blog-details-area section-padding-100-0">
+<section class="confer-blog-details-area section-padding-100-0" style="background-image: url({{ event.image.url }});
+                background-size: cover; background-position: center; background-repeat: no-repeat;">
     <div class="container">
         <div class="row justify-content-center">
             <!-- Single Post Details Area -->
             <div class="col-12 col-lg-8 col-xl-9">
                 <div class="pr-lg-4 mb-100">
                     <!-- Post Content -->
-                    <div class="post-details-content">
+                    <div class="post-details-content" style="background-color: rgba(255, 255, 255, 0.7);
+                            padding: 20px;border-radius: 10px;">
 
                         <!-- Post Thumbnail -->
-                        <div class="post-blog-thumbnail mb-30">
+                        <!-- <div class="post-blog-thumbnail mb-30">
                             <img src="{{ event.image.url }}" alt="" width="450px" height="350px">
-                        </div>
+                        </div> -->
 
                         <!-- Post Title -->
                         <h4 class="post-title">ABOUT EVENT</h4>
 
                         <h5>The prize money for this event is {{ event.prize }} thousands.</h5>
                         <p>{{event.description}}</p>
-<br>
+                        <br>
                         <h5>Rules &amp; Team Members</h5>
                         {% if event.team_upper_limit == 1 %}
                         <p>This is a solo event.</p>
                         {%else%}
-                        <p>The number of team members may vary from {{ event.team_lower_limit }} to a maximum of {{ event.team_upper_limit }}.</p>
-                        
+                        <p>The number of team members may vary from {{ event.team_lower_limit }} to a maximum of
+                            {{ event.team_upper_limit }}.</p>
+
                         {%endif%}
-                        
+
                         <p>
                             The rulebook of the event can be seen here.<a href="{{ event.rulebook }}">Click here</a>
                         </p>
 
                         <br>
                         {%if event.team_upper_limit != 1%}
-                            <!-- Blockquote -->
-                            <blockquote class="confer-blockquote">
-                                <p>Each participant needs to register at Advitiya, and pay the registration fee. The Team Leader may then register the participants using the participation code provided to each participant.</p>
-                            </blockquote>
+                        <!-- Blockquote -->
+                        <blockquote class="confer-blockquote">
+                            <p>Each participant needs to register at Advitiya, and pay the registration fee. The Team
+                                Leader may then register the participants using the participation code provided to each
+                                participant.</p>
+                        </blockquote>
                         {%endif%}
 
                         <!-- <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas obcaecati excepturi esse repellat ratione non cum quibusdam corrupti reprehenderit deserunt consectetur, officia repellendus nisi reiciendis ipsam ut ullam incidunt voluptate.</p>
@@ -88,20 +94,22 @@
                     <!-- Single Widget Area -->
                     <div class="single-widget-area">
                         <!-- Post Author Widget -->
-                        <div class="post-author-widget">
+                        <div class="post-author-widget" style="background-color: rgba(255, 255, 255, 0.7);
+                        padding: 20px;border-radius: 10px;">
                             <!-- Thumbnail -->
-                            <a href="{{ event.rulebook }}" class="btn btn-primary">Rulebook</a>
+                            <a href="{{ event.rulebook }}" class="btn btn-info">Rulebook</a>
                             <!-- Co-ordinator Content -->
                             <div class="post-author-content">
-                                
+
                                 <br>
                                 <!-- <p>Venue of Event: {{event.venue}}</p>
                                 <p>Timings: {{event.start_date_time}}</p> -->
                                 <h5>Event Coordinator</h5>
-                                <span>Name: {{event.coordinator.name}}</span> 
+                                <span>Name: {{event.coordinator.name}}</span>
                                 <span>Contact Details: {{event.coordinator.phone }}</span>
                             </div>
-                            <a href="{% url 'main_page:register_for_event' event.id  %}" class="btn btn-primary">Register Now!!!</a>
+                            <a href="{% url 'main_page:register_for_event' event.id  %}"
+                                class="btn confer-btn">Register Now</a>
                         </div>
                     </div>
 

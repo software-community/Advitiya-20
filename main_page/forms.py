@@ -20,7 +20,7 @@ class ParticipationForm(forms.ModelForm):
 
     class Meta:
         model= Participant
-        fields=["name", "phone_number", "college_name", "ca_code"]
+        fields=["name", "phone_number", "college_name", "city", "ca_code"]
     
     def clean_ca_code(self):
         ref_ca_code = self.cleaned_data['ca_code']
@@ -89,4 +89,4 @@ class WorkshopParticipantForm(forms.ModelForm):
 
     class Meta:
         model= Participant
-        fields=["name", "phone_number", "college_name"]
+        fields=["name", "phone_number", "college_name", "city"]
