@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from main_page.models import (Coordinator, Events, Participant, EventRegistration, Payment, Team, TeamHasMembers, 
                 CATEGORY_CHOCIES, WorkshopRegistration, Workshop, WorkshopAccomodation)
 from django.contrib.auth.decorators import login_required
-from main_page.forms import ParticipationForm, TeamHasMemberForm, BaseTeamFormSet, TeamForm, WorkshopAccomodationForm
+from main_page.forms import (ParticipationForm, TeamHasMemberForm, BaseTeamFormSet, TeamForm,
+             WorkshopAccomodationForm, WorkshopParticipantForm)
 from django.core.mail import send_mail
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse, HttpResponseRedirect
 from django.forms import formset_factory, modelformset_factory
@@ -341,11 +342,8 @@ def workshop_register(request, workshop_id):
     try:
         participant = Participant.objects.get(user = request.user)
     except Participant.DoesNotExist:
-        return render(request, 'main_page/show_info.html', {'message':'''You must register as a participant before 
-                    registering for the workshops.
-                    <a href="'''+reverse('main_page:register_as_participant')+'''?next='''+
-                        reverse('main_page:workshop_register', args=[workshop_id])+'''" >Click Here</a>''', 
-                        'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+        return HttpResponseRedirect(reverse('main_page:workshop_participant')
+                + '?next=' + reverse('main_page:workshop_register', args=[workshop_id]))
     
     workshop=Workshop.objects.get(id=workshop_id)
     
@@ -445,3 +443,39 @@ def workshop_payment_redirect(request):
 
 def benefits(request):
     return render(request,'main_page/benefits_n_certification.html')
+
+@login_required(login_url='/auth/google/login/')
+def workshopParticipant(request):
+    try:
+        prev_participant_registration_details = Participant.objects.get(
+            user = request.user
+        )
+    except Participant.DoesNotExist:
+        prev_participant_registration_details = None
+    
+    if prev_participant_registration_details:
+        return render(request, 'main_page/show_info.html', 
+            {'message': 'You have already registered as a Participant. Your ADVITIYA ID IS <b>'
+             + str(prev_participant_registration_details.participant_code)+'</b>', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+    
+    if request.method == 'POST':
+        participationForm = WorkshopParticipantForm(request.POST)
+        if participationForm.is_valid():
+            new_participation_form = participationForm.save(commit = False)
+            new_participation_form.user = request.user
+            new_participation_form.save()
+            new_participation_form = Participant.objects.get(user = request.user)
+            new_participation_form.participant_code = 'ADV_20' + str(1000 + new_participation_form.id)
+            new_participation_form.save()
+            next_url = request.GET.get('next')
+            if next_url:
+                return HttpResponseRedirect(next_url)
+            else:
+                return render(request, 'main_page/show_info.html', {'message': '''You are successfully registered for 
+                        participation in events at Advitiya.
+                                Your ADVITIYA ID IS <b>''' + str(new_participation_form.participant_code)+'</b>' +
+                                '''<br> <a href="'''+ reverse('main_page:payment') +'''">Click Here</a> for Payment. Your registration is 
+                                not valid unless you make the payment.''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES })
+    else:
+        participationForm = WorkshopParticipantForm()
+    return render(request, 'main_page/participation_form.html', {'participationForm': participationForm })
