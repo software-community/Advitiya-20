@@ -141,7 +141,7 @@ def registerForEvent(request, event_id):
                     <a href="/register-as-participant" >Click Here</a>''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
     
     try:
-        already_participant = EventRegistration.objects.get(participant = participant, event = event)
+        already_participant = EventRegistration.objects.filter(participant = participant, event = event)[0]
         return render(request, 'main_page/show_info.html', {'message':"You have already registered for this event.",
                     'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
     except:
@@ -149,7 +149,7 @@ def registerForEvent(request, event_id):
 
     if event.team_upper_limit == 1:
         try:
-            payment_detail = Payment.objects.get(participant = participant)
+            payment_detail = Payment.objects.filter(participant = participant)[0]
             if payment_detail.transaction_id == 'none' or payment_detail.transaction_id == '0':
                 return render(request, 'main_page/show_info.html', {'message':'''You must pay participation fee 
                         before registering for this event. Your last payment did not complete. 
@@ -192,7 +192,7 @@ def registerForEvent(request, event_id):
                     list_of_team_members.append(team_member)
                     list_of_email_address_of_team_members.append(team_member.user.email)
                     try:
-                        team_member_payment = Payment.objects.get(participant = team_member)
+                        team_member_payment = Payment.objects.filter(participant = team_member)[0]
                         if team_member_payment.transaction_id == 'none' or team_member_payment.transaction_id == '0':
                             return render(request, 'main_page/show_info.html', {'message':'''Some of the Team Member has 
                                     not paid the fees yet. Kindly check and ask them to complete their payment.''', 
@@ -251,7 +251,7 @@ def pay_for_participation(request):
     payment_detail = None
 
     try:
-        payment_detail = Payment.objects.get(participant = participant)
+        payment_detail = Payment.objects.filter(participant = participant)[0]
         if payment_detail.transaction_id == '0' or payment_detail.transaction_id == 'none':
             raise Exception("Previous Payment was failure!")
         return render(request, 'main_page/show_info.html', {'message': "You have already paid the registration fee.", 
@@ -291,8 +291,8 @@ def webhook(request):
 
         if mac_provided == mac_calculated:
             try:
-                payment_detail = Payment.objects.get(
-                    payment_request_id=data['payment_request_id'])
+                payment_detail = Payment.objects.filter(
+                    payment_request_id=data['payment_request_id'])[0]
                 if data['status'] == "Credit":
                     # Payment was successful, mark it as completed in your database.
                     payment_detail.transaction_id = data['payment_id']
@@ -350,7 +350,7 @@ def workshop_register(request, workshop_id):
     already_participant = None
 
     try:
-        already_participant = WorkshopRegistration.objects.get(participant=participant, workshop= workshop)
+        already_participant = WorkshopRegistration.objects.filter(participant=participant, workshop= workshop)[0]
         if already_participant.transaction_id != 'none' and already_participant.transaction_id != '0':
             return render(request, 'main_page/show_info.html',{
                 'message': '''You have already registered for this workshop !! As we offer subsidized charges for 
@@ -394,8 +394,8 @@ def workshop_webhook(request):
 
         if mac_provided == mac_calculated:
             try:
-                payment_detail = WorkshopRegistration.objects.get(
-                    payment_request_id=data['payment_request_id'])
+                payment_detail = WorkshopRegistration.objects.filter(
+                    payment_request_id=data['payment_request_id'])[0]
                 if data['status'] == "Credit":
                     # Payment was successful, mark it as completed in your database.
                     payment_detail.transaction_id = data['payment_id']
