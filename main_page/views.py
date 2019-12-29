@@ -479,3 +479,7 @@ def workshopParticipant(request):
     else:
         participationForm = WorkshopParticipantForm()
     return render(request, 'main_page/participation_form.html', {'participationForm': participationForm })
+
+
+def talks(request):
+    return render(request,'main_page/talks.html',{'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
