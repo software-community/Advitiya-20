@@ -19,6 +19,19 @@ background: -webkit-linear-gradient(to right, #fbc7d4, #9796f0);  /* Chrome 10-2
 background: linear-gradient(to right, #fbc7d4, #9796f0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 ">
                         <div class="about-content-text">
+                            <h3>Workshop Registration Process</h3>
+                            <br>
+                            <ul>
+                                <li style="list-style-type:disc; text-align: left;">
+                                    Step 1: Register for the workshops.
+                                </li>
+                                <li style="list-style-type:disc; text-align: left;">
+                                    Step 2: [Optional] Get accomodation. <a
+                                        href="{% url 'main_page:workshop_accomodation' %}" style="color: blue;">(Click
+                                        Here)</a>
+                                </li>
+                            </ul>
+                            <br>
                             <h3>Important Note</h3>
                             <ul>
                                 <li style="text-align: justify;">1. Exclusively for the workshop participants, we provide 
@@ -63,7 +76,6 @@ background: linear-gradient(to right, #fbc7d4, #9796f0); /* W3C, IE 10+/ Edge, F
                         </center>
                     </div>
                     <h5>{{workshop.name}}</h5>
-                    <h6>Fee: Rs {{ workshop.fees }}</h6>
                     {% if workshop.name == "Personality Development and Placement Preparation" %}
                     <div class="post-meta">
                         <a class="post-date"><i class="zmdi zmdi-time-interval"></i> 1 Day</a><br>
