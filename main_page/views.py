@@ -441,6 +441,9 @@ def workshop_payment_redirect(request):
                 'CATEGORY_CHOCIES': CATEGORY_CHOCIES
             })
 
+def benefits(request):
+    return render(request,'main_page/benefits_n_certification.html')
+
 @login_required(login_url='/auth/google/login/')
 def workshopParticipant(request):
     try:
