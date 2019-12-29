@@ -1,0 +1,46 @@
+{% extends "techconnect/base.html" %}
+{% load static %}
+{% load socialaccount %}
+
+{% block body %}
+
+<section class="section-padding-100-0">
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- Single Post Details Area -->
+            <div class="col-12 col-lg-8 col-xl-9">
+                <div class="pr-lg-4 mb-100">
+                        <!-- Post Thumbnail -->
+                        <div class="mb-30">
+                            <img src="{{ center.college_image.url }}" alt="" width="450px" height="350px">
+                        </div>
+
+                        <!-- Post Title -->
+                        <h3>Workshops at {{center.college_name}}, {{center.city_name}}, {{center.state}}</h3><br>
+                        {% for workshop in workshops %}
+                            <ul>
+                                <li><h4 style="color:#2e19a0">{{workshop.workshop_name}}</h4></li>
+                                <div class="container">
+                                    <li><h5 >Fee: {{workshop.fees}}</h5></li>
+                                    <li><h5 >Dates: To be announced soon</h5></li>
+                                    <a href="{{workshop.rulebook}}" class="btn confer-btn-white"
+                                        style="border: 2px solid rgb(43, 2, 143); color: black;"
+                                        onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">
+                                        details</a>
+                                        
+                                    <a href="{% url 'techconnect:workshop_register' workshop.id %}" class="btn confer-btn-white"
+                                        style="border: 2px solid rgb(43, 2, 143); color: black;"
+                                        onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">
+                                        Register</a>
+                                    <br>
+                                </div>
+                            </ul>
+                        {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

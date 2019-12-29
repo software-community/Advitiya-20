@@ -16,10 +16,11 @@ def workshop_accomodation(request):
     try:
         participant = Participant.objects.get(user=request.user)
     except Participant.DoesNotExist:
-        return render(request, 'main_page/show_info.html', {'message':'''You must register as a participant before 
-                    registering for the workshops and taking accomodation.
-                    <a href="'''+reverse('main_page:register_as_participant')+'''?next='''+
-                        reverse('main_page:workshop')+'''" >Click Here</a>''',})
+        return render(request, 'main_page/show_info.html',{
+            'message':  '''You must register for some workshop before opting for accomodation.<a href="'''+
+                        reverse('main_page:workshop')+'''"> Click Here </a> to go to 
+                                the workshops page.''',
+        })
 
     participant_registrations = WorkshopRegistration.objects.filter(participant=participant)
     bool_participated = False
@@ -67,7 +68,7 @@ def workshop_accomodation(request):
     
     #Payment
     days = previous_accomodation.no_of_days()
-    fee = os.environ.get('ACCOMODATION_FEE', '250')
+    fee = os.environ.get('WORKSHOP_ACCOMODATION_FEE', '250')
     purpose = "Accomodation Charges for "+ str(days) +" days for workshop participant at Advitiya 2020"
     response = workshop_accomodation_payment_request(participant.name, str(int(fee)*days), purpose,
             request.user.email, str(participant.phone_number))
