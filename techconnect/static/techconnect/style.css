@@ -18,6 +18,92 @@ body {
   font-family: "Montserrat", sans-serif;
   font-size: 14px; }
 
+  .circular--square,
+  .circular--landscape,
+  .circular--portrait {
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  .section {
+    width: 100%;
+    /* max-width: 960px; */
+    margin: 80px auto 80px auto;
+    text-align: justify;
+  }
+  
+  .column {
+    display: inline-block;
+    width: 320px;
+    text-align: center;
+  }
+  
+  .column div {
+    padding: 10px;
+  }
+  
+  .circular--landscape {
+    display: inline-block;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+  
+  .circular--landscape img {
+    width: auto;
+    height: 100%;
+    margin-left: -50px;
+  }
+
+
+/* Button */
+.confer-btn-white {
+  position: relative;
+  z-index: 1;
+  height: 46px;
+  padding: 0 25px;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  border-radius: 23px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 42px;
+  font-weight: 500;
+  -webkit-transition-duration: 500ms;
+  -o-transition-duration: 500ms;
+  transition-duration: 500ms; }
+  .confer-btn-white i {
+    margin-left: 5px; }
+  .confer-btn-white:hover, .confer-btn-white:focus {
+    background-color: black;
+    border-color: black;
+    color: #ffffff; }
+
+.confer-btn-white-2 {
+  position: relative;
+  z-index: 1;
+  height: 46px;
+  padding: 0 25px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border-radius: 23px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 42px;
+  font-weight: 500;
+  -webkit-transition-duration: 500ms;
+  -o-transition-duration: 500ms;
+  transition-duration: 500ms; }
+  .confer-btn-white-2 i {
+    margin-left: 3px; }
+  .confer-btn-white-2:hover, .confer-btn-white-2:focus {
+    background-color: black;
+    border-color: black;
+    color: #ffffff; }
+  
 h1,
 h2,
 h3,

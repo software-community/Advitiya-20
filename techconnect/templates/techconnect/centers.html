@@ -1,0 +1,31 @@
+{% extends "techconnect/base.html" %}
+{% load static %}
+{% load socialaccount %}
+
+{% block body %}
+
+<div class="section">
+    <center>
+        {% for center in centers %}
+            <div class="column">
+                <h4>{{center.city_name}}</h4>
+                <img class="circular--landscape" src="{{ center.city_image.url }}" />
+                <br>
+                <br>
+                <a href="{% url 'techconnect:college' center.id  %}" class="btn confer-btn-white"
+                    style="border: 2px solid rgb(43, 2, 143); color: black;"
+                    onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">
+                    View Details</a>
+                <br><br>
+            </div>
+        {% endfor %}
+        <div class="column">
+            <h4>More Centers to be released soon</h4>
+            <img class="circular--landscape" src="{% static 'techconnect/img/bg.jpg' %}" />
+            <br><br>
+            <br><br>
+        </div>
+    </center>
+</div>
+
+{% endblock %}
