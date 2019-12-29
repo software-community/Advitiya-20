@@ -19,10 +19,6 @@
                                     <h4>{{participant.name}}</h4>
                                     <h5 style="color: white;"><b>Email : </b>{{participant.user.email}}</h5>
                                     <h5 style="color: white;"><b>Advitiya ID : </b>{{participant.participant_code}}</h5>
-                                    {% else %}
-                                    <h5 style="color: white;"><a style="color: brown;"
-                                            href="{% url 'main_page:register_as_participant' %}">Click Here</a>
-                                        for register</h5>
                                     {% endif %}
                                 </div>
                             </div>
@@ -48,7 +44,7 @@
                                         <li class="nav-item">
                                             <a class="nav-link" id="wednesday-tab" data-toggle="tab" href="#step-three"
                                                 role="tab" aria-controls="step-three"
-                                                aria-expanded="true">Certificate</a>
+                                                aria-expanded="true">Certificates</a>
                                         </li>
                                     </ul>
                                 </div>

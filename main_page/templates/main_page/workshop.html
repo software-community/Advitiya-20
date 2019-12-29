@@ -19,44 +19,47 @@ background: -webkit-linear-gradient(to right, #fbc7d4, #9796f0);  /* Chrome 10-2
 background: linear-gradient(to right, #fbc7d4, #9796f0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 ">
                         <div class="about-content-text">
-                            <h3>Important Note</h3>
-                            <ul>
-                                <li>1. Exclusively for the workshop participants, we provide accomodation at cheaper
-                                    rates.
-                                    Get accomodation @ Rs.250 per day and enjoy a relaxing stay with 2 meals included.
-                                </li>
-                                <br>
-                                <li>2. A single participant may opt to attend two workshops (One on 'Personality
-                                    Development and
-                                    Placement
-                                    Preparation' and other on any one of the below mentioned technical topics.)</li>
-
-                            </ul>
-                            <br>
                             <h3>Workshop Registration Process</h3>
                             <br>
                             <ul>
-                                <li style="list-style-type:disc;">
+                                <li style="list-style-type:disc; text-align: left;">
                                     Step 1: Register as a participant and get your ADVITIYA ID. <a
                                         href="{% url 'main_page:register_as_participant' %}" style="color: blue;">(Click
                                         Here)</a>
                                 </li>
-                                <li style="list-style-type:disc;">
+                                <li style="list-style-type:disc; text-align: left;">
                                     Step 2: Register for the workshops.
                                 </li>
-                                <li style="list-style-type:disc;">
+                                <li style="list-style-type:disc; text-align: left;">
                                     Step 3: [Optional] Get accomodation. <a
                                         href="{% url 'main_page:workshop_accomodation' %}" style="color: blue;">(Click
                                         Here)</a>
                                 </li>
                             </ul>
+                            <br>
+                            <h3>Important Note</h3>
+                            <ul>
+                                <li style="text-align: justify;">1. Exclusively for the workshop participants, we provide 
+                                    accomodation at cheaper rates.
+                                    Get accomodation @ Rs.250 per day and enjoy a relaxing stay with 2 meals included.
+                                </li>
+                                <br>
+                                <li style="text-align: justify;">2. A single participant may opt to attend two workshops (One on 
+                                    'Personality Development and Placement
+                                    Preparation' and other on any one of the below mentioned technical topics.)
+                                    </li>
+                            </ul>
+                            <a href="{% url 'main_page:benefits'  %}" class="btn confer-btn-white"
+                                style="border: 2px solid rgb(43, 2, 143); color: black; padding: 5px 5px; padding: 8px 25px 40px;"
+                                onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">
+                            <i class="zmdi zmdi-assignment"> Benefits and Ceritfication</i></a>
                         </div>
                     </div>
                     <h2>Workshops at IIT Ropar</h2>
                     <a href="{% url 'main_page:workshop_accomodation'  %}" class="btn confer-btn-white"
                         style="border: 2px solid rgb(43, 2, 143); color: black;"
                         onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">
-                        <i class="zmdi zmdi-hotel zmdi-hc-lg"></i> Get Accomodation</a>
+                        <i class="zmdi zmdi-hotel zmdi-hc-lg"> Get Accomodation</i></a>
                 </div>
             </div>
         </div>
