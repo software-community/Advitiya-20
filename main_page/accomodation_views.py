@@ -36,7 +36,7 @@ def workshop_accomodation(request):
     # Previous Payments
     previous_accomodation = None
     try:
-        previous_accomodation = WorkshopAccomodation.objects.get(participant=participant)
+        previous_accomodation = WorkshopAccomodation.objects.filter(participant=participant)[0]
         if previous_accomodation.transaction_id != 'none' and previous_accomodation.transaction_id != '0':
             return render(request, 'main_page/show_info.html',{
                 'message': '''You have already opted and paid for accomodation !!'''
@@ -97,8 +97,8 @@ def workshop_accomodation_webhook(request):
 
         if mac_provided == mac_calculated:
             try:
-                payment_detail = WorkshopAccomodation.objects.get(
-                    payment_request_id=data['payment_request_id'])
+                payment_detail = WorkshopAccomodation.objects.filter(
+                    payment_request_id=data['payment_request_id'])[0]
                 if data['status'] == "Credit":
                     # Payment was successful, mark it as completed in your database.
                     payment_detail.transaction_id = data['payment_id']
