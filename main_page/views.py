@@ -442,3 +442,6 @@ def workshop_payment_redirect(request):
                             "<p>" + retry_for_payment + "</p>",
                 'CATEGORY_CHOCIES': CATEGORY_CHOCIES
             })
+
+def benefits(request):
+    return render(request,'main_page/benefits_n_certification.html')
