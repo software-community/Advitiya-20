@@ -8,6 +8,7 @@ app_name='main_page'
 urlpatterns=[
     path('',views.index, name='index'),
     path('events/',views.events, name='events'),
+    path('talks/',views.talks,name='talks'),
     path('accomodation/',views.accomodation, name='accomodation'),
     path('sponsors/',views.sponsors, name='sponsors'),
     path('events/<int:num>/',views.event_page,name='event_page'),
