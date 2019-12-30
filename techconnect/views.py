@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 import os
-from django.http import HttpResponseRedirect
+import hashlib
+import hmac
+from django.http import HttpResponseRedirect, HttpResponseServerError, HttpResponse
 
 from techconnect.models import TechConnect, TechconnectParticipant, Workshops, Centers, WorkshopRegistrations
 from techconnect.forms import TechConnectForm, ParticipationForm
@@ -157,7 +159,7 @@ def workshop_webhook(request):
 
         if mac_provided == mac_calculated:
             try:
-                payment_detail = WorkshopRegistration.objects.get(
+                payment_detail = WorkshopRegistrations.objects.get(
                     payment_request_id=data['payment_request_id'])
                 if data['status'] == "Credit":
                     # Payment was successful, mark it as completed in your database.
