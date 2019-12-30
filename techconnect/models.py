@@ -33,7 +33,7 @@ class TechconnectParticipant(models.Model):
 
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     name = models.CharField(max_length=100, blank=False, default = 'Your Name')
-    phone_number = models.CharField(max_length=10, default=None)
+    phone_number = PhoneNumberField(region='IN', verbose_name='Contact Number')
     college_name = models.CharField(max_length=200, default='no college')
     
     def __str__(self):
