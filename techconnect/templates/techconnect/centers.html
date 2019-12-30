@@ -6,7 +6,7 @@
 
 <div class="section">
     <center>
-        {% for center in centers %}
+        <!-- {% for center in centers %}
             <div class="column">
                 <h4>{{center.city_name}}</h4>
                 <a href="{% url 'techconnect:college' center.id  %}">
@@ -22,6 +22,53 @@
             <img class="circular--landscape" src="{% static 'techconnect/img/bg.jpg' %}" />
             <br><br>
             <br><br>
+        </div> -->
+        {% for center in centers %}
+            <div class="column">
+                <h4>{{center.city_name}}</h4>
+                <div class="module mid">
+                    <a href="{% url 'techconnect:college' center.id  %}">
+                        <b><h2 style="color:red">Register Here</h2></b>
+                        <img src="{{ center.city_image.url }}" />
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="column">
+            <h4>Gorakhpur</h4>
+            <div class="module mid">
+                <h2>Registration Opening Shortly</h2>
+                <a href="#">
+                    <img src="{% static 'techconnect/img/gorakhpur.jpg' %}" />
+                </a>
+            </div>
+        </div>
+        <div class="column">
+            <h4>Noida</h4>
+            <div class="module mid">
+                <h2>Registration Opening Shortly</h2>
+                <a href="#">
+                    <img src="{% static 'techconnect/img/noida.jpg' %}" />
+                </a>
+            </div>
+        </div>
+        <div class="column">
+            <h4>Dehradun</h4>
+            <div class="module mid">
+                <h2>Registration Opening Shortly</h2>
+                <a href="#">
+                    <img src="{% static 'techconnect/img/dehradun.jpg' %}" />
+                </a>
+            </div>
+        </div>
+        <div class="column">
+            <h4>Other Centers</h4>
+            <div class="module mid">
+                <h2>Revealing Soon</h2>
+                <a href="#">
+                    <img src="{% static 'techconnect/img/bg.jpg' %}" />
+                </a>
+            </div>
         </div>
     </center>
 </div>
