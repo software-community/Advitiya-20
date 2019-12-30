@@ -9,13 +9,11 @@
         {% for center in centers %}
             <div class="column">
                 <h4>{{center.city_name}}</h4>
-                <img class="circular--landscape" src="{{ center.city_image.url }}" />
+                <a href="{% url 'techconnect:college' center.id  %}">
+                    <img class="circular--landscape" src="{{ center.city_image.url }}" />
+                </a>
                 <br>
                 <br>
-                <a href="{% url 'techconnect:college' center.id  %}" class="btn confer-btn-white"
-                    style="border: 2px solid rgb(43, 2, 143); color: black;"
-                    onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">
-                    View Details</a>
                 <br><br>
             </div>
         {% endfor %}
