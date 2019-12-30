@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.views.decorators.csrf import csrf_exempt
 app_name='techconnect'
 
 urlpatterns=[
@@ -12,4 +13,6 @@ urlpatterns=[
 
     path('participant/', views.registerAsParticipant, name="registerAsParticipant"),
     path('workshop_register/<int:workshop_id>/',views.workshop_register,name="workshop_register"),
+    path('workshop_payment_redirect/', views.workshop_payment_redirect, name = 'workshop_payment_redirect'),
+    path('workshop_webhook/', csrf_exempt(views.workshop_webhook), name= 'workshop_webhook'),
 ]
