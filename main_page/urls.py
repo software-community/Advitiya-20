@@ -27,7 +27,9 @@ urlpatterns=[
     path('workshop_webhook/', csrf_exempt(views.workshop_webhook), name= 'workshop_webhook'),
     path('benefits/',views.benefits,name="benefits"),
     # Workshop Accomodation
+    path('workshop_accomodation_curr/',accomodation_views.curr_accomodation,name='workshop_accomodation_curr'),
     path('workshop_accomodation/',accomodation_views.workshop_accomodation,name='workshop_accomodation'),
+    path('workshop_accomodation/<int:pre_id>',accomodation_views.workshop_accomodation,name='workshop_accomodation'),
     path('workshop_accomodation_payment_redirect/', accomodation_views.workshop_accomodation_payment_redirect, 
         name = 'workshop_accomodation_payment_redirect'),
     path('workshop_accomodation_webhook/', csrf_exempt(accomodation_views.workshop_accomodation_webhook), 
