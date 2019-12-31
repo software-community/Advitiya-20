@@ -4,6 +4,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 import csv
 
 from ca.models import Profile
+from main_page.models import Participant
 
 # Create your views here.
 
@@ -19,5 +20,19 @@ def gen_ca_csv(request):
     for ca_user in cas:
         writer.writerow([ca_user.your_name, ca_user.college_name, ca_user.user.email, ca_user.phone,
                             ca_user.tec_head, ca_user.tec_head_phone, ca_user.past_exp, ca_user.ca_code ])
+
+    return response
+
+@staff_member_required
+def gen_participant_csv(request):
+    
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="participant_detail.csv"'
+
+    writer = csv.writer(response)
+    participants = Participant.objects.all()
+    writer.writerow(['Name', 'College Name', 'Phone Number', 'Email', 'City'])
+    for participant in participants:
+        writer.writerow([participant.name, participant.college_name, participant.phone_number, participant.user.email, participant.city])
 
     return response
