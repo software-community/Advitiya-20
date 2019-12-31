@@ -1,0 +1,48 @@
+{% extends "main_page/base.html" %}
+{% load static %}
+
+{% block body %}
+<section class="bg-img bg-gradient-overlay jarallax">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12">
+                <br><br>
+            </div>
+            <div class="breadcrumb-content">
+                <h1 style="color: white;">Current Accomodations</h1>
+                <ul class="list-group">
+                    {% for acc in accs %}
+                    <li class="list-group-item">
+                        Accomodation for
+                        {% if acc.accomodation_on_7th %}
+                        7th
+                        {% endif %}
+                        {% if acc.accomodation_on_8th %}
+                        8th
+                        {% endif %}
+                        {% if acc.accomodation_on_9th %}
+                        9th
+                        {% endif %}
+                        {% if acc.transaction_id != "0" and acc.transaction_id != "none" %}
+                        Paid
+                        {% else %}
+                        <a href="{% url 'main_page:workshop_accomodation' pre_id=acc.id %}" style="color: blue;">Pay</a>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                    <li class="list-group-item">
+                        Apply for new <a href="{% url 'main_page:workshop_accomodation' %}" style="color: blue;">Click
+                            here.</a>
+                        Accomodations are not valid until paid.
+                    </li>
+                </ul>
+
+                <br><br><br>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+
+{% endblock %}

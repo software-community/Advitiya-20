@@ -362,7 +362,7 @@ def workshop_register(request, workshop_id):
         pass
 
     # Pay for the workshop
-    purpose = "Registration Fee for the workshop on " + workshop.name + " at Advitiya 2020"
+    purpose = "Workshop on " + workshop.name + " at Advitiya 2020"
     response = workshop_payment_request(participant.name, str(workshop.fees), purpose,
             request.user.email, str(participant.phone_number), workshop.at_sudhir)
     
