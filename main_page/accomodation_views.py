@@ -12,7 +12,7 @@ from django.http import HttpResponseNotFound, HttpResponseServerError, HttpRespo
 
 
 @login_required(login_url='/auth/google/login/')
-def workshop_accomodation(request):
+def workshop_accomodation(request, pre_id = None):
     try:
         participant = Participant.objects.get(user=request.user)
     except Participant.DoesNotExist:
@@ -36,17 +36,12 @@ def workshop_accomodation(request):
     
     # Previous Payments
     previous_accomodation = None
-    try:
-        previous_accomodation = WorkshopAccomodation.objects.filter(participant=participant)[0]
+    if pre_id:
+        previous_accomodation = WorkshopAccomodation.objects.get(id=pre_id)
         if previous_accomodation.transaction_id != 'none' and previous_accomodation.transaction_id != '0':
             return render(request, 'main_page/show_info.html',{
-                'message': '''You have already opted and paid for accomodation !!'''
+                'message': '''You have already paid for this accomodation !!'''
             })
-        else:
-            previous_accomodation.delete()
-            previous_accomodation = None
-    except:
-        pass
 
     if previous_accomodation == None:
         # Pay for accomodation
@@ -69,7 +64,7 @@ def workshop_accomodation(request):
     #Payment
     days = previous_accomodation.no_of_days()
     fee = os.environ.get('WORKSHOP_ACCOMODATION_FEE', '250')
-    purpose = "Accomodation Charges for "+ str(days) +" days for workshop participant at Advitiya 2020"
+    purpose = "Accomodation for "+ str(days) +" days for workshop"
     response = workshop_accomodation_payment_request(participant.name, str(int(fee)*days), purpose,
             request.user.email, str(participant.phone_number))
     
@@ -104,17 +99,22 @@ def workshop_accomodation_webhook(request):
                     # Payment was successful, mark it as completed in your database.
                     payment_detail.transaction_id = data['payment_id']
                     # str(participantpaspaid.paid_subcategory) inlcudes name of category also
-                    send_mail(
-                        'Payment confirmation for accomodation during workshop dates ' +
-                        'at ADVITIYA 2020',
-                        'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
-                        'that your payment to ADVITIYA 2020 for accomodation during the fest' +
-                        ' is successful.\n\nRegards\nADVITIYA 2020 Public Relations Team',
-                        os.environ.get(
-                          'EMAIL_HOST_USER', ''),
-                        [payment_detail.participant.user.email],
-                        fail_silently=True,
-                    )
+                    try:
+                        send_mail(
+                            'Payment confirmation for accomodation during workshop dates ' +
+                            'at ADVITIYA 2020',
+                            'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
+                            'that your payment to ADVITIYA 2020 for '+
+                            str(payment_detail.no_of_days())
+                            +' day(s) accomodation during the fest' +
+                            ' is successful.\n\nRegards\nADVITIYA 2020 Public Relations Team',
+                            os.environ.get(
+                            'EMAIL_HOST_USER', ''),
+                            [payment_detail.participant.user.email],
+                            fail_silently=True,
+                        )
+                    except:
+                        pass
                 else:
                     # Payment was unsuccessful, mark it as failed in your database.
                     payment_detail.transaction_id = '0'
@@ -139,3 +139,12 @@ def workshop_accomodation_payment_redirect(request):
                             "</p><p><b>Payment Transaction ID:</b> " + request.GET['payment_id'] +
                             "<p>" + retry_for_payment + "</p>",
             })
+
+@login_required(login_url='/auth/google/login/')
+def curr_accomodation(request):
+    try:
+        participant = Participant.objects.get(user=request.user)
+        accs = WorkshopAccomodation.objects.filter(participant=participant)
+        return render(request,'main_page/workshop_accomodations.html', {'accs':accs})
+    except Participant.DoesNotExist:
+        return HttpResponseRedirect(reverse('main_page:workshop_accomodation'))
