@@ -99,19 +99,22 @@ def workshop_accomodation_webhook(request):
                     # Payment was successful, mark it as completed in your database.
                     payment_detail.transaction_id = data['payment_id']
                     # str(participantpaspaid.paid_subcategory) inlcudes name of category also
-                    send_mail(
-                        'Payment confirmation for accomodation during workshop dates ' +
-                        'at ADVITIYA 2020',
-                        'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
-                        'that your payment to ADVITIYA 2020 for '+
-                        payment_detail.no_of_days()
-                        +' day(s) accomodation during the fest' +
-                        ' is successful.\n\nRegards\nADVITIYA 2020 Public Relations Team',
-                        os.environ.get(
-                          'EMAIL_HOST_USER', ''),
-                        [payment_detail.participant.user.email],
-                        fail_silently=True,
-                    )
+                    try:
+                        send_mail(
+                            'Payment confirmation for accomodation during workshop dates ' +
+                            'at ADVITIYA 2020',
+                            'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
+                            'that your payment to ADVITIYA 2020 for '+
+                            str(payment_detail.no_of_days())
+                            +' day(s) accomodation during the fest' +
+                            ' is successful.\n\nRegards\nADVITIYA 2020 Public Relations Team',
+                            os.environ.get(
+                            'EMAIL_HOST_USER', ''),
+                            [payment_detail.participant.user.email],
+                            fail_silently=True,
+                        )
+                    except:
+                        pass
                 else:
                     # Payment was unsuccessful, mark it as failed in your database.
                     payment_detail.transaction_id = '0'
