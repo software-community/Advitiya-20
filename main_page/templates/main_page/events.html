@@ -60,6 +60,7 @@
             </div>
         </div>
         {% for category, event_list in events.items %}
+        {% if event_list.0 %}
         <br>
         <h2 id="{{ category }}" style="text-transform: uppercase;">{{category}}</h2>
         <div class="row events">
@@ -92,6 +93,7 @@
             </div>
             {% endfor %}
         </div>
+        {% endif %}
         {% endfor %}
     </div>
 
