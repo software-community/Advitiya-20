@@ -2,14 +2,27 @@
 {% load static %}
 {% load socialaccount %}
 
+{% block style %}
+<style>
+    .slideImage {
+        background-image: url(static/main_page/img/bg-img/coming_soon.jpg);
+    }
+
+    @media only screen and (max-width: 900px) {
+        .slideImage {
+            background-image: url(static/main_page/img/bg-img/mob_web.png);
+        }
+    }
+</style>
+{%endblock%}
+
 {% block body %}
 
 <!-- Welcome Area Start -->
 <section class="welcome-area">
     <div class="welcome-slides owl-carousel">
         <!-- Single Slide -->
-        <div class="single-welcome-slide bg-img bg-overlay jarallax"
-            style="background-image: url(static/main_page/img/bg-img/coming_soon.jpg);">
+        <div class="single-welcome-slide bg-img bg-overlay jarallax slideImage">
             <div class="container h-100">
                 <div class="row h-100 align-items-center">
                     <!-- Welcome Text -->
