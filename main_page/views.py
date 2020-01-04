@@ -483,3 +483,6 @@ def workshopParticipant(request):
 
 def talks(request):
     return render(request,'main_page/talks.html',{'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+
+def talk1(request):
+    return render(request,'main_page/talk1.html',{'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
