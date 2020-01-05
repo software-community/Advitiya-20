@@ -53,7 +53,7 @@ class Events(models.Model):
     team_upper_limit = models.IntegerField()
     fees = models.IntegerField(default = 400)
     coordinator = models.ForeignKey(Coordinator, on_delete=models.CASCADE)
-    prize = models.IntegerField()
+    prize = models.DecimalField(max_digits=6, decimal_places=3)
     rulebook = models.URLField()
     start_date_time = models.DateTimeField(blank=False)
     end_date_time = models.DateTimeField(blank=False)
