@@ -1,0 +1,47 @@
+/*!
+ * Start Bootstrap - The Big Picture (https://startbootstrap.com/template-overviews/the-big-picture)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-the-big-picture/blob/master/LICENSE)
+ */
+.body {
+  background: url('https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Beautiful-Stars-Landscape-Background-Image-.jpeg') no-repeat center center fixed;
+  height: 100vh;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+.space-10{
+  margin-top: 10rem!important;
+}
+
+/* @media only screen and (max-width: 1026px) {
+   .social-nav{
+      display: none;
+  }
+}
+
+.social-nav {
+	position:absolute;
+	bottom: 30px;
+	right: 40px;
+}
+.social-nav ul {margin: 0; padding:0;}
+.social-nav ul li{
+	list-style: none;
+	display:block;
+	float: left;
+	background: #393939;
+	padding:60px 10px 5px 10px;
+	margin: 1px;
+	opacity: .5;
+}
+.social-nav ul li:hover {opacity: 1;} */
+
+
+.content{
+  position: auto;
+  bottom: 40px;
+
+}
