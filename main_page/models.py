@@ -158,3 +158,13 @@ class WorkshopAccomodation(models.Model):
         if self.accomodation_on_9th == True:
             days= days+1
         return days
+
+class Talk(models.Model):
+    name = models.CharField(max_length=200)
+    image = models.ImageField(
+        upload_to=get_file_path, null=True, blank=True)
+    venue = models.CharField(max_length=100)
+    start_date_time = models.DateTimeField(blank=False)
+    para1 = models.TextField(null=True, blank=True)
+    para2 = models.TextField(null=True, blank=True)
+    show = models.BooleanField(default=True)
