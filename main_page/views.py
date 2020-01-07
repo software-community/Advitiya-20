@@ -61,9 +61,6 @@ def events(request):
         'events': events_list
     })
 
-def accomodation(request):
-    return render(request,'main_page/accomodation.html', {'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
-
 def event_page(request,num):
     context = {
         'event' : Events.objects.get(id=num),

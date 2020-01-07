@@ -1,0 +1,58 @@
+{% extends "main_page/base.html" %}
+{% load static %}
+
+{% block body %}
+<section class="breadcrumb-area bg-img bg-gradient-overlay jarallax"
+    style="background-image: url(static/main_page/img/bg-img/3.jpg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <h2 class="page-title">Accomodation Details</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'main_page:index' %}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Tickets</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Area End -->
+
+<!-- Our Ticket Pricing Table Area Start -->
+<section class="our-ticket-pricing-table-area section-padding-100-0">
+    <div class="container">
+        <div class="row">
+            <!-- Single Ticket Pricing Table -->
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="single-ticket-pricing-table text-center mb-100 wow fadeInUp" data-wow-delay="300ms">
+                    <h6 class="ticket-plan">3 Nights Stay</h6>
+                    <center><div class="ticket-icon">
+                        <img src="{% static 'main_page/img/core-img/p1.png' %}" alt="">
+                    </div></center>
+                    <h2 class="ticket-price"><span>Rs</span>400</h2>
+                    <a href="{% url 'accomodation:register_for_accommodation' %}" class="btn confer-btn w-100 mb-30">Get Accomodation<i
+                            class="zmdi zmdi-long-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-6">
+                    <div class="ticket-pricing-table-details">
+                        <p style="font-size: 1.5em;"><i class="zmdi zmdi-check"></i> Luxorios Three Nights Stay</p>
+                        <p style="font-size: 1.5em;"><i class="zmdi zmdi-check"></i> Free High Speed Internet</p>
+
+                        <p style="font-size: 1.5em; color: red;"><i class="zmdi zmdi-close"></i> No meals included.</p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- Our Ticket Pricing Table Area End -->
+
+{% endblock %}
