@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 
 <head>
+    {% block style %}{%endblock%}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="{% static 'ca/img/favicon.jpg' %}">
@@ -23,7 +24,6 @@
             }
         }
     </style>
-    {% block style %}{%endblock%}
 </head>
 
 <body>
@@ -94,45 +94,47 @@
 
 
     {% endblock %}
-    <!-- Footer Area Start -->
-    <footer class="footer-area bg-img bg-overlay-2 section-padding-100-0">
-        <!-- Main Footer Area -->
-        <div class="main-footer-area">
-            <div class="container">
-                <div class="row">
-                    <!-- Single Footer Widget Area -->
-                    <div class="col-12 col-sm-6 col-lg-4">
-                        <div class="single-footer-widget mb-60 wow fadeInUp" data-wow-delay="300ms">
-                            <!-- Footer Logo -->
-                            <a href="#" class="footer-logo"><img src="{% static 'ca/img/logo.png' %}" alt=""></a>
-                            <p style="margin: 2px;">An initiative by IIT Ropar to promote Science & Technology.</p>
-                            <br>
-                            <!-- Social Info -->
-                            <div class="social-info">
-                                <a href="https://www.facebook.com/advitiya.iitrpr/"><i
-                                        class="zmdi zmdi-facebook"></i></a>
-                                <a href="https://www.instagram.com/advitiya_iitrpr/?hl=en"><i
-                                        class="zmdi zmdi-instagram"></i></a>
-                                <a href="https://twitter.com/advitiyaiitrpr?lang=en"><i
-                                        class="zmdi zmdi-twitter"></i></a>
 
+    {% block footer%}
+        <!-- Footer Area Start -->
+        <footer class="footer-area bg-img bg-overlay-2 section-padding-100-0">
+            <!-- Main Footer Area -->
+            <div class="main-footer-area">
+                <div class="container">
+                    <div class="row">
+                        <!-- Single Footer Widget Area -->
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="single-footer-widget mb-60 wow fadeInUp" data-wow-delay="300ms">
+                                <!-- Footer Logo -->
+                                <a href="#" class="footer-logo"><img src="{% static 'ca/img/logo.png' %}" alt=""></a>
+                                <p style="margin: 2px;">An initiative by IIT Ropar to promote Science & Technology.</p>
+                                <br>
+                                <!-- Social Info -->
+                                <div class="social-info">
+                                    <a href="https://www.facebook.com/advitiya.iitrpr/"><i
+                                            class="zmdi zmdi-facebook"></i></a>
+                                    <a href="https://www.instagram.com/advitiya_iitrpr/?hl=en"><i
+                                            class="zmdi zmdi-instagram"></i></a>
+                                    <a href="https://twitter.com/advitiyaiitrpr?lang=en"><i
+                                            class="zmdi zmdi-twitter"></i></a>
+
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Single Footer Widget Area -->
-                    <div class="col-12 col-sm-6 col-lg-4">
-                        <div class="single-footer-widget mb-60 wow fadeInUp" data-wow-delay="300ms">
-                            <!-- Widget Title -->
-                            <h5 class="widget-title">Location</h5>
-                            <p>Indian Institute of Technology Ropar, Bara Phool, Birla Seed Farms, Rupnagar,Punjab,
-                                INDIA 140001
-                            </p>
-                            <p><i class="fa fa-phone mr-3"></i>+91 9915405007</p>
-                            <p><i class="fa fa-phone mr-3"></i>+91 8619174962</p>
-                            <p><i class="fa fa-envelope-o mr-3"></i>advitiya@iitrpr.ac.in</p>
+                        <!-- Single Footer Widget Area -->
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="single-footer-widget mb-60 wow fadeInUp" data-wow-delay="300ms">
+                                <!-- Widget Title -->
+                                <h5 class="widget-title">Location</h5>
+                                <p>Indian Institute of Technology Ropar, Bara Phool, Birla Seed Farms, Rupnagar,Punjab,
+                                    INDIA 140001
+                                </p>
+                                <p><i class="fa fa-phone mr-3"></i>+91 9915405007</p>
+                                <p><i class="fa fa-phone mr-3"></i>+91 8619174962</p>
+                                <p><i class="fa fa-envelope-o mr-3"></i>advitiya@iitrpr.ac.in</p>
+                            </div>
                         </div>
-                    </div>
 
                     <!-- Single Footer Widget Area -->
                     <div class="col-12 col-sm-6 col-lg-4">
@@ -150,34 +152,35 @@
                                 <li><a href="#">Revealing Soon</a></li>
                             </ul>
                         </div>
-                    </div>
 
-                    <!-- Single Footer Widget Area -->
+                        <!-- Single Footer Widget Area -->
 
-                </div>
-            </div>
-        </div>
-
-        <!-- Copywrite Area -->
-        <div class="container">
-            <div class="copywrite-content">
-                <div class="row">
-                    <!-- Copywrite Text -->
-                    <div class="copywrite-text">
-                        <p>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;
-                            <script>document.write(new Date().getFullYear());</script> All rights reserved | This
-                            template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-                                href="https://colorlib.com" target="_blank">Colorlib</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        </p>
                     </div>
                 </div>
             </div>
-        </div>
-    </footer>
 
+            <!-- Copywrite Area -->
+            <div class="container">
+                <div class="copywrite-content">
+                    <div class="row">
+                        <!-- Copywrite Text -->
+                        <div class="copywrite-text">
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved | This
+                                template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
+                                    href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    {%endblock%}
+
+    {% block scripts %}{%endblock%}
     <!-- Bootstrap core JavaScript and other JavaScript Files
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
