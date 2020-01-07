@@ -1,10 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from main_page.models import Participant
 from accomodation.methods import accommodation_payment_request
 from accomodation.models import Accommodation
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+import os
 
 # Create your views here.
+
+def index(request):
+    return render(request, 'accommodation/accommodation.html')
 
 @login_required(login_url='/auth/google/login/')
 def registerForAccommodation(request):
@@ -13,7 +19,7 @@ def registerForAccommodation(request):
         participant = Participant.objects.get(user = request.user)
     except Participant.DoesNotExist:
         return HttpResponseRedirect(reverse('main_page:workshop_participant')
-                + '?next=' + reverse('main_page:register_for_accomodation'))
+                + '?next=' + reverse('accomodation:register_for_accommodation'))
     
     already_participant = None
 
@@ -29,7 +35,8 @@ def registerForAccommodation(request):
 
     # Pay for accomodation
     purpose= "Accomodation during Advitiya 2020"
-    response= accomodation_payment_request(participant)
+    response= accommodation_payment_request(request.user.get_full_name(), os.environ.get('ACCOMODATION_FEE', '400'), purpose,
+            request.user.email, str(participant.phone_number))
     
     response = accommodation_payment_request(participant.name, os.environ.get('ACCOMMODATION_FEE', '400'), purpose,
             request.user.email, str(participant.phone_number))
