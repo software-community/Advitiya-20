@@ -4332,7 +4332,7 @@ video {
 }
 
 .testimonial-active-2 .slick-dots li.slick-active button, .testimonial-active .slick-dots li.slick-active button {
-  background-color: #38f9d7;
+  background-color: #2835f3;
 }
 
 .single-testimonial-4 {
@@ -4433,7 +4433,9 @@ video {
 }
 
 .slider-area .bd-example .carousel .carousel-inner {
-  background-color: #38f9d7;
+  background-image: -moz-linear-gradient(120deg, black 0%, #505add 100%);
+  background-image: -webkit-linear-gradient(120deg, black 0%, #505add 100%);
+  background-image: -ms-linear-gradient(120deg, black 0%, #505add 100%);
 }
 
 .slider-area .bd-example .carousel .carousel-inner .carousel-item {
@@ -4454,7 +4456,7 @@ video {
 
 @media (max-width: 767px) {
   .slider-area .bd-example .carousel .carousel-inner .carousel-item {
-    height: 400px;
+    height: 767px;
   }
 }
 
@@ -4640,4 +4642,11 @@ video {
   background-repeat: no-repeat;
   width: 100%;
   height: 100%;
+}
+
+@media (min-width: 767px) and (max-width: 1600px) {
+  .col-lg-7 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }

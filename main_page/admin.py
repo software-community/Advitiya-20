@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from main_page.models import (Events, Coordinator, Participant, Payment, EventRegistration,
-                        Team, TeamHasMembers, Workshop, WorkshopRegistration, WorkshopAccomodation)
+                        Team, TeamHasMembers, Workshop, WorkshopRegistration, WorkshopAccomodation, Talk)
 
 class EventsAdminView(admin.ModelAdmin):
     list_display = [field.name for field in Events._meta.fields]
@@ -63,3 +63,8 @@ class WorkshopAccomodationAdminView(admin.ModelAdmin):
     list_display = [field.name for field in WorkshopAccomodation._meta.fields]
 
 admin.site.register(WorkshopAccomodation, WorkshopAccomodationAdminView)
+
+class TalkAdminView(admin.ModelAdmin):
+    list_display = [field.name for field in Talk._meta.fields]
+
+admin.site.register(Talk, TalkAdminView)

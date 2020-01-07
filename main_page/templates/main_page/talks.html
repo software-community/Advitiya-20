@@ -24,7 +24,6 @@
                                 <div class="row justify-content-center">
                                     <div class="col-xl-6 col-lg-7 col-sm-10">
                                         <h2 class="carousel-title">Refreshing Design & Easy to Customize</h2>
-                                        <h4 style="color: #5e7af8;">Refreshing Design & Easy to Customize</h4>
                                         <a href="{% url 'main_page:events'%}" class="btn confer-btn-white">Explore</a>
                                         <ul class="carousel-btn rounded-buttons">
 
@@ -35,7 +34,7 @@
                         </div> <!-- carousel caption -->
                     </div> <!-- carousel-item -->
 
-                    <div class="carousel-item bg_cover" style="background-image: url(assets/images/slider-2.jpg)">
+                    <!-- <div class="carousel-item bg_cover" style="background-image: url(assets/images/slider-2.jpg)">
                         <div class="carousel-caption">
                             <div class="container">
                                 <div class="row justify-content-center">
@@ -45,25 +44,31 @@
 
                                         </ul>
                                     </div>
-                                </div> <!-- row -->
-                            </div> <!-- container -->
-                        </div> <!-- carousel caption -->
-                    </div> <!-- carousel-item -->
-
-                    <div class="carousel-item bg_cover" style="background-image: url(assets/images/slider-3.jpg)">
-                        <div class="carousel-caption">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-xl-6 col-lg-7 col-sm-10">
-                                        <h2 class="carousel-title">Multi-purpose Landing Page Template</h2>
-                                        <ul class="carousel-btn rounded-buttons">
-
-                                        </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    {% for person in people %}
+                        <div class="row carousel-item">
+                            <div class="bg_cover col-md-6"
+                                style="background-image: url(../../static/main_page/img/HarinderSikka8.jpg);"></div>
+                            <div class="col-md-6">
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-xl-6 col-lg-7 col-sm-10">
+                                            <h2 class="carousel-title">{{person.name}}</h2>
+                                            <ul class="carousel-btn rounded-buttons">
+                                                <li> {{person.para1}}</li>
+                                                <li> {{person.para2}}</li>
+                                                <a href="{% url 'main_page:talk1'%}"
+                                                    class="btn confer-btn-white">Explore</a>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div> <!-- row -->
-                            </div> <!-- container -->
-                        </div> <!-- carousel caption -->
-                    </div> <!-- carousel-item -->
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div> <!-- carousel-inner -->
 
                 <a class="carousel-control-prev" href="#carouselOne" role="button" data-slide="prev">

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from main_page.models import (Coordinator, Events, Participant, EventRegistration, Payment, Team, TeamHasMembers, 
-                CATEGORY_CHOCIES, WorkshopRegistration, Workshop, WorkshopAccomodation)
+                CATEGORY_CHOCIES, WorkshopRegistration, Workshop, WorkshopAccomodation, Talk)
 from django.contrib.auth.decorators import login_required
 from main_page.forms import (ParticipationForm, TeamHasMemberForm, BaseTeamFormSet, TeamForm,
              WorkshopAccomodationForm, WorkshopParticipantForm)
@@ -482,7 +482,8 @@ def workshopParticipant(request):
 
 
 def talks(request):
-    return render(request,'main_page/talks.html',{'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+    people = Talk.objects.all()
+    return render(request,'main_page/talks.html',{'people': people})
 
 def talk1(request):
     return render(request,'main_page/talk1.html',{'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
