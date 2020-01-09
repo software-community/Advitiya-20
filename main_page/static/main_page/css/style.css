@@ -4643,7 +4643,15 @@ video {
   width: 100%;
   height: 100%;
 }
-
+@media only screen and (max-width: 772px) {
+  #hello {
+    display:none
+  }
+}
+#hello
+{
+  color: white;
+}
 @media (min-width: 767px) and (max-width: 1600px) {
   .col-lg-7 {
     flex: 0 0 100%;
