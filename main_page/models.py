@@ -74,7 +74,7 @@ class Participant(models.Model):
         max_length=11, verbose_name='Participant Code', unique=True)
     
     def __str__(self):
-        return self.user.username+"\t"+self.college_name
+        return self.user.username+"\t"+self.college_name + "\t"+ str(self.phone_number)
 
 class Payment(models.Model):
 
