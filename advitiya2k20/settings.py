@@ -68,6 +68,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'advitiya2k20.wsgi.application'
 
+DB_ENGINE = os.environ.get('DB_ENGINE', 'mysql')
+
 if DEBUG:
     DATABASES = {
         'default': {
@@ -75,13 +77,24 @@ if DEBUG:
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
-else:
+elif DB_ENGINE == 'mysql':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql', 
             'NAME': os.getenv('DB_NAME'),
             'USER': os.getenv('DB_USER'),
             'PASSWORD': os.getenv('DB_PASS'),
+        }
+    }
+elif DB_ENGINE == 'psql':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASS'),
+            'HOST': 'localhost',
+            'PORT': '',
         }
     }
 
