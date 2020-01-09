@@ -15,6 +15,7 @@ else:
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    'accomodation',
     'techconnect',
     'phonenumber_field',
     'main_page',
