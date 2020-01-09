@@ -4650,3 +4650,7 @@ video {
     max-width: 100%;
   }
 }
+
+.hero{
+  float: right;
+}
