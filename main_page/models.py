@@ -159,10 +159,16 @@ class WorkshopAccomodation(models.Model):
             days= days+1
         return days
 
+def get_file_path_talk(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = instance.name + '.' + ext
+    foldername = 'talk'
+    return os.path.join(foldername, filename)
+
 class Talk(models.Model):
     name = models.CharField(max_length=200)
     image = models.ImageField(
-        upload_to=get_file_path, null=True, blank=True)
+        upload_to=get_file_path_talk, null=True, blank=True)
     venue = models.CharField(max_length=100)
     start_date_time = models.DateTimeField(blank=False)
     para1 = models.TextField(null=True, blank=True)

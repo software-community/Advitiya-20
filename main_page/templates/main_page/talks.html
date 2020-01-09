@@ -4,6 +4,7 @@
 
 {% block style %}
 <link href="{% static 'main_page/css/LineIcons.css' %}" rel="stylesheet">
+<link href="{% static 'main_page/css/talk.css' %}" rel="stylesheet">
 {%endblock%}
 
 {% block body %}
@@ -13,21 +14,22 @@
             <div id="carouselOne" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li data-target="#carouselOne" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselOne" data-slide-to="1"></li>
-                    <li data-target="#carouselOne" data-slide-to="2"></li>
+                    {% for person in people %}
+                    <li data-target="#carouselOne" data-slide-to="{{ forloop.counter }}"></li>
+                    {% endfor %}
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item bg_cover active"
-                        style="background-image: url(../../static/main_page/img/bg-img/college_bg.jpg)">
+                        style="background-image: url({% static 'main_page/img/bg-img/college_bg.jpg' %})">
                         <div class="carousel-caption">
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-xl-6 col-lg-7 col-sm-10">
                                         <h2 class="carousel-title">Refreshing Design & Easy to Customize</h2>
-                                        <a href="{% url 'main_page:events'%}" class="btn confer-btn-white">Explore</a>
+                                        <!-- <a href="{% url 'main_page:events'%}" class="btn confer-btn-white">Explore</a>
                                         <ul class="carousel-btn rounded-buttons">
 
-                                        </ul>
+                                        </ul> -->
                                     </div>
                                 </div> <!-- row -->
                             </div> <!-- container -->
@@ -49,25 +51,27 @@
                         </div>
                     </div> -->
                     {% for person in people %}
-                        <div class="row carousel-item">
-                            <div class="carousel-item bg_cover active col-12 col-md-6"
-                                style="background-image: url(../../static/main_page/img/HarinderSikka8.jpg);"></div>
-                            <div class="col-6 col-md-6 hero">
-                                <div class="container">
-                                    <div class="row justify-content-center" style="padding-top: 20px;">
-                                        <div class="col-xl-6 col-lg-7 col-sm-10">
-                                            <h2 class="carousel-title">{{person.name}}</h2>
-                                            <ul class="carousel-btn rounded-buttons">
-                                                <li> {{person.para1}}</li>
-                                                <li> {{person.para2}}</li>
-                                                <a href="{% url 'main_page:talk1'%}"
-                                                    class="btn confer-btn-white" >Explore</a>
-                                            </ul>
-                                        </div>
+                    <div class="carousel-item">
+                        <div class="row h-100">
+                            <div class="col-md-6 h-md-50" style="overflow: hidden;">
+                                <img src="{{ person.image.url }}" style="width: 100%;">
+                            </div>
+                            <div class="col-md-6 h-md-50" style="padding: 20px;">
+                                <div class="row justify-content-center d-table h-50">
+                                    <div class="col-xl-6 col-lg-7 col-sm-10 d-table-cell align-middle">
+                                        <h2 style="color: white;">{{person.name}}</h2>
+                                        <ul style="color: white;">
+                                            <li> {{person.para1}}</li>
+                                            <li> {{person.para2}}</li>
+                                            <br>
+                                            <a href="{% url 'main_page:talk1'%}"
+                                                class="btn confer-btn-white">Explore</a>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     {% endfor %}
                 </div> <!-- carousel-inner -->
 
