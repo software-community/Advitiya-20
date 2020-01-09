@@ -50,11 +50,33 @@
                     </div> -->
                     {% for person in people %}
                         <div class="row carousel-item">
-                            <div class="carousel-item bg_cover active col-12 col-md-6"
+                            <div class="carousel-item bg_cover active col-12 col-md-6" 
                                 style="background-image: url(../../static/main_page/img/HarinderSikka8.jpg);"></div>
-                            <div class="col-6 col-md-6 hero">
+                            <div class="col-8 col-md-6 hero">
                                 <div class="container">
                                     <div class="row justify-content-center" style="padding-top: 20px;">
+                                        <div class="col-xl-6 col-lg-7 col-sm-10">
+                                            <h2 class="carousel-title">{{person.name}}</h2>
+                                            <ul class="carousel-btn rounded-buttons">
+                                                <li id="hello"> {{person.para1}}</li>
+                                                <li id="hello"> {{person.para2}}</li>
+                                                <a href="{% url 'main_page:talk1'%}"
+                                                    class="btn confer-btn-white" >Explore</a>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row carousel-item" id="hello2">
+                            <div class="carousel-item bg_cover col-12"
+                                style="background-image: url(../../static/main_page/img/HarinderSikka8.jpg);">
+                            </div>
+                        </div>
+                        <div class="row carousel-item" id="hello2">
+                            <div class="col-6 hero">
+                                <div class="container">
+                                    <div class="row justify-content-center" style="padding-top: 20px; color: aliceblue;">
                                         <div class="col-xl-6 col-lg-7 col-sm-10">
                                             <h2 class="carousel-title">{{person.name}}</h2>
                                             <ul class="carousel-btn rounded-buttons">
@@ -67,7 +89,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>  -->
                     {% endfor %}
                 </div> <!-- carousel-inner -->
 
