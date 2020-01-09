@@ -35,8 +35,6 @@ def registerForAccommodation(request):
 
     # Pay for accomodation
     purpose= "Accomodation during Advitiya 2020"
-    response= accommodation_payment_request(request.user.get_full_name(), os.environ.get('ACCOMODATION_FEE', '400'), purpose,
-            request.user.email, str(participant.phone_number))
     
     response = accommodation_payment_request(participant.name, os.environ.get('ACCOMMODATION_FEE', '400'), purpose,
             request.user.email, str(participant.phone_number))
