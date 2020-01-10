@@ -51,9 +51,9 @@
                         </div>
                     </div> -->
                     {% for person in people %}
-                    <div class="carousel-item">
+                    <div class="carousel-item" style="height: auto;">
                         <div class="row h-100">
-                            <div class="col-md-6 h-md-50" style="overflow: hidden;">
+                            <div class="col-md-6 h-md-50" style="overflow: hidden; max-height: 767px;">
                                 <img src="{{ person.image.url }}" style="width: 100%;">
                             </div>
                             <div class="col-md-6 h-md-50" style="padding: 20px;">
