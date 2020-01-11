@@ -249,8 +249,6 @@
         </div>
 </section>
 <!-- About Us And Countdown Area End -->
-
-
 <!-- Our Schedule Area Start -->
 <section class="our-schedule-area section-padding-100">
     <div class="container">
@@ -263,8 +261,134 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="schedule-tab">
+                    <!-- Nav Tabs -->
+                    <ul class="nav nav-tabs wow fadeInUp" data-wow-delay="300ms" id="conferScheduleTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="monday-tab" data-toggle="tab" href="#step-one" role="tab" aria-controls="step-one" aria-expanded="true">Friday <br> <span>February 7, 2020</span></a>
+                        </li>
+                        <!-- Nav Item -->
+                        <li class="nav-item">
+                            <a class="nav-link" id="tuesday-tab" data-toggle="tab" href="#step-two" role="tab" aria-controls="step-two" aria-expanded="true">Saturday <br> <span>February 8, 2020</span></a>
+                        </li>
+                        <!-- Nav Item -->
+                        <li class="nav-item">
+                            <a class="nav-link" id="wednesday-tab" data-toggle="tab" href="#step-three" role="tab" aria-controls="step-three" aria-expanded="true">Sunday <br> <span>February 9, 2020</span></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content" id="conferScheduleTabContent">
+                <div class="tab-pane fade show " id="step-one" role="tabpanel" aria-labelledby="monday-tab">
+                {% for events in Events1 %}
+                
+                        <!-- Single Tab Content -->
+                        <div class="single-tab-content">
+                            <div class="row">
+                                <div class="col-12">
+                                    <!-- Single Schedule Area -->
+                                    <div class="single-schedule-area d-flex flex-wrap justify-content-between align-items-center wow fadeInUp" data-wow-delay="300ms">
+                                        <!-- Single Schedule Thumb and Info -->
+                                        <div class="single-schedule-tumb-info d-flex align-items-center">
+                                            <!-- Single Schedule Thumb -->
+                                            <div class="single-schedule-tumb">
+                                                <img src="{{ events.image.url }}" alt="">
+                                            </div>
+                                            <!-- Single Schedule Info -->
+                                            <div class="single-schedule-info">
+                                                <h6>{{events.name}}</h6>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- Single Schedule Info -->
+                                        <div class="schedule-time-place">
+                                            <p><i class="zmdi zmdi-time"></i> {{events.start_date_time}}</p>
+                                            <p><i class="zmdi zmdi-map"></i> {{ events.venue}}</p>
+                                        </div>
+                                        <!-- Schedule Btn -->
+                                        <a href="#" class="btn confer-btn">View More <i class="zmdi zmdi-long-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                  
+                {% endfor %}
+            </div>
+            <div class="tab-pane fade show  " id="step-two" role="tabpanel" aria-labelledby="tuesday-tab">
+                {% for events in Events2 %}
+                
+                        <!-- Single Tab Content -->
+                        <div class="single-tab-content">
+                            <div class="row">
+                                <div class="col-12">
+                                    <!-- Single Schedule Area -->
+                                    <div class="single-schedule-area d-flex flex-wrap justify-content-between align-items-center wow fadeInUp" data-wow-delay="300ms">
+                                        <!-- Single Schedule Thumb and Info -->
+                                        <div class="single-schedule-tumb-info d-flex align-items-center">
+                                            <!-- Single Schedule Thumb -->
+                                            <div class="single-schedule-tumb">
+                                                <img src="{{ events.image.url }}" alt="">
+                                            </div>
+                                            <!-- Single Schedule Info -->
+                                            <div class="single-schedule-info">
+                                                <h6>{{events.name}}</h6>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- Single Schedule Info -->
+                                        <div class="schedule-time-place">
+                                            <p><i class="zmdi zmdi-time"></i> {{events.start_date_time}}</p>
+                                            <p><i class="zmdi zmdi-map"></i> {{ events.venue}}</p>
+                                        </div>
+                                        <!-- Schedule Btn -->
+                                        <a href="#" class="btn confer-btn">View Moresss <i class="zmdi zmdi-long-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+               
+                {% endfor %}
+            </div>  
 
-
+            <div class="tab-pane fade show  " id="step-three" role="tabpanel" aria-labelledby="wednesday-tab">
+                {% for events in Events3 %}
+                
+                        <!-- Single Tab Content -->
+                        <div class="single-tab-content">
+                            <div class="row">
+                                <div class="col-12">
+                                    <!-- Single Schedule Area -->
+                                    <div class="single-schedule-area d-flex flex-wrap justify-content-between align-items-center wow fadeInUp" data-wow-delay="300ms">
+                                        <!-- Single Schedule Thumb and Info -->
+                                        <div class="single-schedule-tumb-info d-flex align-items-center">
+                                            <!-- Single Schedule Thumb -->
+                                            <div class="single-schedule-tumb">
+                                                <img src="{{ events.image.url }}" alt="">
+                                            </div>
+                                            <!-- Single Schedule Info -->
+                                            <div class="single-schedule-info">
+                                                <h6>{{events.name}}</h6>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- Single Schedule Info -->
+                                        <div class="schedule-time-place">
+                                            <p><i class="zmdi zmdi-time"></i> {{events.start_date_time}}</p>
+                                            <p><i class="zmdi zmdi-map"></i> {{ events.venue}}</p>
+                                        </div>
+                                        <!-- Schedule Btn -->
+                                        <a href="#" class="btn confer-btn">View Moreff <i class="zmdi zmdi-long-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                
+                {% endfor %}
+            </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
