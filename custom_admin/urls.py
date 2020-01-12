@@ -7,4 +7,5 @@ urlpatterns=[
     path('gen-ca-csv/',views.gen_ca_csv, name='gen_ca_csv'),
     path('gen-participant-csv/',views.gen_participant_csv, name='gen_participant_csv'),
     path('gen-workshop-unregistered-csv/',views.gen_workshop_unregistered_participants_csv, name='gen_workshop_unregistered_participants_csv'),
+    path('gen-workshop-registered-csv/',views.gen_workshop_participants_csv, name='gen_workshop_registered_participants_csv'),
 ]
