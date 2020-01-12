@@ -16,9 +16,9 @@ import hmac
 # Create your views here.
 
 def index(request):
-    events_day1 = Events.objects.filter(start_date_time__startswith='2019-11-16').order_by('start_date_time')
-    events_day2 = Events.objects.filter(start_date_time__startswith='2019-11-16').order_by('start_date_time')
-    events_day3 = Events.objects.filter(start_date_time__startswith='2019-11-16').order_by('start_date_time')
+    events_day1 = Events.objects.filter(start_date_time__startswith='2020-02-07').order_by('start_date_time')
+    events_day2 = Events.objects.filter(start_date_time__startswith='2020-02-08').order_by('start_date_time')
+    events_day3 = Events.objects.filter(start_date_time__startswith='2020-02-09').order_by('start_date_time')
     content={'CATEGORY_CHOCIES': CATEGORY_CHOCIES,'Events1':events_day1,'Events2':events_day2,'Events3':events_day3 }
     return render(request,'main_page/index.html',content)
 
