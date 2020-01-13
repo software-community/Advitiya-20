@@ -20,12 +20,13 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item bg_cover active"
-                        style="background-image: url({% static 'main_page/img/bg-img/college_bg.jpg' %})">
+                        style="background-image: url({% static 'main_page/img/bg-img/auditorium_bg.jpg' %})">
                         <div class="carousel-caption">
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-xl-6 col-lg-7 col-sm-10">
-                                        <h2 class="carousel-title">Refreshing Design & Easy to Customize</h2>
+                                        <h2 class="carousel-title" style="background-color: rgba(255, 255, 255, 0.7);
+                                        padding: 20px;border-radius: 10px; color: black;">IIT Ropar Lecture Series</h2>
                                         <!-- <a href="{% url 'main_page:events'%}" class="btn confer-btn-white">Explore</a>
                                         <ul class="carousel-btn rounded-buttons">
 
@@ -59,13 +60,20 @@
                             <div class="col-md-6 h-md-50" style="padding: 20px;">
                                 <div class="row justify-content-center d-table h-50">
                                     <div class="col-xl-6 col-lg-7 col-sm-10 d-table-cell align-middle">
-                                        <h2 style="color: white;">{{person.name}}</h2>
+                                        <center>
+                                            <h1 style="color: white;">{{person.name}}</h1>
+                                            <h5 class="carousel-title" style="background-color: rgba(255, 255, 255, 0.7);
+                                                padding: 20px;border-radius: 10px; color: black;">
+                                                <i class="zmdi zmdi-gps-dot"></i> Venue: {{person.venue}}<br><br>
+                                                <i class="zmdi zmdi-time"></i> {{person.start_date_time}}
+                                            </h5>
+                                        </center>
+                                        <h4 style="color: white;">About {{person.name}}</h1>
                                         <ul style="color: white;">
-                                            <li> {{person.para1}}</li>
-                                            <li> {{person.para2}}</li>
+                                            <li> &nbsp &nbsp &nbsp &nbsp {{person.para1}}</li>
                                             <br>
-                                            <a href="{% url 'main_page:talk1'%}"
-                                                class="btn confer-btn-white">Explore</a>
+                                            <li> &nbsp &nbsp &nbsp &nbsp {{person.para2}}</li>
+                                            <br>
                                         </ul>
                                     </div>
                                 </div>
