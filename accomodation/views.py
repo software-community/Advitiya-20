@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from main_page.models import Participant
 from accomodation.methods import accommodation_payment_request
 from accomodation.models import Accommodation
+from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -30,7 +31,7 @@ def registerForAccommodation(request):
             fail_silently=True,
             html_message='Dear ' + str(request.user.get_full_name()) +
             ',<br><br>You have successfuly paid the accommodation charges for stay during Advitiya 2020.' +
-            '''<br><a href="htttps://advitiya.in'''+ reverse('main_page:index') +'''">Click Here</a> to go to Advitiya Home Page.'''+
+            '''<br><a href="https://advitiya.in'''+ reverse('main_page:index') +'''">Click Here</a> to go to Advitiya Home Page.'''+
             '<br><br>Regards<br>Advitiya 2020 ' +
             '<br>Public Relations Team')
     except Participant.DoesNotExist:
@@ -97,7 +98,7 @@ def accommodation_webhook(request):
                       fail_silently=True,
                       html_message='Dear ' + str(request.user.get_full_name()) +
                       ',<br><br>You have successfuly paid the accommodation charges for stay during Advitiya 2020.' +
-                      '''<br><a href="htttps://advitiya.in'''+ reverse('main_page:index') +'''">Click Here</a> to go to Advitiya Home Page.'''+
+                      '''<br><a href="https://advitiya.in'''+ reverse('main_page:index') +'''">Click Here</a> to go to Advitiya Home Page.'''+
                       '<br><br>Regards<br>Advitiya 2020 ' +
                       '<br>Public Relations Team')
                 else:
