@@ -112,5 +112,4 @@ def accommodation_payment_redirect(request):
                             "</p><p><b>Payment Request ID:</b> " + request.GET['payment_request_id'] +
                             "</p><p><b>Payment Transaction ID:</b> " + request.GET['payment_id'] +
                             "<p>" + retry_for_payment + "</p>",
-                'CATEGORY_CHOCIES': CATEGORY_CHOCIES
             })
