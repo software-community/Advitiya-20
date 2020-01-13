@@ -20,6 +20,17 @@ def registerForAccommodation(request):
     
     try:
         participant = Participant.objects.get(user = request.user)
+        send_mail(subject='Payment Successful for Accommodation at Advitiya',
+            message='',
+            from_email=os.environ.get(
+                'EMAIL_HOST_USER', ''),
+            recipient_list=[request.user.email],
+            fail_silently=True,
+            html_message='Dear ' + str(request.user.get_full_name()) +
+            ',<br><br>You have successfuly paid the accommodation charges for stay during Advitiya 2020.' +
+            '''<br><a href="htttps://advitiya.in'''+ reverse('main_page:index') +'''">Click Here</a> to go to Advitiya Home Page.'''+
+            '<br><br>Regards<br>Advitiya 2020 ' +
+            '<br>Public Relations Team')
     except Participant.DoesNotExist:
         return HttpResponseRedirect(reverse('main_page:workshop_participant')
                 + '?next=' + reverse('accomodation:register_for_accommodation'))
@@ -76,18 +87,17 @@ def accommodation_webhook(request):
                     # Payment was successful, mark it as completed in your database.
                     payment_detail.transaction_id = data['payment_id']
                     # str(participantpaspaid.paid_subcategory) inlcudes name of category also
-                    send_mail(
-                        'Payment confirmation for accomodation at' +
-                        ' ADVITIYA, IIT Ropar.',
-                        'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
-                        'that your payment for accomodation during ADVITIYA, IIT Ropar is successful.'+
-                        '\n<a href="https://advitiya.in/'+reverse('main_page:index')+'"> Click Here </a> to get redirected to the home page.'+
-                        '\n\nRegards\nADVITIYA 2020 Public Relations Team',
-                        os.environ.get(
+                    send_mail(subject='Payment Successful for Accommodation at Advitiya',
+                      message='',
+                      from_email=os.environ.get(
                           'EMAIL_HOST_USER', ''),
-                        [payment_detail.participant.user.email],
-                        fail_silently=True,
-                    )
+                      recipient_list=[request.user.email],
+                      fail_silently=True,
+                      html_message='Dear ' + str(request.user.get_full_name()) +
+                      ',<br><br>You have successfuly paid the accommodation charges for stay during Advitiya 2020.' +
+                      '''<br><a href="htttps://advitiya.in'''+ reverse('main_page:index') +'''">Click Here</a> to go to Advitiya Home Page.'''+
+                      '<br><br>Regards<br>Advitiya 2020 ' +
+                      '<br>Public Relations Team')
                 else:
                     # Payment was unsuccessful, mark it as failed in your database.
                     payment_detail.transaction_id = '0'
