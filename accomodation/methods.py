@@ -14,7 +14,7 @@ def accommodation_payment_request(name, amount, purpose, email, mobile):
         send_email=True,
         email=email,
         phone=mobile,
-        redirect_url="https://advitiya.in/accomodation/accommodation_payment_redirect/",
-        webhook="https://advitiya.in/accomodation/accommodation_webhook/"
+        redirect_url="https://advitiya.in/accommodation/accommodation_payment_redirect/",
+        webhook="https://advitiya.in/accommodation/accommodation_webhook/"
     )
     return response
