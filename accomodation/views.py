@@ -10,7 +10,10 @@ import os
 # Create your views here.
 
 def index(request):
-    return render(request, 'accommodation/accommodation.html')
+    accommodation_fee = os.environ.get('ACCOMMODATION_FEE', '400')
+    return render(request, 'accommodation/accommodation.html',{
+        'accommodation_fee':accommodation_fee,
+    })
 
 @login_required(login_url='/auth/google/login/')
 def registerForAccommodation(request):
@@ -24,7 +27,7 @@ def registerForAccommodation(request):
     already_participant = None
 
     try:
-        already_participant = Accomodation.objects.filter(participant=participant)[0]
+        already_participant = Accommodation.objects.filter(participant=participant)[0]
         if already_participant.transaction_id != 'none' and already_participant.transaction_id != '0':
             return render(request, 'main_page/show_info.html',{
                 'message': '''You have already registered for accomodation!<a href="'''+
@@ -78,7 +81,7 @@ def accommodation_webhook(request):
                         ' ADVITIYA, IIT Ropar.',
                         'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
                         'that your payment for accomodation during ADVITIYA, IIT Ropar is successful.'+
-                        '\n<a href="'+reverse('main_page:index')+'"> Click Here </a> to get redirected to the home page.'+
+                        '\n<a href="https://advitiya.in/'+reverse('main_page:index')+'"> Click Here </a> to get redirected to the home page.'+
                         '\n\nRegards\nADVITIYA 2020 Public Relations Team',
                         os.environ.get(
                           'EMAIL_HOST_USER', ''),
