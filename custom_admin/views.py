@@ -80,3 +80,43 @@ def gen_workshop_unregistered_participants_csv(request):
         print(e)
     
     return response
+
+
+@staff_member_required
+def gen_workshop_participants_csv(request):
+    
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="workshop_registered_participant.csv"'
+
+    writer = csv.writer(response)
+
+    workshop_participants=WorkshopRegistration.objects.all()
+    unique_participants = set()
+    try:
+        for workshop_participant in workshop_participants:
+            unique_participants.add(workshop_participant.participant)
+    except Exception as e:
+        print(e)
+    
+    writer.writerow(['Name', 'College Name', 'Phone Number', 'Workshop(s) Registered', 'Email', 'City'])
+
+    try:
+        for participant in unique_participants:
+            participated_workshops=WorkshopRegistration.objects.filter(participant=participant)
+            registered=set()
+            for participated_workshop in participated_workshops:
+                if participated_workshop.transaction_id=='none' or participated_workshop.transaction_id=='0':
+                    pass
+                else:
+                    registered.add(participated_workshop.workshop.name)
+            if len(registered)!=0:
+                if participant.name!="Your Name":
+                    writer.writerow([participant.name, participant.college_name, 
+                        participant.phone_number, registered, participant.user.email, participant.city])
+                else:
+                    writer.writerow([participant.user.get_full_name(), participant.college_name, 
+                        participant.phone_number, registered, participant.user.email, participant.city])
+    except Exception as e:
+        print(e)
+    
+    return response

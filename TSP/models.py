@@ -21,7 +21,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, related_name="TSP_user_profile", on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.user.get_full_name()
+        return self.user.get_full_name() + '\t' + self.school_name
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

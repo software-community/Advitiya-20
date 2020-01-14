@@ -2,15 +2,21 @@ from django.shortcuts import render, redirect
 from main_page.models import Participant
 from accomodation.methods import accommodation_payment_request
 from accomodation.models import Accommodation
+from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 import os
+import hashlib
+import hmac
 
 # Create your views here.
 
 def index(request):
-    return render(request, 'accommodation/accommodation.html')
+    accommodation_fee = os.environ.get('ACCOMMODATION_FEE', '400')
+    return render(request, 'accommodation/accommodation.html',{
+        'accommodation_fee':accommodation_fee,
+    })
 
 @login_required(login_url='/auth/google/login/')
 def registerForAccommodation(request):
@@ -24,7 +30,7 @@ def registerForAccommodation(request):
     already_participant = None
 
     try:
-        already_participant = Accomodation.objects.filter(participant=participant)[0]
+        already_participant = Accommodation.objects.filter(participant=participant)[0]
         if already_participant.transaction_id != 'none' and already_participant.transaction_id != '0':
             return render(request, 'main_page/show_info.html',{
                 'message': '''You have already registered for accomodation!<a href="'''+
@@ -73,18 +79,17 @@ def accommodation_webhook(request):
                     # Payment was successful, mark it as completed in your database.
                     payment_detail.transaction_id = data['payment_id']
                     # str(participantpaspaid.paid_subcategory) inlcudes name of category also
-                    send_mail(
-                        'Payment confirmation for accomodation at' +
-                        ' ADVITIYA, IIT Ropar.',
-                        'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
-                        'that your payment for accomodation during ADVITIYA, IIT Ropar is successful.'+
-                        '\n<a href="'+reverse('main_page:index')+'"> Click Here </a> to get redirected to the home page.'+
-                        '\n\nRegards\nADVITIYA 2020 Public Relations Team',
-                        os.environ.get(
+                    send_mail(subject='Payment Successful for Accommodation at Advitiya',
+                      message='',
+                      from_email=os.environ.get(
                           'EMAIL_HOST_USER', ''),
-                        [payment_detail.participant.user.email],
-                        fail_silently=True,
-                    )
+                      recipient_list=[request.user.email],
+                      fail_silently=True,
+                      html_message='Dear ' + str(request.user.get_full_name()) +
+                      ',<br><br>You have successfuly paid the accommodation charges for stay during Advitiya 2020.' +
+                      '''<br><a href="https://advitiya.in'''+ reverse('main_page:index') +'''">Click Here</a> to go to Advitiya Home Page.'''+
+                      '<br><br>Regards<br>Advitiya 2020 ' +
+                      '<br>Public Relations Team')
                 else:
                     # Payment was unsuccessful, mark it as failed in your database.
                     payment_detail.transaction_id = '0'
@@ -107,5 +112,4 @@ def accommodation_payment_redirect(request):
                             "</p><p><b>Payment Request ID:</b> " + request.GET['payment_request_id'] +
                             "</p><p><b>Payment Transaction ID:</b> " + request.GET['payment_id'] +
                             "<p>" + retry_for_payment + "</p>",
-                'CATEGORY_CHOCIES': CATEGORY_CHOCIES
             })
