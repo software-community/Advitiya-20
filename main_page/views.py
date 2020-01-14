@@ -16,9 +16,9 @@ import hmac
 # Create your views here.
 
 def index(request):
-    events_day1 = Events.objects.filter(start_date_time__startswith='2019-11-16').order_by('start_date_time')
-    events_day2 = Events.objects.filter(start_date_time__startswith='2019-11-16').order_by('start_date_time')
-    events_day3 = Events.objects.filter(start_date_time__startswith='2019-11-16').order_by('start_date_time')
+    events_day1 = Events.objects.filter(start_date_time__startswith='2020-02-07').order_by('start_date_time')
+    events_day2 = Events.objects.filter(start_date_time__startswith='2020-02-08').order_by('start_date_time')
+    events_day3 = Events.objects.filter(start_date_time__startswith='2020-02-09').order_by('start_date_time')
     content={'CATEGORY_CHOCIES': CATEGORY_CHOCIES,'Events1':events_day1,'Events2':events_day2,'Events3':events_day3 }
     return render(request,'main_page/index.html',content)
 
@@ -105,7 +105,7 @@ def registerAsParticipant(request):
                       html_message='Dear ' + str(request.user.get_full_name()) +
                       ',<br><br>You are successfully registered for participation in events at Advitiya 2020.' +
                       'We are excited for your journey with us.<br><br>Your ADVITIYA ID is <b>' +
-                      str(new_participation_form.participant_code) +  '''</b> <br><br> <a href="'''+
+                      str(new_participation_form.participant_code) +  '''</b> <br><br> <a href="https://advitiya.in'''+
                       reverse('main_page:payment') +'''">Click Here</a> for Payment. Your registration is 
                                 not valid unless you make the payment.'''+
                       '<br>We wish you best ' +
@@ -408,7 +408,7 @@ def workshop_webhook(request):
                         'that your payment for participation in workshop at ADVITIYA, IIT Ropar is successful. \nAs we '+
                         'charge a subsidized amount for accomodation to our workshop participants, we believe that you might wish to ' +
                         'book your accomodation during the fest dates before its too late and there are no rooms left. '+
-                        '\n<a href="'+reverse('main_page:workshop_accomodation')+'"> Click Here </a> to book accomodation during the '+
+                        '\n<a href="https://advitiya.in'+reverse('main_page:workshop_accomodation')+'"> Click Here </a> to book accomodation during the '+
                         'fest dates'+
                         '\n\nRegards\nADVITIYA 2020 Public Relations Team',
                         os.environ.get(

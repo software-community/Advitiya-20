@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    # For Django All-Auth
+    path('accommodation/', include('accomodation.urls')),
     path('auth/', include('allauth.urls')),
     path('admin/', admin.site.urls),
     path('ca/', include('ca.urls')),
@@ -12,7 +12,6 @@ urlpatterns = [
     path('', include('main_page.urls')),
     path('cadmin/', include('custom_admin.urls')),
     path('techconnect/', include('techconnect.urls')),
-    path('accommodation/', include('accomodation.urls')),
 ] + static(settings.STATIC_URL,
            document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL,
                                                         document_root=settings.MEDIA_ROOT)
