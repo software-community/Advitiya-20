@@ -55,9 +55,11 @@
                         <div class="classynav">
                             <ul id="nav" class="resizeflex">
                                 <li><a href="{% url 'main_page:events'%}">Events</a></li>
+                                <!-- <li><a href="{% url 'accomodation:index'%}">Talks</a></li> -->
                                 <li><a href="{% url 'techconnect:index'%}">TechConnect</a></li>
                                 <li><a href="{% url 'main_page:workshop'%}">Workshops</a></li>
                                 <li><a href="{% url 'main_page:sponsors'%}">Sponsors</a></li>
+                                <li><a href="{% url 'accomodation:index'%}">Accommodation</a></li>
 
                                 <li><a href="#"><i class="zmdi zmdi-caret-down-circle"></i> More</a>
                                     <ul class="dropdown" style="width: 300%;">
@@ -68,7 +70,8 @@
                                 </li>
 
                                 {% if user.is_authenticated %}
-                                <li><a href="#"><i class="zmdi zmdi-account-circle zmdi-hc-3x"></i></a>
+                                <li>
+                                    <a href="#"><i class="zmdi zmdi-account-circle zmdi-hc-3x"></i></a>
                                     <ul class="dropdown">
                                         <li><a href="{% url 'main_page:profile' %}">Profile</a></li>
                                         <li><a
@@ -76,18 +79,15 @@
                                         </li>
                                     </ul>
                                 </li>
+                                {% else %}
+                                <li>
+                                    <a href="{% provider_login_url 'google' %}?next={{ request.path}}"
+                                        class="btn btn-secondary" style="margin-bottom: 3px;">
+                                        <i class="fab fa-google"></i> Sign In
+                                    </a>
+                                </li>
                                 {% endif %}
                             </ul>
-
-                            <!-- Signing in -->
-                            {% if not user.is_authenticated %}
-                            <!-- <a href="{% provider_login_url 'google' %}?next={% url 'main_page:index' %}"
-                                class="vcenter"><img src="{% static 'ca/img/gsignin.png' %}" class='gsignin-btn'
-                                    height="50px" width="50px" alt="" srcset="">google</a> -->
-                            <a href="{% provider_login_url 'google' %}?next={{ request.path}}" class="btn btn-secondary"
-                                style="margin-bottom: 3px;">
-                                <i class="fab fa-google"></i> Sign In</a>
-                            {% endif %}
                         </div>
                     </div>
                     <!-- Nav End -->
