@@ -20,4 +20,5 @@ social-auth-core==3.2.0
 sqlparse==0.3.0
 urllib3==1.25.6
 django-phonenumber-field
+djangorestframework==3.11.0
 phonenumbers
