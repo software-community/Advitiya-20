@@ -81,6 +81,7 @@ class Payment(models.Model):
     participant = models.OneToOneField(Participant, on_delete = models.CASCADE, primary_key = True)
     payment_request_id = models.CharField(max_length = 100, default = 'none')
     transaction_id = models.CharField(max_length=100, default='none')
+    timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.participant.__str__()
