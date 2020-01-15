@@ -32,7 +32,7 @@
     </div>
     <header class="header-area" style="background-color: black;">
         <div class="classy-nav-container breakpoint-off">
-            <div class="container">
+            <div class="container" style="padding-left: 0px; padding-right: 0px;">
                 <!-- Classy Menu -->
                 <nav class="classy-navbar justify-content-between" id="conferNav">
                     <!-- Logo -->
@@ -59,8 +59,12 @@
                                 <li><a href="{% url 'techconnect:index'%}">TechConnect</a></li>
                                 <li><a href="{% url 'main_page:workshop'%}">Workshops</a></li>
                                 <li><a href="{% url 'main_page:sponsors'%}">Sponsors</a></li>
-                                <li><a href="{% url 'accomodation:index'%}">Accommodation</a></li>
-
+                                <li><a href="#"><i class="zmdi zmdi-caret-down-circle"></i> Accommodation</a>
+                                    <ul class="dropdown" style="width: 200%;">
+                                        <li><a href="{% url 'main_page:workshop_accomodation_curr' %}">Workshop Participants</a></li>
+                                        <li><a href="{% url 'accomodation:index' %}">Non-Workshop Participants</a></li>
+                                    </ul>
+                                </li>
                                 <li><a href="#"><i class="zmdi zmdi-caret-down-circle"></i> More</a>
                                     <ul class="dropdown" style="width: 300%;">
                                         <li><a href="{% url 'TSP:home' %}">Techno School Program(TSP)</a></li>
