@@ -1,9 +1,16 @@
+from rest_framework import routers
 from django.contrib import admin
 from django.urls import path,include
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import views as auth_views
 from . import views, accomodation_views
+from main_page.api import EventViewSet, TalkViewSet, NotificationViewSet
 app_name='main_page'
+
+router = routers.DefaultRouter()
+router.register(r'events', EventViewSet)
+router.register(r'talks', TalkViewSet)
+router.register(r'notifications', NotificationViewSet)
 
 urlpatterns=[
     path('',views.index, name='index'),
@@ -34,4 +41,7 @@ urlpatterns=[
         name = 'workshop_accomodation_payment_redirect'),
     path('workshop_accomodation_webhook/', csrf_exempt(accomodation_views.workshop_accomodation_webhook), 
         name= 'workshop_accomodation_webhook'),
+
+    #api
+    path('api/', include(router.urls)),
 ]
