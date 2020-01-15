@@ -89,7 +89,7 @@ class EventRegistration(models.Model):
 
     event = models.ForeignKey(Events, on_delete = models.CASCADE)
     participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.participant.__str__()+"\t"+self.event.__str__()
@@ -135,7 +135,7 @@ class WorkshopRegistration(models.Model):
     participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
     payment_request_id = models.CharField(max_length = 100, default = 'none')
     transaction_id = models.CharField(max_length=100, default='none')
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.participant.__str__()+"\t"+self.workshop.__str__()
@@ -147,7 +147,7 @@ class WorkshopAccomodation(models.Model):
     accomodation_on_9th = models.BooleanField(default=False)
     payment_request_id = models.CharField(max_length = 100, default = 'none')
     transaction_id = models.CharField(max_length=100, default='none')
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now=True)
 
     def no_of_days(self):
         days = 0
