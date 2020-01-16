@@ -16,7 +16,6 @@ urlpatterns=[
     path('',views.index, name='index'),
     path('events/',views.events, name='events'),
     path('lectures/',views.talks,name='talks'),
-    path('talk1/',views.talk1,name='talk1'),
     path('sponsors/',views.sponsors, name='sponsors'),
     path('events/<int:num>/',views.event_page,name='event_page'),
     path('register-as-participant', views.registerAsParticipant, name = 'register_as_participant'),
@@ -34,6 +33,7 @@ urlpatterns=[
     path('workshop_webhook/', csrf_exempt(views.workshop_webhook), name= 'workshop_webhook'),
     path('benefits/',views.benefits,name="benefits"),
     # Workshop Accomodation
+    path('get_workshop_accommodation/',accomodation_views.get_workshop_accommodation,name='get_workshop_accommodation'),
     path('workshop_accomodation_curr/',accomodation_views.curr_accomodation,name='workshop_accomodation_curr'),
     path('workshop_accomodation/',accomodation_views.workshop_accomodation,name='workshop_accomodation'),
     path('workshop_accomodation/<int:pre_id>',accomodation_views.workshop_accomodation,name='workshop_accomodation'),
