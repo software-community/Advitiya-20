@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
 import csv
+import datetime
 
 from ca.models import Profile
-from main_page.models import Participant, WorkshopRegistration
+from main_page.models import (Participant, WorkshopRegistration, EventRegistration,
+                                Events, Team, TeamHasMembers)
 
 # Create your views here.
 
@@ -119,4 +121,37 @@ def gen_workshop_participants_csv(request):
     except Exception as e:
         print(e)
     
+    return response
+
+#registered_event_csv
+@staff_member_required
+def event_registration_csv(request):
+    
+    response = HttpResponse(content_type='text/csv')
+    time = str(datetime.datetime.now())
+    response['Content-Disposition'] = 'attachment; filename="event_reg_detail_at_'+ time +'.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Event', 'Leader', 'College', 'Team', 'Contact', 'Team Members'])
+    events = Events.objects.all()
+    for event in events:
+        if event.team_upper_limit == 1:
+            regs = EventRegistration.objects.filter(event=event)
+
+            for reg in regs:
+                writer.writerow([reg.event.name, reg.participant.name, reg.participant.college_name,
+                    'NA', reg.participant.phone_number, 'NA'])
+
+        else:
+            teams = Team.objects.filter(event=event)
+
+            for team in teams:
+                row = [team.event.name, team.leader.name, team.leader.college_name,
+                    team.leader.phone_number]
+                team_members = TeamHasMembers.objects.filter(team=team)
+                for member in team_members:
+                    row.append(member.participant.name)
+                
+                writer.writerow(row)
+
     return response
