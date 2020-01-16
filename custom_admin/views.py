@@ -4,7 +4,6 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 import csv
 import datetime
-from rest_framework.response import Response
 from rest_framework import status
 
 from ca.models import Profile
@@ -132,7 +131,7 @@ def event_registration_csv(request):
 
     email = request.user.email
     if not email.endswith('@iitrpr.ac.in'):
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
+        return HttpResponse('Forbidden', status=status.HTTP_401_UNAUTHORIZED)
     
     response = HttpResponse(content_type='text/csv')
     time = str(datetime.datetime.now())
