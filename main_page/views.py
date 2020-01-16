@@ -140,7 +140,18 @@ def registerForEvent(request, event_id):
         return render(request, 'main_page/show_info.html', {'message':'''You must register as a participant before 
                     registering for an Event.
                     <a href="/register-as-participant" >Click Here</a>''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
-    
+
+    try:
+        payment_detail = Payment.objects.filter(participant = participant)[0]
+        if payment_detail.transaction_id == 'none' or payment_detail.transaction_id == '0':
+            return render(request, 'main_page/show_info.html', {'message':'''You must pay participation fee 
+                    before registering for this event. Your last payment did not complete. 
+                    Please <a href="/pay">Click Here</a> to proceed for payment.''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+    except:
+        return render(request, 'main_page/show_info.html', {'message':'''You must pay participation fee 
+                    before registering for this event. <a href="/pay">Click Here</a> for payment.''', 
+                        'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+
     try:
         already_participant = EventRegistration.objects.filter(participant = participant, event = event)[0]
         return render(request, 'main_page/show_info.html', {'message':"You have already registered for this event.",
@@ -149,16 +160,7 @@ def registerForEvent(request, event_id):
         pass
 
     if event.team_upper_limit == 1:
-        try:
-            payment_detail = Payment.objects.filter(participant = participant)[0]
-            if payment_detail.transaction_id == 'none' or payment_detail.transaction_id == '0':
-                return render(request, 'main_page/show_info.html', {'message':'''You must pay participation fee 
-                        before registering for this event. Your last payment did not complete. 
-                        Please <a href="/pay">Click Here</a> to proceed for payment.''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
-        except:
-            return render(request, 'main_page/show_info.html', {'message':'''You must register and pay participation fee 
-                        before registering for this event. <a href="/pay">Click Here</a> for payment.''', 
-                            'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+
         EventRegistration.objects.create(
             event = event, participant = participant
         )
