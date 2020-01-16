@@ -10,6 +10,12 @@ import hashlib
 import hmac
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse, HttpResponseRedirect
 
+@login_required(login_url='/auth/google/login/')
+def get_workshop_accommodation(request):
+    accommodation_fee = os.environ.get('WORKSHOP_ACCOMODATION_FEE', '250')
+    return render(request, 'main_page/accommodation.html',{
+        'accommodation_fee':accommodation_fee,
+    })
 
 @login_required(login_url='/auth/google/login/')
 def workshop_accomodation(request, pre_id = None):
@@ -144,7 +150,35 @@ def workshop_accomodation_payment_redirect(request):
 def curr_accomodation(request):
     try:
         participant = Participant.objects.get(user=request.user)
+    except Participant.DoesNotExist:
+        return render(request, 'main_page/show_info.html',{
+            'message':  '''You must register for some workshop before opting for accomodation.<a href="'''+
+                        reverse('main_page:workshop')+'''"> Click Here </a> to go to 
+                                the workshops page.''',
+        })
+
+    participant_registrations = WorkshopRegistration.objects.filter(participant=participant)
+    bool_participated = False
+    for participant_registration in participant_registrations:
+        if participant_registration.transaction_id != 'none' and participant_registration.transaction_id != '0':
+            bool_participated = True
+    if bool_participated == False:
+        return render(request, 'main_page/show_info.html',{
+            'message':  '''You must register for some workshop before opting for accomodation.<a href="'''+
+                        reverse('main_page:workshop')+'''"> Click Here </a> to go to 
+                                the workshops page.''',
+        })
+
+    try:
         accs = WorkshopAccomodation.objects.filter(participant=participant)
-        return render(request,'main_page/workshop_accomodations.html', {'accs':accs})
+        paid_acc=False
+        for acc in accs:
+            if acc.transaction_id!='none' and acc.transaction_id!='0':
+                paid_acc=True
+        if paid_acc==True:
+            return render(request,'main_page/workshop_accomodations.html', {'accs':accs})
+        else:
+            return HttpResponseRedirect(reverse('main_page:workshop_accomodation'))
+
     except Participant.DoesNotExist:
         return HttpResponseRedirect(reverse('main_page:workshop_accomodation'))
