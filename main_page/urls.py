@@ -15,7 +15,7 @@ router.register(r'notifications', NotificationViewSet)
 urlpatterns=[
     path('',views.index, name='index'),
     path('events/',views.events, name='events'),
-    path('talks/',views.talks,name='talks'),
+    path('lectures/',views.talks,name='talks'),
     path('talk1/',views.talk1,name='talk1'),
     path('sponsors/',views.sponsors, name='sponsors'),
     path('events/<int:num>/',views.event_page,name='event_page'),
