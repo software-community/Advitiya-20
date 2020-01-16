@@ -13,7 +13,7 @@
                 <ul class="list-group">
                     {% for acc in accs %}
                     <li class="list-group-item">
-                        Accomodation for
+                        You have already paid for accommodation on 
                         {% if acc.accomodation_on_7th %}
                         7th
                         {% endif %}
@@ -23,17 +23,15 @@
                         {% if acc.accomodation_on_9th %}
                         9th
                         {% endif %}
-                        {% if acc.transaction_id != "0" and acc.transaction_id != "none" %}
-                        Paid
+                        {% if acc.transaction_id != "0" and acc.transaction_id != "none" %}.
                         {% else %}
                         <a href="{% url 'main_page:workshop_accomodation' pre_id=acc.id %}" style="color: blue;">Pay</a>
                         {% endif %}
                     </li>
                     {% endfor %}
                     <li class="list-group-item">
-                        Apply for new <a href="{% url 'main_page:workshop_accomodation' %}" style="color: blue;">Click
+                        Apply for new accommodation: <a href="{% url 'main_page:workshop_accomodation' %}" style="color: blue;">Click
                             here.</a>
-                        Accomodations are not valid until paid.
                     </li>
                 </ul>
 
