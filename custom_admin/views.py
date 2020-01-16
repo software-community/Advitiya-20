@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
 import csv
 import datetime
+from rest_framework.response import Response
+from rest_framework import status
 
 from ca.models import Profile
 from main_page.models import (Participant, WorkshopRegistration, EventRegistration,
@@ -124,8 +126,12 @@ def gen_workshop_participants_csv(request):
     return response
 
 #registered_event_csv
-@staff_member_required
+@login_required(login_url='/auth/google/login/')
 def event_registration_csv(request):
+
+    email = request.user.email
+    if not email.endswith('@iitrpr.ac.in'):
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
     
     response = HttpResponse(content_type='text/csv')
     time = str(datetime.datetime.now())
@@ -147,7 +153,7 @@ def event_registration_csv(request):
 
             for team in teams:
                 row = [team.event.name, team.leader.name, team.leader.college_name,
-                    team.leader.phone_number]
+                    team.name, team.leader.phone_number]
                 team_members = TeamHasMembers.objects.filter(team=team)
                 for member in team_members:
                     row.append(member.participant.name)
