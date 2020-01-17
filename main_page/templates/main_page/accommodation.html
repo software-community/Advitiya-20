@@ -12,7 +12,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{% url 'main_page:index' %}">Advitiya</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Accommodation</li>
+                            <li class="breadcrumb-item active" aria-current="page">Workshop Accommodation</li>
                         </ol>
                     </nav>
                 </div>
@@ -29,11 +29,11 @@
             <!-- Single Ticket Pricing Table -->
             <div class="col-12 col-md-6 col-lg-6">
                 <div class="single-ticket-pricing-table text-center wow fadeInUp" data-wow-delay="300ms">
-                    <h6 class="ticket-plan">3 Nights Stay</h6>
+                    <h6 class="ticket-plan">Accommodation for Workshop Participants</h6>
                     <center><div class="ticket-icon">
                         <img src="{% static 'main_page/img/core-img/p1.png' %}" alt="">
                     </div></center>
-                    <h2 class="ticket-price"><span>Rs</span>{{accommodation_fee}}</h2>
+                    <h2 class="ticket-price"><span>Rs</span>{{accommodation_fee}} <span>per night.</span></h2>
                     <a href="{% url 'main_page:workshop_accomodation_curr' %}" class="btn confer-btn w-100 mb-30">Get Accomodation<i
                             class="zmdi zmdi-long-arrow-right"></i></a>
                 </div>
@@ -41,11 +41,11 @@
 
             <div class="col-12 col-md-6 col-lg-6">
                     <div class="ticket-pricing-table-details">
-                        <p style="font-size: 1.5em;"><i class="zmdi zmdi-check"></i> Luxurios Three Nights Stay.</p>
+                        <p style="font-size: 1.5em;"><i class="zmdi zmdi-check"></i> Luxurios Stay.</p>
                         <p style="font-size: 1.5em;"><i class="zmdi zmdi-check"></i> Mattress, Pillow and Blanket (if needed, 
                             as per the weather) provided.</p>
                         <p style="font-size: 1.5em;"><i class="zmdi zmdi-check"></i> Free High Speed Internet.</p>
-                        <p style="font-size: 1.5em;"><i class="zmdi zmdi-check"></i> Two meals per day</p>
+                        <p style="font-size: 1.5em;"><i class="zmdi zmdi-check"></i> Two meals per day.</p>
 
                     </div>
                 </div>
