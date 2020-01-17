@@ -264,16 +264,13 @@ def pay_for_participation(request):
 
     purpose = "Registration Fee for Advitiya 2020"
     response = payment_request(request.user.get_full_name(), os.environ.get('EVENT_FEE', '400'), purpose,
-            request.user.email, str(participant.phone_number))
+            request.user.email, str(participant.phone_number), payment_detail)
     
     if response['success']:
         url = response['payment_request']['longurl']
         payment_request_id = response['payment_request']['id']
 
-        if payment_detail:
-            payment_detail.payment_request_id = payment_request_id
-            payment_detail.save()
-        else:
+        if payment_detail == None:
             payment_detail = Payment.objects.create(participant = participant, payment_request_id = payment_request_id)
         return redirect(url)
     else:
