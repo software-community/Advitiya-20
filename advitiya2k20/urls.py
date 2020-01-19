@@ -5,6 +5,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('accommodation/', include('accomodation.urls')),
+    path('startup_conclave/', include('startup_conclave.urls')),
     path('auth/', include('allauth.urls')),
     path('admin/', admin.site.urls),
     path('ca/', include('ca.urls')),
