@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from main_page.models import Participant, Payment
-from startup_conclave.models import StartupRegistrations, BootCampRegistrations, StartupTeam, StartupTeamHasMembers
+from startup_conclave.models import StartupRegistrations, BootCampRegistrations, StartupTeam, StartupTeamHasMembers, PaymentForStalls
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse, HttpResponseRedirect
 from django.forms import formset_factory, modelformset_factory
 from startup_conclave.forms import StartupTeamHasMemberForm, BaseStartupTeamFormSet, StartupTeamForm
 from django.urls import reverse
+from startup_conclave.methods import payment_request
 import os
 import hashlib
 import hmac
@@ -169,3 +170,92 @@ def registerForBootCamp(request):
         'team_form': team_form,
         'team_member_formset': team_member_formset,
     })
+
+@login_required(login_url='/auth/google/login/')
+def payForStall(request):
+    try:
+        participant = Participant.objects.get(user = request.user)
+    except Participant.DoesNotExist:
+        return render(request, 'main_page/show_info.html', {'message':'''You must register as a participant before 
+                    registering for an Event.
+                    <a href="/register-as-participant" >Click Here</a>'''})
+    
+    payment_detail = None
+
+    try:
+        payment_detail = PaymentForStalls.objects.filter(participant = participant)[0]
+        if payment_detail.transaction_id == '0' or payment_detail.transaction_id == 'none':
+            raise Exception("Previous Payment was failure!")
+        return render(request, 'main_page/show_info.html', {'message': "You have already paid for the stalls.",})
+    except:
+        pass
+
+    purpose = "Fee for stalls at Startup Conclave, Advitiya 2020"
+    response = payment_request(request.user.get_full_name(), os.environ.get('STALL_FEE', '1500'), purpose,
+            request.user.email, str(participant.phone_number), payment_detail)
+    
+    if response['success']:
+        url = response['payment_request']['longurl']
+        payment_request_id = response['payment_request']['id']
+
+        if payment_detail == None:
+            payment_detail = PaymentForStalls.objects.create(participant = participant, payment_request_id = payment_request_id)
+        return redirect(url)
+    else:
+        print(response)
+        return HttpResponseServerError()
+
+def webhook(request):
+
+    if request.method == "POST":
+        data = request.POST.copy()
+        mac_provided = data.pop('mac')[0]
+
+        message = "|".join(v for k, v in sorted(
+            data.items(), key=lambda x: x[0].lower()))
+        mac_calculated = hmac.new(
+            (os.getenv('PRIVATE_SALT')).encode('utf-8'), message.encode('utf-8'), hashlib.sha1).hexdigest()
+
+        if mac_provided == mac_calculated:
+            try:
+                payment_detail = PaymentForStalls.objects.filter(
+                    payment_request_id=data['payment_request_id'])[0]
+                if data['status'] == "Credit":
+                    # Payment was successful, mark it as completed in your database.
+                    payment_detail.transaction_id = data['payment_id']
+                    # str(participantpaspaid.paid_subcategory) inlcudes name of category also
+                    send_mail(
+                        'Payment confirmation of ' +
+                        ' to ADVITIYA 2020',
+                        'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
+                        'that your payment of Rs.'+os.environ.get('STALL_FEE', '1500')+' to ADVITIYA 2020 ' +
+                        ' is successful.\n\nRegards\nADVITIYA 2020 Public Relations Team',
+                        os.environ.get(
+                          'EMAIL_HOST_USER', ''),
+                        [payment_detail.participant.user.email],
+                        fail_silently=True,
+                    )
+                else:
+                    # Payment was unsuccessful, mark it as failed in your database.
+                    payment_detail.transaction_id = '0'
+                payment_detail.save()
+            except Exception as err:
+                print(err)
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=400)
+
+
+def payment_redirect(request):
+    
+    retry_for_payment = 'Payment to get a stall for Start Conclave at ADVITIYA, IIT Ropar was Successfull.'
+    if request.GET['payment_status'] == 'Failed':
+        retry_for_payment = '<a href="/pay">Click Here</a> for retry Payment.'
+
+    return render(request, 'main_page/show_info.html',
+            {
+                'message': "<p><b>Payment Status:</b> " + request.GET['payment_status'] +
+                            "</p><p><b>Payment Request ID:</b> " + request.GET['payment_request_id'] +
+                            "</p><p><b>Payment Transaction ID:</b> " + request.GET['payment_id'] +
+                            "<p>" + retry_for_payment + "</p>",
+            })

@@ -33,3 +33,13 @@ class BootCampRegistrations(models.Model):
 
     def __str__(self):
         return self.participant.__str__()
+
+class PaymentForStalls(models.Model):
+
+    participant=models.ForeignKey(Participant, on_delete = models.CASCADE)
+    payment_request_id = models.CharField(max_length = 100, default = 'none')
+    transaction_id = models.CharField(max_length=100, default='none')
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.participant.__str__()

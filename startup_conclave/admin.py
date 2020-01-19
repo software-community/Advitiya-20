@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from startup_conclave.models import StartupTeam, StartupTeamHasMembers, StartupRegistrations, BootCampRegistrations
+from startup_conclave.models import StartupTeam, StartupTeamHasMembers, StartupRegistrations, BootCampRegistrations, PaymentForStalls
 
 class StartupTeamAdminView(admin.ModelAdmin):
     list_display = [field.name for field in StartupTeam._meta.fields]
@@ -21,3 +21,8 @@ class BootCampRegistrationsAdminView(admin.ModelAdmin):
     list_display = [field.name for field in BootCampRegistrations._meta.fields]
 
 admin.site.register(BootCampRegistrations, BootCampRegistrationsAdminView)
+
+class PaymentForStallsAdminView(admin.ModelAdmin):
+    list_display = [field.name for field in PaymentForStalls._meta.fields]
+
+admin.site.register(PaymentForStalls, PaymentForStallsAdminView)
