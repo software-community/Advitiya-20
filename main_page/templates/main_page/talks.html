@@ -22,7 +22,7 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item bg_cover active"
-                        style="background-image: url({% static 'main_page/img/bg-img/auditorium_bg.jpg' %}); height:660px;">
+                        style="background-image: url({% static 'main_page/img/bg-img/web_bg.jpg' %}); height:660px;">
                         <div class="carousel-caption">
                             <div class="container">
                                 <div class="row justify-content-center">
@@ -65,17 +65,23 @@
                                     <div class="col-xl-6 col-lg-7 col-sm-10 d-table-cell align-middle">
                                         <center>
                                             <h1 style="color: white;">{{person.name}}</h1>
+                                            <br><br>
                                             <h5 class="carousel-title" style="background-color: rgba(255, 255, 255, 0.7);
                                                 padding: 20px;border-radius: 10px; color: black;">
                                                 <i class="zmdi zmdi-gps-dot"></i> Venue: {{person.venue}}<br><br>
                                                 <i class="zmdi zmdi-time"></i> {{person.start_date_time}}
                                             </h5>
+                                            <br>
                                         </center>
-                                        <h4 style="color: white;">About {{person.name}}</h1>
+                                        <h4 style="color: white;">About {{person.name}}</h1><br>
                                         <ul style="color: white;">
                                             <li> &nbsp &nbsp &nbsp &nbsp {{person.para1}}</li>
                                             <br>
                                             <li> &nbsp &nbsp &nbsp &nbsp {{person.para2}}</li>
+                                            <br>
+                                            <li> &nbsp &nbsp &nbsp &nbsp {{person.para3}}</li>
+                                            <br>
+                                            <li> &nbsp &nbsp &nbsp &nbsp {{person.para4}}</li>
                                             <br>
                                         </ul>
                                     </div>
