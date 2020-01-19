@@ -60,7 +60,10 @@ class Events(models.Model):
 
     def __str__(self):
         return self.name+"\t"+self.coordinator.name
-
+    
+    @property
+    def photo_url(self):
+        return self.image.url if self.image else ''
 
 class Participant(models.Model):
 
@@ -130,6 +133,10 @@ class Workshop(models.Model):
     def __str__(self):
         return self.name.__str__()
 
+    @property
+    def photo_url(self):
+        return self.image.url if self.image else ''
+
 class WorkshopRegistration(models.Model):
     
     workshop = models.ForeignKey(Workshop, on_delete = models.CASCADE)
@@ -177,3 +184,7 @@ class Talk(models.Model):
     para3 = models.TextField(null=True, blank=True)
     para4 = models.TextField(null=True, blank=True)
     show = models.BooleanField(default=True)
+
+    @property
+    def photo_url(self):
+        return self.image.url if self.image else ''

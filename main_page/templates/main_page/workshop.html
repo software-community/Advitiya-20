@@ -72,7 +72,7 @@ background: linear-gradient(to right, #fbc7d4, #9796f0); /* W3C, IE 10+/ Edge, F
                     <!-- Icon -->
                     <div class="single-blog-thumb">
                         <center><a href="{% url 'main_page:workshop_register' workshop.id  %}">
-                                <img src="{{ workshop.image.url }}" style="height: 200px;" alt=""></a>
+                                <img src="{{ workshop.photo_url }}" style="height: 200px;" alt=""></a>
                         </center>
                     </div>
                     <h5>{{workshop.name}}</h5>
