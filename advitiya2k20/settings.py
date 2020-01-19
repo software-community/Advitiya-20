@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'techconnect',
     'phonenumber_field',
     'main_page',
+    'startup_conclave',
     'ca',
     'TSP',
     'custom_admin',

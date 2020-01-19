@@ -1,0 +1,98 @@
+{% extends "main_page/base.html" %}
+{% load static %}
+
+{% block body %}
+
+<br>
+<br>
+
+<section class="what-we-offer-area section-padding-100-70">
+    <div class="container">
+        <div class="row wow fadeInUp" data-wow-delay="0.3s">
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="single-we-offer-content text-center wow fadeInUp" data-wow-delay="0.3s">
+                    <!-- Icon -->
+                    <div class="single-blog-thumb">
+                        <center><a href="{% url 'main_page:events' %}">
+                                <img src="{{ workshop.image.url }}" style="height: 200px;" alt=""></a>
+                        </center>
+                    </div>
+                    <h5>BootCamp</h5>
+                    <div class="post-meta">
+                        <a class="post-date"><i class="zmdi zmdi-time-interval"></i> 1 Day</a><br>
+                        <a class="post-date"><i class="zmdi zmdi-calendar-check"></i> 7th February, 2020</a>
+
+                    </div>
+                    <br>
+                    <a href="{% url 'main_page:events' %}" class="btn confer-btn-white"
+                        style="border: 2px solid rgb(43, 2, 143); color: black;"
+                        onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">Register
+                        Now</a>
+                    <a href="{{ workshop.rulebook }}" class="btn confer-btn-white"
+                        style="border: 2px solid rgb(43, 2, 143); color: black;"
+                        onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">
+                        <i class="zmdi zmdi-info zmdi-hc-lg"></i> info</a>
+
+                </div>
+
+            </div>
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="single-we-offer-content text-center wow fadeInUp" data-wow-delay="0.3s">
+                    <!-- Icon -->
+                    <div class="single-blog-thumb">
+                        <center><a href="{% url 'main_page:events' %}">
+                            <img src="{% static 'startup_conclave/img/startup.jpg' %}" style="height: 200px;" alt=""></a>
+                        </center>
+                    </div>
+                    <h5>Startup</h5>
+                    <div class="post-meta">
+                        <a class="post-date"><i class="zmdi zmdi-time-interval"></i> 1 Day</a><br>
+                        <a class="post-date"><i class="zmdi zmdi-calendar-check"></i> 7th February, 2020</a>
+
+                    </div>
+                    <br>
+                    <a href="{% url 'startup_conclave:register_for_startup' %}" class="btn confer-btn-white"
+                        style="border: 2px solid rgb(43, 2, 143); color: black;"
+                        onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">Register
+                        Now</a>
+                    <a href="{{ workshop.rulebook }}" class="btn confer-btn-white"
+                        style="border: 2px solid rgb(43, 2, 143); color: black;"
+                        onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">
+                        <i class="zmdi zmdi-info zmdi-hc-lg"></i> info</a>
+
+                </div>
+
+            </div>
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="single-we-offer-content text-center wow fadeInUp" data-wow-delay="0.3s">
+                    <!-- Icon -->
+                    <div class="single-blog-thumb">
+                        <center><a href="{% url 'main_page:events' %}">
+                                <img src="{{ workshop.image.url }}" style="height: 200px;" alt=""></a>
+                        </center>
+                    </div>
+                    <h5>Get Stall</h5>
+                    <div class="post-meta">
+                        <a class="post-date"><i class="zmdi zmdi-time-interval"></i> 1 Day</a><br>
+                        <a class="post-date"><i class="zmdi zmdi-calendar-check"></i> 7th February, 2020</a>
+
+                    </div>
+                    <br>
+                    <a href="{% url 'main_page:events' %}" class="btn confer-btn-white"
+                        style="border: 2px solid rgb(43, 2, 143); color: black;"
+                        onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">Register
+                        Now</a>
+                    <a href="{{ workshop.rulebook }}" class="btn confer-btn-white"
+                        style="border: 2px solid rgb(43, 2, 143); color: black;"
+                        onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">
+                        <i class="zmdi zmdi-info zmdi-hc-lg"></i> info</a>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

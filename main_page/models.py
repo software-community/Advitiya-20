@@ -174,4 +174,6 @@ class Talk(models.Model):
     start_date_time = models.DateTimeField(blank=False)
     para1 = models.TextField(null=True, blank=True)
     para2 = models.TextField(null=True, blank=True)
+    para3 = models.TextField(null=True, blank=True)
+    para4 = models.TextField(null=True, blank=True)
     show = models.BooleanField(default=True)
