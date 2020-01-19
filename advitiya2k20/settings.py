@@ -9,8 +9,10 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'ympr^oisgreatme+uvtthispxgpd7v
 
 if(os.environ.get('ENV', 'DEV') == 'DEV'):
     DEBUG = True
+    C_DEBUG = True
 else:
     DEBUG = False
+    C_DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -73,7 +75,7 @@ WSGI_APPLICATION = 'advitiya2k20.wsgi.application'
 
 DB_ENGINE = os.environ.get('DB_ENGINE', 'mysql')
 
-if DEBUG:
+if C_DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -164,7 +166,7 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 FCM_DJANGO_SETTINGS = {
         "FCM_SERVER_KEY":os.environ.get('FCM_KEY', '')
 }
-if not DEBUG:
+if not C_DEBUG:
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': True,
