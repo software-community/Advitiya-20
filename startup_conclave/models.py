@@ -26,3 +26,10 @@ class StartupRegistrations(models.Model):
     def __str__(self):
         return self.participant.__str__()
     
+class BootCampRegistrations(models.Model):
+    
+    participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.participant.__str__()
