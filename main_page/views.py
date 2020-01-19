@@ -200,7 +200,7 @@ def registerForEvent(request, event_id):
                             return render(request, 'main_page/show_info.html', {'message':'''Some of the Team Member has 
                                     not paid the fees yet. Kindly check and ask them to complete their payment.''', 
                                     'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
-                    except Payment.DoesNotExist:
+                    except:
                         return render(request, 'main_page/show_info.html', {'message':'''Some of the Team Member has 
                                     not paid the fees yet. Kindly check and ask them to complete their payment.''', 
                                     'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
