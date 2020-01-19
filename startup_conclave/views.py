@@ -227,7 +227,7 @@ def webhook(request):
                     send_mail(
                         'Payment confirmation of ' +
                         ' to ADVITIYA 2020',
-                        'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
+                        'Dear ' + str(payment_detail.participant.name) + '\n\nThis is to confirm '+
                         'that your payment of Rs.'+os.environ.get('STALL_FEE', '1500')+' to ADVITIYA 2020 ' +
                         ' is successful.\n\nRegards\nADVITIYA 2020 Public Relations Team',
                         os.environ.get(
@@ -250,7 +250,7 @@ def payment_redirect(request):
     
     retry_for_payment = 'Payment to get a stall for Start Conclave at ADVITIYA, IIT Ropar was Successfull.'
     if request.GET['payment_status'] == 'Failed':
-        retry_for_payment = '<a href="/pay">Click Here</a> for retry Payment.'
+        retry_for_payment = '<a href="/pay_for_stall">Click Here</a> for retry Payment.'
 
     return render(request, 'main_page/show_info.html',
             {
