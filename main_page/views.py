@@ -3,15 +3,18 @@ from main_page.models import (Coordinator, Events, Participant, EventRegistratio
                 CATEGORY_CHOCIES, WorkshopRegistration, Workshop, WorkshopAccomodation, Talk)
 from django.contrib.auth.decorators import login_required
 from main_page.forms import (ParticipationForm, TeamHasMemberForm, BaseTeamFormSet, TeamForm,
-             WorkshopAccomodationForm, WorkshopParticipantForm)
+             WorkshopAccomodationForm, WorkshopParticipantForm, RefferCAForWorkshop)
 from django.core.mail import send_mail
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse, HttpResponseRedirect
 from django.forms import formset_factory, modelformset_factory
 from main_page.methods import payment_request, workshop_payment_request
+from ca.models import Profile as CAProfile
+
 from django.urls import reverse
 import os
 import hashlib
 import hmac
+import datetime
 
 # Create your views here.
 
@@ -481,3 +484,41 @@ def workshopParticipant(request):
 def talks(request):
     people = Talk.objects.all()
     return render(request,'main_page/talks.html',{'people': people})
+
+@login_required(login_url='/auth/google/login/')
+def reffer_ca_for_workshop(request):
+
+    try:
+        participant = Participant.objects.get(user = request.user)
+        date_time = datetime.datetime(2020, 1, 17)
+        participant_registrations = WorkshopRegistration.objects.filter(
+            participant=participant, timestamp__gte=date_time)
+        bool_participated = False
+        for participant_registration in participant_registrations:
+            if participant_registration.transaction_id != 'none' and participant_registration.transaction_id != '0':
+                bool_participated = True
+                break
+        if bool_participated == False:
+            raise Exception("not registered for any workshop")
+    except:
+        return render(request, 'main_page/show_info.html',{
+                'message':  '''You must register for some workshop before reffering any Campus Ambassador.
+                            <a href="'''+reverse('main_page:workshop')+'''"> 
+                            Click Here </a> to go to the workshops page.''',
+            })
+
+    if request.method == 'POST':
+        reffer_ca_form = RefferCAForWorkshop(request.POST)
+        if reffer_ca_form.is_valid():
+            ca_code = reffer_ca_form.cleaned_data['ca_code']
+            participant.ca_code = ca_code
+            participant.save()
+
+            return render(request, 'main_page/show_info.html',{
+                'message':  '''You have successfully reffered your Campus Ambassador.
+                                Thank You!''',
+            })
+
+    else:
+        reffer_ca_form = RefferCAForWorkshop()
+    return render(request, 'main_page/reffer_ca.html', { 'form' : reffer_ca_form})
