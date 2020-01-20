@@ -14,7 +14,6 @@ from django.urls import reverse
 import os
 import hashlib
 import hmac
-import datetime
 
 # Create your views here.
 
@@ -364,6 +363,52 @@ def workshop_register(request, workshop_id):
     except:
         pass
 
+    #--------------- free pass
+    try:
+        if os.environ.get('FREE_PASS', 'N') == 'N':
+            raise Exception('Not Allowed')
+        ca_profile = CAProfile.objects.get(user = request.user)
+        reffering_participants = Participant.objects.filter(ca_code=ca_profile)
+        ca_count = 0
+        for reffering_participant in reffering_participants:
+            if reffering_participant.has_participated_in_workshop():
+                ca_count = ca_count + 1
+        min_ca = os.environ.get('CA_COUNT', '10')
+        if ca_count > int(min_ca):
+            if already_participant == None:
+                WorkshopRegistration.objects.create(workshop = workshop,participant=participant,
+                    payment_request_id='free_pass', transaction_id='free_pass')
+            else:
+                already_participant.transaction_id = 'free_pass'
+                already_participant.save()
+            send_mail(
+                'Participation in workshop at' +
+                ' ADVITIYA, IIT Ropar.',
+                'Dear ' + str(participant.user.get_full_name()) + '''\n\nThis is to confirm 
+                that your participation in workshop at ADVITIYA, IIT Ropar is successful. \nAs we 
+                charge a subsidized amount for accomodation to our workshop participants, we believe that you might wish to 
+                book your accomodation during the fest dates before its too late and there are no rooms left. 
+                \n<a href="https://advitiya.in'''+reverse('main_page:workshop_accomodation')+'''"> Click Here </a> 
+                to book accomodation during the fest dates
+                \n\nRegards\nADVITIYA 2020 Public Relations Team''',
+                os.environ.get(
+                    'EMAIL_HOST_USER', ''),
+                [participant.user.email],
+                fail_silently=True,
+            )
+            return render(request, 'main_page/show_info.html',{
+                'message':  '''This is to confirm that your participation in workshop at ADVITIYA, IIT Ropar is successful. \nAs we 
+                charge a subsidized amount for accomodation to our workshop participants, we believe that you might wish to 
+                book your accomodation during the fest dates before its too late and there are no rooms left. 
+                \n<a href="https://advitiya.in'''+reverse('main_page:workshop_accomodation')+'''"> Click Here </a> 
+                to book accomodation during the fest dates''',
+            })
+        else:
+            raise Exception('Not sufficient CAs')
+    except:
+        pass
+    #---------------
+
     # Pay for the workshop
     purpose = "Workshop on " + workshop.name + " at Advitiya 2020"
     response = workshop_payment_request(participant.name, str(workshop.fees), purpose,
@@ -490,15 +535,7 @@ def reffer_ca_for_workshop(request):
 
     try:
         participant = Participant.objects.get(user = request.user)
-        date_time = datetime.datetime(2020, 1, 17)
-        participant_registrations = WorkshopRegistration.objects.filter(
-            participant=participant, timestamp__gte=date_time)
-        bool_participated = False
-        for participant_registration in participant_registrations:
-            if participant_registration.transaction_id != 'none' and participant_registration.transaction_id != '0':
-                bool_participated = True
-                break
-        if bool_participated == False:
+        if not participant.has_participated_in_workshop():
             raise Exception("not registered for any workshop")
     except:
         return render(request, 'main_page/show_info.html',{
