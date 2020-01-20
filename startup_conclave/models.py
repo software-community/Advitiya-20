@@ -25,8 +25,13 @@ COMMITMENT=(
     ('2', 'Part Time'),
 )
 
-class StartupTeam(models.Model):
+class RequirementChoices(models.Model):
+    choice=models.CharField(max_length=40)
 
+    def __str__(self):
+        return self.choice
+
+class StartupTeam(models.Model):
     name = models.CharField(max_length = 100, verbose_name = 'Team Name')
     leader = models.ForeignKey(Participant, on_delete = models.CASCADE)
     startup_name= models.CharField(max_length = 100, verbose_name = 'Startup Name', default="Startup Name")
@@ -34,18 +39,24 @@ class StartupTeam(models.Model):
     founder_phone_number = models.CharField(max_length=50, null=True, blank=True,
             verbose_name="Founder Phone Number")
     startup_category = models.CharField(max_length=30, choices=STARTUP_CATEGORY_CHOCIES, default="1",
-            verbose_name="Startup Category")
-    sector = models.CharField(max_length = 100, verbose_name = 'Sector', null=True, blank=True)
+            verbose_name="Stage of your Startup")
+    sector = models.CharField(max_length = 100, verbose_name = 'Sector in which your startup belongs (Hardware/Software/Food/Agriculture/Technology etc.)', 
+            null=True, blank=True)
+    requirements=models.ManyToManyField(RequirementChoices, through='StartupTeamHasRequirements')
     why_invest = models.TextField(verbose_name="Tell Investor- Why invest in you?", null=True, blank=True)
-    requirements = models.CharField(max_length=40, choices=REQUIREMENT_CHOICES, null=True, blank=True, 
-            verbose_name="Requirements of your Startup")
     commitment = models.CharField(max_length=30, choices=COMMITMENT, null=True, blank=True, verbose_name="Commitment")
+
+    def requirement_names(self):
+        return ', '.join([a.choice for a in self.requirements.all()])
 
     def __str__(self):
         return self.startup_name+"\t"+self.leader.__str__()
 
-class BootCampTeam(models.Model):
+class StartupTeamHasRequirements(models.Model):
+    requirement=models.ForeignKey(RequirementChoices, on_delete=models.CASCADE)
+    startup_team=models.ForeignKey(StartupTeam, on_delete=models.CASCADE)
 
+class BootCampTeam(models.Model):
     name = models.CharField(max_length = 100, verbose_name = 'Team Name')
     leader = models.ForeignKey(Participant, on_delete = models.CASCADE)
     
@@ -53,7 +64,6 @@ class BootCampTeam(models.Model):
         return self.name+"\t"+self.leader.__str__()
 
 class BootCampTeamHasMembers(models.Model):
-
     team = models.ForeignKey(BootCampTeam, on_delete = models.CASCADE)
     participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
 
@@ -61,7 +71,6 @@ class BootCampTeamHasMembers(models.Model):
         return self.team.__str__()
 
 class StartupTeamHasMembers(models.Model):
-
     team = models.ForeignKey(StartupTeam, on_delete = models.CASCADE)
     participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
 
@@ -69,7 +78,6 @@ class StartupTeamHasMembers(models.Model):
         return self.team.__str__()
 
 class StartupRegistrations(models.Model):
-    
     participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
     startup_name= models.ForeignKey(StartupTeam, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now=True)
@@ -78,7 +86,6 @@ class StartupRegistrations(models.Model):
         return self.startup_name.__str__()
     
 class BootCampRegistrations(models.Model):
-    
     participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
     timestamp = models.DateTimeField(auto_now=True)
 
@@ -86,7 +93,6 @@ class BootCampRegistrations(models.Model):
         return self.participant.__str__()
 
 class PaymentForStalls(models.Model):
-
     participant=models.ForeignKey(Participant, on_delete = models.CASCADE)
     payment_request_id = models.CharField(max_length = 100, default = 'none')
     transaction_id = models.CharField(max_length=100, default='none')

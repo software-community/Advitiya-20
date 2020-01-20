@@ -2,14 +2,23 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from main_page.models import Participant
-from startup_conclave.models import StartupTeam, StartupTeamHasMembers, BootCampTeam, BootCampTeamHasMembers
+from startup_conclave.models import (StartupTeam, StartupTeamHasMembers, BootCampTeam,
+                    BootCampTeamHasMembers, RequirementChoices, StartupTeamHasRequirements)
 
 class StartupTeamForm(forms.ModelForm):
+    requirements=forms.ModelMultipleChoiceField(queryset=RequirementChoices.objects.all(), required=False, widget=forms.CheckboxSelectMultiple)
     
     class Meta:
         model = StartupTeam
         fields = ["name","startup_name","founder_name", "founder_phone_number", "startup_category",
-                        "sector", "why_invest", "requirements", "commitment"]
+                        "sector", "requirements", "why_invest", "commitment"]
+    
+    # def save(self, *args, **kwargs):
+    #     instance=super(StartupTeamForm, self).save(*args, **kwargs)
+    #     requirements=self.cleaned_data['requirements']
+    #     for req in requirements:
+    #         StartupTeamHasRequirements.objects.create(requirement=req, startup_team=instance)
+    #     return instance
 
 class StartupTeamHasMemberForm(forms.Form):
 

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from main_page.models import Participant, Payment
 from startup_conclave.models import (StartupRegistrations, BootCampRegistrations, BootCampTeam, BootCampTeamHasMembers, 
-            StartupTeam, StartupTeamHasMembers, PaymentForStalls)
+            StartupTeam, StartupTeamHasMembers, PaymentForStalls, StartupTeamHasRequirements)
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse, HttpResponseRedirect
@@ -62,9 +62,12 @@ def registerForStartup(request):
                 except:
                     return render(request, 'main_page/show_info.html', {'message':'''Some of the Team Member has 
                                 not paid the fees yet. Kindly check and ask them to complete their payment.''',})
+            reqs = team_form.cleaned_data['requirements']
             new_team = team_form.save(commit = False)
             new_team.leader = participant
             new_team.save()
+            for req in reqs:
+                StartupTeamHasRequirements.objects.create(requirement=req, startup_team=new_team)
             for team_member in list_of_team_members:
                 StartupRegistrations.objects.create(participant = team_member, startup_name=new_team)
                 StartupTeamHasMembers.objects.create(team = new_team, participant = team_member)
