@@ -72,7 +72,7 @@ def workshop_accomodation(request, pre_id = None):
     fee = os.environ.get('WORKSHOP_ACCOMODATION_FEE', '250')
     purpose = "Accomodation for "+ str(days) +" days for workshop"
     response = workshop_accomodation_payment_request(participant.name, str(int(fee)*days), purpose,
-            request.user.email, str(participant.phone_number))
+            request.user.email, str(participant.phone_number), previous_accomodation)
     
     if response['success']:
         url = response['payment_request']['longurl']
