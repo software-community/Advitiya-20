@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from main_page.models import Participant, Payment
-from startup_conclave.models import StartupRegistrations, BootCampRegistrations, StartupTeam, StartupTeamHasMembers, PaymentForStalls
+from startup_conclave.models import (StartupRegistrations, BootCampRegistrations, BootCampTeam, BootCampTeamHasMembers, 
+            StartupTeam, StartupTeamHasMembers, PaymentForStalls)
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse, HttpResponseRedirect
 from django.forms import formset_factory, modelformset_factory
-from startup_conclave.forms import StartupTeamHasMemberForm, BaseStartupTeamFormSet, StartupTeamForm
+from startup_conclave.forms import (StartupTeamHasMemberForm, BaseStartupTeamFormSet, StartupTeamForm, BootCampTeamHasMemberForm, 
+                                        BaseBootCampTeamFormSet, BootCampTeamForm)
 from django.urls import reverse
 from startup_conclave.methods import payment_request
 import os
@@ -64,7 +66,7 @@ def registerForStartup(request):
             new_team.leader = participant
             new_team.save()
             for team_member in list_of_team_members:
-                StartupRegistrations.objects.create(participant = team_member)
+                StartupRegistrations.objects.create(participant = team_member, startup_name=new_team)
                 StartupTeamHasMembers.objects.create(team = new_team, participant = team_member)
             send_mail(subject='Successful Registration for startup conclave at ADVITIYA\'20',
                     message='',
@@ -114,14 +116,14 @@ def registerForBootCamp(request):
         return render(request, 'main_page/show_info.html', {'message':'''You must pay participation fee 
                     before registering for this event. <a href="/pay">Click Here</a> for payment.''', })
 
-    team_has_member_formSet = formset_factory(form = StartupTeamHasMemberForm, formset = BaseStartupTeamFormSet, extra = 5, 
+    team_has_member_formSet = formset_factory(form = BootCampTeamHasMemberForm, formset = BaseBootCampTeamFormSet, extra = 5, 
             max_num = 5, validate_max = True, min_num = 1, validate_min = True)
     if request.method == 'POST':
         list_of_team_members = []
         list_of_email_address_of_team_members = []
         team_member_formset = team_has_member_formSet(request.POST, 
                 initial = [{'team_member': str(participant.participant_code)}], prefix = 'team_member')
-        team_form = StartupTeamForm(request.POST)
+        team_form = BootCampTeamForm(request.POST)
         if team_member_formset.is_valid() and team_form.is_valid():
             for team_member_form in team_member_formset:
                 team_member = team_member_form.cleaned_data.get('team_member')
@@ -142,7 +144,7 @@ def registerForBootCamp(request):
             new_team.save()
             for team_member in list_of_team_members:
                 BootCampRegistrations.objects.create(participant = team_member)
-                StartupTeamHasMembers.objects.create(team = new_team, participant = team_member)
+                BootCampTeamHasMembers.objects.create(team = new_team, participant = team_member)
             send_mail(subject='Successful Registration for startup conclave at ADVITIYA\'20',
                     message='',
                     from_email=os.environ.get(
@@ -162,7 +164,7 @@ def registerForBootCamp(request):
                     Photo Identity Cards for onsite registration. Failure to do so might result in cancellation 
                     of the registration of the whole team.''',})
     else:
-        team_form = StartupTeamForm()
+        team_form = BootCampTeamForm()
         team_member_formset = team_has_member_formSet(
                 initial= [{'team_member': str(participant.participant_code)}], prefix = 'team_member')
     
