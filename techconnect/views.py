@@ -130,16 +130,13 @@ def workshop_register(request, workshop_id):
     # Pay for the workshop
     purpose = "Registration Fee for the workshop on " + workshop.workshop_name
     response = workshop_payment_request(participant.name, str(workshop.fees), purpose,
-            request.user.email, str(participant.phone_number))
+            request.user.email, str(participant.phone_number), already_participant)
     
     if response['success']:
         url = response['payment_request']['longurl']
         payment_request_id = response['payment_request']['id']
 
-        if already_participant:
-            already_participant.payment_request_id = payment_request_id
-            already_participant.save()
-        else:
+        if already_participant == None:
             WorkshopRegistrations.objects.create(workshop = workshop,participant=participant, payment_request_id= payment_request_id)
         return redirect(url)
     else:

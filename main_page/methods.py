@@ -19,11 +19,12 @@ def payment_request(name, amount, purpose, email, mobile, payment_detail = None)
             email=email,
             phone=mobile,
             redirect_url="https://advitiya.in/payment_redirect/",
-            webhook="https://advitiya.in/webhook/"
+            webhook="https://advitiya.in/webhook/",
+            allow_repeated_payments=False
         )
     return response
 
-def workshop_payment_request(name, amount, purpose, email, mobile, at_sudhir):
+def workshop_payment_request(name, amount, purpose, email, mobile, at_sudhir, payment_detail = None):
     if at_sudhir:
         api = Instamojo(api_key=os.getenv('WORKSHOP_API_AUTH_KEY'),
                         auth_token=os.getenv('WORKSHOP_API_AUTH_TOKEN'))
@@ -32,31 +33,39 @@ def workshop_payment_request(name, amount, purpose, email, mobile, at_sudhir):
                     auth_token=os.getenv('API_AUTH_TOKEN'))
 
     # Create a new Payment Request
-    response = api.payment_request_create(
-        buyer_name=name,
-        amount=amount,
-        purpose=purpose,
-        send_email=True,
-        email=email,
-        phone=mobile,
-        redirect_url="https://advitiya.in/workshop_payment_redirect/",
-        webhook="https://advitiya.in/workshop_webhook/"
-    )
+    if payment_detail:
+        response = api.payment_request_status(payment_detail.payment_request_id)
+    else:
+        response = api.payment_request_create(
+            buyer_name=name,
+            amount=amount,
+            purpose=purpose,
+            send_email=True,
+            email=email,
+            phone=mobile,
+            redirect_url="https://advitiya.in/workshop_payment_redirect/",
+            webhook="https://advitiya.in/workshop_webhook/",
+            allow_repeated_payments=False
+        )
     return response
 
-def workshop_accomodation_payment_request(name, amount, purpose, email, mobile):
+def workshop_accomodation_payment_request(name, amount, purpose, email, mobile, payment_detail = None):
     api = Instamojo(api_key=os.getenv('API_AUTH_KEY'),
                     auth_token=os.getenv('API_AUTH_TOKEN'))
 
     # Create a new Payment Request
-    response = api.payment_request_create(
-        buyer_name=name,
-        amount=amount,
-        purpose=purpose,
-        send_email=True,
-        email=email,
-        phone=mobile,
-        redirect_url="https://advitiya.in/workshop_accomodation_payment_redirect/",
-        webhook="https://advitiya.in/workshop_accomodation_webhook/"
-    )
+    if payment_detail:
+        response = api.payment_request_status(payment_detail.payment_request_id)
+    else:
+        response = api.payment_request_create(
+            buyer_name=name,
+            amount=amount,
+            purpose=purpose,
+            send_email=True,
+            email=email,
+            phone=mobile,
+            redirect_url="https://advitiya.in/workshop_accomodation_payment_redirect/",
+            webhook="https://advitiya.in/workshop_accomodation_webhook/",
+            allow_repeated_payments=False
+        )
     return response
