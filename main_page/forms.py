@@ -16,7 +16,7 @@ class ParticipationForm(forms.ModelForm):
     phone_number = forms.CharField(required = True, label = 'Participant Phone',validators= [phone_validator],widget=forms.TextInput)
     college_name = forms.CharField(label="College Name",widget=forms.TextInput)
     name = forms.CharField(label="Name",widget=forms.TextInput)
-    ca_code = forms.CharField(label="CA Code", widget=forms.TextInput, required = False)
+    ca_code = forms.CharField(label="Campus Ambassador Code (If Any)", widget=forms.TextInput, required = False)
 
     class Meta:
         model= Participant
