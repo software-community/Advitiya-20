@@ -3,11 +3,13 @@ from main_page.models import (Coordinator, Events, Participant, EventRegistratio
                 CATEGORY_CHOCIES, WorkshopRegistration, Workshop, WorkshopAccomodation, Talk)
 from django.contrib.auth.decorators import login_required
 from main_page.forms import (ParticipationForm, TeamHasMemberForm, BaseTeamFormSet, TeamForm,
-             WorkshopAccomodationForm, WorkshopParticipantForm)
+             WorkshopAccomodationForm, WorkshopParticipantForm, RefferCAForWorkshop)
 from django.core.mail import send_mail
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse, HttpResponseRedirect
 from django.forms import formset_factory, modelformset_factory
 from main_page.methods import payment_request, workshop_payment_request
+from ca.models import Profile as CAProfile
+
 from django.urls import reverse
 import os
 import hashlib
@@ -361,6 +363,52 @@ def workshop_register(request, workshop_id):
     except:
         pass
 
+    #--------------- free pass
+    try:
+        if os.environ.get('FREE_PASS', 'N') == 'N':
+            raise Exception('Not Allowed')
+        ca_profile = CAProfile.objects.get(user = request.user)
+        reffering_participants = Participant.objects.filter(ca_code=ca_profile)
+        ca_count = 0
+        for reffering_participant in reffering_participants:
+            if reffering_participant.has_participated_in_workshop():
+                ca_count = ca_count + 1
+        min_ca = os.environ.get('CA_COUNT', '10')
+        if ca_count > int(min_ca):
+            if already_participant == None:
+                WorkshopRegistration.objects.create(workshop = workshop,participant=participant,
+                    payment_request_id='free_pass', transaction_id='free_pass')
+            else:
+                already_participant.transaction_id = 'free_pass'
+                already_participant.save()
+            send_mail(
+                'Participation in workshop at' +
+                ' ADVITIYA, IIT Ropar.',
+                'Dear ' + str(participant.user.get_full_name()) + '''\n\nThis is to confirm 
+                that your participation in workshop at ADVITIYA, IIT Ropar is successful. \nAs we 
+                charge a subsidized amount for accomodation to our workshop participants, we believe that you might wish to 
+                book your accomodation during the fest dates before its too late and there are no rooms left. 
+                \n<a href="https://advitiya.in'''+reverse('main_page:workshop_accomodation')+'''"> Click Here </a> 
+                to book accomodation during the fest dates
+                \n\nRegards\nADVITIYA 2020 Public Relations Team''',
+                os.environ.get(
+                    'EMAIL_HOST_USER', ''),
+                [participant.user.email],
+                fail_silently=True,
+            )
+            return render(request, 'main_page/show_info.html',{
+                'message':  '''This is to confirm that your participation in workshop at ADVITIYA, IIT Ropar is successful. \nAs we 
+                charge a subsidized amount for accomodation to our workshop participants, we believe that you might wish to 
+                book your accomodation during the fest dates before its too late and there are no rooms left. 
+                \n<a href="https://advitiya.in'''+reverse('main_page:workshop_accomodation')+'''"> Click Here </a> 
+                to book accomodation during the fest dates''',
+            })
+        else:
+            raise Exception('Not sufficient CAs')
+    except:
+        pass
+    #---------------
+
     # Pay for the workshop
     purpose = "Workshop on " + workshop.name + " at Advitiya 2020"
     response = workshop_payment_request(participant.name, str(workshop.fees), purpose,
@@ -481,3 +529,33 @@ def workshopParticipant(request):
 def talks(request):
     people = Talk.objects.all()
     return render(request,'main_page/talks.html',{'people': people})
+
+@login_required(login_url='/auth/google/login/')
+def reffer_ca_for_workshop(request):
+
+    try:
+        participant = Participant.objects.get(user = request.user)
+        if not participant.has_participated_in_workshop():
+            raise Exception("not registered for any workshop")
+    except:
+        return render(request, 'main_page/show_info.html',{
+                'message':  '''You must register for some workshop before reffering any Campus Ambassador.
+                            <a href="'''+reverse('main_page:workshop')+'''"> 
+                            Click Here </a> to go to the workshops page.''',
+            })
+
+    if request.method == 'POST':
+        reffer_ca_form = RefferCAForWorkshop(request.POST)
+        if reffer_ca_form.is_valid():
+            ca_code = reffer_ca_form.cleaned_data['ca_code']
+            participant.ca_code = ca_code
+            participant.save()
+
+            return render(request, 'main_page/show_info.html',{
+                'message':  '''You have successfully reffered your Campus Ambassador.
+                                Thank You!''',
+            })
+
+    else:
+        reffer_ca_form = RefferCAForWorkshop()
+    return render(request, 'main_page/reffer_ca.html', { 'form' : reffer_ca_form})
