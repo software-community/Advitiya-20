@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from main_page.models import Participant
-from startup_conclave.models import (StartupTeam, StartupTeamHasMembers, BootCampTeam,
+from startup_conclave.models import (StartupTeam, StartupTeamHasMembers, BootCampTeam, RegisterForStalls,
                     BootCampTeamHasMembers, RequirementChoices, StartupTeamHasRequirements)
 
 class StartupTeamForm(forms.ModelForm):
@@ -12,13 +12,6 @@ class StartupTeamForm(forms.ModelForm):
         model = StartupTeam
         fields = ["name","startup_name","founder_name", "founder_phone_number", "startup_category",
                         "sector", "requirements", "why_invest", "commitment"]
-    
-    # def save(self, *args, **kwargs):
-    #     instance=super(StartupTeamForm, self).save(*args, **kwargs)
-    #     requirements=self.cleaned_data['requirements']
-    #     for req in requirements:
-    #         StartupTeamHasRequirements.objects.create(requirement=req, startup_team=instance)
-    #     return instance
 
 class StartupTeamHasMemberForm(forms.Form):
 
@@ -87,3 +80,9 @@ class BaseBootCampTeamFormSet(forms.BaseFormSet):
                 message = "Each Participant in the team must be unique"
                 form.add_error('team_member', forms.ValidationError(message = message, code = "SameParticipant"))
             team_members.add(team_member)
+
+class StallsForm(forms.ModelForm):
+    class Meta:
+        model = RegisterForStalls
+        fields = ["startup_name","founder_name", "founder_phone_number", "number",
+                        "about"]
