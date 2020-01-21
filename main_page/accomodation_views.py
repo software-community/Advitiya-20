@@ -108,7 +108,7 @@ def workshop_accomodation_webhook(request):
                             'that your payment to ADVITIYA 2020 for '+
                             str(payment_detail.no_of_days())
                             +' day(s) accomodation during the fest' +
-                            ' is successful.\n\nRegards\nADVITIYA 2020 Public Relations Team',
+                            ' is successful.\n\nRegards\n\nAdarsh(7355404764)\nWeb Development Head\nADVITIYA\'20',
                             os.environ.get(
                             'EMAIL_HOST_USER', ''),
                             [payment_detail.participant.user.email],
