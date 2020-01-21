@@ -11,15 +11,6 @@ STARTUP_CATEGORY_CHOCIES = (
     ('6', 'Pilot'),
 )
 
-REQUIREMENT_CHOICES=(
-    ('1', 'Investor/Banks'),
-    ('2', 'IPR Company'),
-    ('3', 'Company Incorporation'),
-    ('4', 'Web & App Development Company'),
-    ('5', 'Manufacturing Company'),
-    ('6', 'Marketing Company'),
-)
-
 COMMITMENT=(
     ('1', 'Full Time'),
     ('2', 'Part Time'),
@@ -92,11 +83,25 @@ class BootCampRegistrations(models.Model):
     def __str__(self):
         return self.participant.__str__()
 
-class PaymentForStalls(models.Model):
+class RegisterForStalls(models.Model):
     participant=models.ForeignKey(Participant, on_delete = models.CASCADE)
+    startup_name= models.CharField(max_length = 100, verbose_name = 'Startup Name', default="Startup Name")
+    founder_name = models.CharField(max_length = 100, verbose_name = 'Founder Name', null=True, blank=True)
+    founder_phone_number = models.CharField(max_length=50, null=True, blank=True,
+            verbose_name="Founder Phone Number")
+    number = models.PositiveSmallIntegerField(verbose_name="No. of people representing the startup")
+    about = models.TextField(verbose_name="About Your Startup", null=True, blank=True)
+
+    def __str__(self):
+        return self.participant.__str__()
+
+class PayForStalls(models.Model):
+    stall=models.ForeignKey(RegisterForStalls, on_delete = models.CASCADE)
     payment_request_id = models.CharField(max_length = 100, default = 'none')
     transaction_id = models.CharField(max_length=100, default='none')
     timestamp = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.participant.__str__()
+    def is_paid(self):
+        if len(self.transaction_id)>4 and self.transaction_id.startswith("MOJO"):
+            return True
+        return False
