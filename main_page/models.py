@@ -177,6 +177,13 @@ class WorkshopAccomodation(models.Model):
     transaction_id = models.CharField(max_length=100, default='none')
     timestamp = models.DateTimeField(auto_now=True)
 
+    def is_paid(self):
+        if (self.transaction_id != 'none' and self.transaction_id != '0'
+            and len(self.transaction_id) > 4):
+            return True
+        else:
+            return False
+
     def no_of_days(self):
         days = 0
         if self.accomodation_on_7th == True:
