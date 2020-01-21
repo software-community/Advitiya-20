@@ -476,7 +476,9 @@ def workshop_webhook(request):
 
 def workshop_payment_redirect(request):
     
-    retry_for_payment = 'Payment was Successfull. You have successfully registered for this workshop.'
+    retry_for_payment = '''Payment was Successfull. You have successfully registered for this workshop.
+                 If you want to give credit to some Campus Ambassador for your registration, ask them their CA Code, and 
+                 give credit at <a href="'''+reverse('main_page:reffer_ca')+'''">'''
     if request.GET['payment_status'] == 'Failed':
         retry_for_payment = '<a href="'+reverse('main_page:workshop')+'">Click Here</a> to go back to Workshops page.'
 
