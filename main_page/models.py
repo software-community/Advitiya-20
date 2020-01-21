@@ -103,6 +103,13 @@ class Payment(models.Model):
     def __str__(self):
         return self.participant.__str__()
 
+    def is_paid(self):
+        if (self.transaction_id != 'none' and self.transaction_id != '0'
+            and len(self.transaction_id) > 4):
+            return True
+        else:
+            return False
+
 class EventRegistration(models.Model):
 
     event = models.ForeignKey(Events, on_delete = models.CASCADE)

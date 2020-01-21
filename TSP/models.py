@@ -41,3 +41,10 @@ class Payment(models.Model):
         category_b_fee = int(os.environ.get('CATEGORY_B_FEE', '50'))
 
         return self.category_a*category_a_fee + self.category_b*category_b_fee
+    
+    def is_paid(self):
+        if (self.transaction_id != 'none' and self.transaction_id != '0'
+            and len(self.transaction_id) > 4):
+            return True
+        else:
+            return False

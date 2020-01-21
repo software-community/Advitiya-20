@@ -7,3 +7,10 @@ class Accommodation(models.Model):
     payment_request_id = models.CharField(max_length = 100, default = 'none')
     transaction_id = models.CharField(max_length=100, default='none')
     timestamp = models.DateTimeField(auto_now=True)
+
+    def is_paid(self):
+        if (self.transaction_id != 'none' and self.transaction_id != '0'
+            and len(self.transaction_id) > 4):
+            return True
+        else:
+            return False
