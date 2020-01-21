@@ -109,8 +109,8 @@ def registerAsParticipant(request):
                       reverse('main_page:payment') +'''">Click Here</a> for Payment. Your registration is 
                                 not valid unless you make the payment.'''+
                       '<br>We wish you best ' +
-                      'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br>Advitiya 2020 ' +
-                      '<br>Public Relations Team')
+                      'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br><br>Adarsh(7355404764)<br><br>'+
+                      'Web Development Head<br>Advitiya 2020 ')
 
             next_url = request.GET.get('next')
             if next_url:
@@ -174,8 +174,8 @@ def registerForEvent(request, event_id):
                       ',<br><br>You have successfully registered for participation in '+ event.name +' at Advitiya 2020.' +
                       'We are excited for your journey with us.<br><br>' +
                       'We wish you best ' +
-                      'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br>Advitiya 2020 ' +
-                      '<br>Public Relations Team')
+                      'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br><br>Adarsh(7355404764)<br><br>'+
+                      'Web Development Head<br>Advitiya\'20 ')
         return render(request, 'main_page/show_info.html', {'message': '''You are successfully registered for participation 
                         in '''+ event.name +''' at Advitiya. ''','CATEGORY_CHOCIES': CATEGORY_CHOCIES })
     else:
@@ -223,8 +223,8 @@ def registerForEvent(request, event_id):
                       'Do carry your photo identity card for your onsite registration, otherwise '+
                       'your registration might get cancelled.' + 
                       'We wish you best ' +
-                      'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br>Advitiya 2020 ' +
-                      '<br>Public Relations Team')
+                      'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br><br>Adarsh(7355404764)<br><br>'+
+                      'Web Development Head<br>Advitiya\'20 ')
                 return render(request, 'main_page/show_info.html', {'message': new_team.name + ''' has successfully registered 
                         for participation in '''+ event.name +''' at Advitiya. Each of the Team Members should carry their 
                         Photo Identity Cards for onsite registration. Failure to do so might result in cancellation 
@@ -302,7 +302,7 @@ def webhook(request):
                         ' to ADVITIYA 2020',
                         'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
                         'that your payment to ADVITIYA 2020 ' +
-                        ' is successful.\n\nRegards\nADVITIYA 2020 Public Relations Team',
+                        ' is successful.\n\nRegards\n\nAdarsh(7455404764)\nWeb Development Head\nADVITIYA\'20',
                         os.environ.get(
                           'EMAIL_HOST_USER', ''),
                         [payment_detail.participant.user.email],
@@ -321,9 +321,12 @@ def webhook(request):
 
 def payment_redirect(request):
     
-    retry_for_payment = 'Payment was Successfull. <a href="/events">Click Here</a> for event Registration.'
+    retry_for_payment = '''Payment was Successfull. <a href="/events">Click Here</a> 
+                                for event Registration.<br>
+                                <a href="'''+reverse('startup_conclave:index')+'''">Click Here</a> 
+                                for Startup Conclave Registrations.'''
     if request.GET['payment_status'] == 'Failed':
-        retry_for_payment = '<a href="/pay">Click Here</a> for retry Payment.'
+        retry_for_payment = '<a href="/pay">Click Here</a> to retry Payment.'
 
     return render(request, 'main_page/show_info.html',
             {
@@ -406,10 +409,10 @@ def workshop_webhook(request):
                         'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
                         'that your payment for participation in workshop at ADVITIYA, IIT Ropar is successful. \nAs we '+
                         'charge a subsidized amount for accomodation to our workshop participants, we believe that you might wish to ' +
-                        'book your accomodation during the fest dates before its too late and there are no rooms left. '+
-                        '\n<a href="https://advitiya.in'+reverse('main_page:workshop_accomodation')+'"> Click Here </a> to book accomodation during the '+
+                        'book your accomodation during the fest dates before its too late and there are no rooms left. Click '+
+                        'https://advitiya.in'+reverse('main_page:workshop_accomodation')+' to book accomodation during the '+
                         'fest dates'+
-                        '\n\nRegards\nADVITIYA 2020 Public Relations Team',
+                        '\n\nRegards\n\nAdarsh(7355404764)\nWeb Development Head\nADVITIYA\'20',
                         os.environ.get(
                           'EMAIL_HOST_USER', ''),
                         [payment_detail.participant.user.email],
