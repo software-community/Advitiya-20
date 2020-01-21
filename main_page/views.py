@@ -143,16 +143,23 @@ def registerForEvent(request, event_id):
                     registering for an Event.
                     <a href="/register-as-participant" >Click Here</a>''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
 
-    try:
-        payment_detail = Payment.objects.filter(participant = participant)[0]
-        if payment_detail.transaction_id == 'none' or payment_detail.transaction_id == '0':
+    bool_paid = False
+    workshop_registrations=WorkshopRegistration.objects.filter(participant=participant)
+    for workshop_registration in workshop_registrations:
+        if workshop_registration.is_paid() and workshop_registration.workshop.id != 6:
+            bool_paid = True
+            break
+    if not bool_paid:
+        try:
+            payment_detail = Payment.objects.filter(participant = participant)[0]
+            if not payment_detail.is_paid():
+                return render(request, 'main_page/show_info.html', {'message':'''You must pay participation fee 
+                        before registering for this event. Your last payment did not complete. 
+                        Please <a href="/pay">Click Here</a> to proceed for payment.''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+        except:
             return render(request, 'main_page/show_info.html', {'message':'''You must pay participation fee 
-                    before registering for this event. Your last payment did not complete. 
-                    Please <a href="/pay">Click Here</a> to proceed for payment.''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
-    except:
-        return render(request, 'main_page/show_info.html', {'message':'''You must pay participation fee 
-                    before registering for this event. <a href="/pay">Click Here</a> for payment.''', 
-                        'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+                        before registering for this event. <a href="/pay">Click Here</a> for payment.''', 
+                            'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
 
     try:
         already_participant = EventRegistration.objects.filter(participant = participant, event = event)[0]
@@ -196,16 +203,24 @@ def registerForEvent(request, event_id):
                         continue
                     list_of_team_members.append(team_member)
                     list_of_email_address_of_team_members.append(team_member.user.email)
-                    try:
-                        team_member_payment = Payment.objects.filter(participant = team_member)[0]
-                        if team_member_payment.transaction_id == 'none' or team_member_payment.transaction_id == '0':
+                    
+                    bool_paid_member = False
+                    workshop_registrations = WorkshopRegistration.objects.filter(participant=team_member)
+                    for workshop_registration in workshop_registrations:
+                        if workshop_registration.is_paid() and workshop_registration.workshop.id != 6:
+                            bool_paid_member = True
+                            break
+                    if not bool_paid_member:
+                        try:
+                            team_member_payment = Payment.objects.filter(participant = team_member)[0]
+                            if not team_member_payment.is_paid():
+                                return render(request, 'main_page/show_info.html', {'message':'''Some of the Team Member has 
+                                        not paid the fees yet. Kindly check and ask them to complete their payment.''', 
+                                        'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+                        except:
                             return render(request, 'main_page/show_info.html', {'message':'''Some of the Team Member has 
-                                    not paid the fees yet. Kindly check and ask them to complete their payment.''', 
-                                    'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
-                    except:
-                        return render(request, 'main_page/show_info.html', {'message':'''Some of the Team Member has 
-                                    not paid the fees yet. Kindly check and ask them to complete their payment.''', 
-                                    'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+                                        not paid the fees yet. Kindly check and ask them to complete their payment.''', 
+                                        'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
                 new_team = team_form.save(commit = False)
                 new_team.event = event
                 new_team.leader = participant
