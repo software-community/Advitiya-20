@@ -7,6 +7,9 @@ import os
 import string
 from ca.models import Profile
 
+from django.utils.timezone import make_aware
+import datetime
+
 # Create your models here.
 
 
@@ -79,6 +82,17 @@ class Participant(models.Model):
     def __str__(self):
         return self.user.username+"\t"+self.college_name + "\t"+ str(self.phone_number)
 
+    def has_participated_in_workshop(self):
+        date_time = datetime.datetime(2020, 1, 17)
+        participant_registrations = WorkshopRegistration.objects.filter(
+            participant=self, timestamp__gte=make_aware(date_time))
+        bool_participated = False
+        for participant_registration in participant_registrations:
+            if participant_registration.is_paid():
+                bool_participated = True
+                break
+        return bool_participated
+
 class Payment(models.Model):
 
     participant = models.OneToOneField(Participant, on_delete = models.CASCADE, primary_key = True)
@@ -148,6 +162,12 @@ class WorkshopRegistration(models.Model):
     def __str__(self):
         return self.participant.__str__()+"\t"+self.workshop.__str__()
 
+    def is_paid(self):
+        if self.transaction_id != 'none' and self.transaction_id != '0':
+            return True
+        else:
+            return False
+
 class WorkshopAccomodation(models.Model):
     participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
     accomodation_on_7th = models.BooleanField(default=False)
@@ -156,6 +176,13 @@ class WorkshopAccomodation(models.Model):
     payment_request_id = models.CharField(max_length = 100, default = 'none')
     transaction_id = models.CharField(max_length=100, default='none')
     timestamp = models.DateTimeField(auto_now=True)
+
+    def is_paid(self):
+        if (self.transaction_id != 'none' and self.transaction_id != '0'
+            and len(self.transaction_id) > 4):
+            return True
+        else:
+            return False
 
     def no_of_days(self):
         days = 0

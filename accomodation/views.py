@@ -43,16 +43,13 @@ def registerForAccommodation(request):
     purpose= "Accomodation during Advitiya 2020"
     
     response = accommodation_payment_request(participant.name, os.environ.get('ACCOMMODATION_FEE', '400'), purpose,
-            request.user.email, str(participant.phone_number))
+            request.user.email, str(participant.phone_number), already_participant)
     
     if response['success']:
         url = response['payment_request']['longurl']
         payment_request_id = response['payment_request']['id']
 
-        if already_participant:
-            already_participant.payment_request_id = payment_request_id
-            already_participant.save()
-        else:
+        if already_participant == None:
             Accommodation.objects.create(participant=participant, payment_request_id= payment_request_id)
         return redirect(url)
     else:

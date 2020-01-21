@@ -25,6 +25,7 @@ urlpatterns=[
     path('webhook/', csrf_exempt(views.webhook), name= 'webhook'),
     path('accounts/google/logout/', auth_views.LogoutView.as_view(), name = "account_logout"),
     path('profile/', views.profile, name = "profile"),
+    path('reffer-ca', views.reffer_ca_for_workshop, name = 'reffer_ca'),
     # Workshops
     path('workshop/',views.workshop,name='workshop'),
     path('workshop-participant', views.workshopParticipant, name = 'workshop_participant'),
