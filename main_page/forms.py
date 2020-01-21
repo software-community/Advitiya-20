@@ -16,7 +16,7 @@ class ParticipationForm(forms.ModelForm):
     phone_number = forms.CharField(required = True, label = 'Participant Phone',validators= [phone_validator],widget=forms.TextInput)
     college_name = forms.CharField(label="College Name",widget=forms.TextInput)
     name = forms.CharField(label="Name",widget=forms.TextInput)
-    ca_code = forms.CharField(label="CA Code", widget=forms.TextInput, required = False)
+    ca_code = forms.CharField(label="Campus Ambassador Code (If Any)", widget=forms.TextInput, required = False)
 
     class Meta:
         model= Participant
@@ -90,3 +90,14 @@ class WorkshopParticipantForm(forms.ModelForm):
     class Meta:
         model= Participant
         fields=["name", "phone_number", "college_name", "city"]
+
+class RefferCAForWorkshop(forms.Form):
+    ca_code = forms.CharField(label="Campus Ambassador Code", widget=forms.TextInput)
+
+    def clean_ca_code(self):
+        ref_ca_code = self.cleaned_data['ca_code']
+        try:
+            ref_ca_code = Profile.objects.get(ca_code = ref_ca_code)
+        except Profile.DoesNotExist:
+            raise forms.ValidationError(message = "CA Code not valid", code = 'InvalidCACode')
+        return ref_ca_code

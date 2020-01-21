@@ -19,6 +19,7 @@ def payment_request(name, amount, purpose, email, mobile, payment_detail = None)
             email=email,
             phone=mobile,
             redirect_url="https://advitiya.in/startup_conclave/payment_redirect/",
-            webhook="https://advitiya.in/startup_conclave/webhook/"
+            webhook="https://advitiya.in/startup_conclave/webhook/",
+            allow_repeated_payments=False
         )
     return response
