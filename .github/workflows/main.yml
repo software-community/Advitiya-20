@@ -23,5 +23,5 @@ jobs:
           source advitiya20env/bin/activate
           cd Advitiya-20/
           source .env
-          echo "yes" | git pull source production
+          echo "${{ secrets.PASSPHRASE }}" | git pull source production
           #echo "yes" | python manage.py collectstatic
