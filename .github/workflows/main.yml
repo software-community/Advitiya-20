@@ -11,5 +11,13 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
-    - name: Run a one-line script
-      run: echo Hello, world!
+    - name: Deploy to server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          whoami
+          ls -al
