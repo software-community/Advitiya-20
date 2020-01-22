@@ -20,5 +20,7 @@ jobs:
         port: ${{ secrets.PORT }}
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
-          whoami
-          ls -al
+          source advitiya20env/bin/activate
+          cd Advitiya-20/
+          source .env
+          python manage.py collectstatic | yes
