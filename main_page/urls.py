@@ -42,7 +42,8 @@ urlpatterns=[
         name = 'workshop_accomodation_payment_redirect'),
     path('workshop_accomodation_webhook/', csrf_exempt(accomodation_views.workshop_accomodation_webhook), 
         name= 'workshop_accomodation_webhook'),
-
+    #info
+    path('get_info/', csrf_exempt(views.get_info), name= 'get_info'),
     #api
     path('api/', include(router.urls)),
 ]
