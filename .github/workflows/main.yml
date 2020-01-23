@@ -18,10 +18,11 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
-        passphrase: ${{ secrets.PASSPHRASE }}
         script: |
           source advitiya20env/bin/activate
           cd Advitiya-20/
           source .env
           git pull source production
-          #echo "yes" | python manage.py collectstatic
+          python manage.py migrate
+          echo "yes" | python manage.py collectstatic
+          sudo systemctl restart gunicorn
