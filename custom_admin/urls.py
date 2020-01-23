@@ -17,5 +17,11 @@ urlpatterns=[
         name='gen_workshop_registered_participants_csv'),
 
     path('gen-event-registrations-detail', views.event_registration_csv,
-        name='gen_event_registrations_detail')
+        name='gen_event_registrations_detail'),
+
+    path('gen-unpaid-participant-detail', views.gen_unpaid_participant_csv,
+        name='gen_unpaid_participant_details'),
+
+    path('gen-paid-participant-detail', views.gen_paid_participant_csv,
+        name='gen_paid_participant_details'),
 ]
