@@ -10,7 +10,7 @@ class StartupTeamForm(forms.ModelForm):
     
     class Meta:
         model = StartupTeam
-        fields = ["name","startup_name","founder_name", "founder_phone_number", "startup_category",
+        fields = ["name","startup_name","cin_no", "founder_name", "founder_phone_number", "startup_category",
                         "sector", "requirements", "why_invest", "commitment"]
 
 class StartupTeamHasMemberForm(forms.Form):
