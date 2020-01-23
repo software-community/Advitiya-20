@@ -127,8 +127,8 @@ def workshop_register(request, workshop_id):
     except:
         pass
 
-    # Pay for the workshop
-    purpose = "TechConnect: Fee for " + workshop.workshop_name +" workshop at " + workshop.center.city_name
+    purpose = "TechConnect: Fee for "+ workshop.workshop_name +" workshop at " + workshop.center.city_name
+
     response = workshop_payment_request(participant.name, str(workshop.fees), purpose,
             request.user.email, str(participant.phone_number), already_participant)
     
