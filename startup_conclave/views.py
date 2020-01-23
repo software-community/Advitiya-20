@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from main_page.models import Participant, Payment
 from startup_conclave.models import (StartupRegistrations, BootCampRegistrations, BootCampTeam, BootCampTeamHasMembers, 
-            StartupTeam, StartupTeamHasMembers, PaymentForStalls, StartupTeamHasRequirements)
+            StartupTeam, StartupTeamHasMembers, RegisterForStalls, PayForStalls, StartupTeamHasRequirements)
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse, HttpResponseRedirect
 from django.forms import formset_factory, modelformset_factory
 from startup_conclave.forms import (StartupTeamHasMemberForm, BaseStartupTeamFormSet, StartupTeamForm, BootCampTeamHasMemberForm, 
-                                        BaseBootCampTeamFormSet, BootCampTeamForm)
+                                        BaseBootCampTeamFormSet, BootCampTeamForm, StallsForm)
 from django.urls import reverse
 from startup_conclave.methods import payment_request
 import os
@@ -177,26 +177,61 @@ def registerForBootCamp(request):
     })
 
 @login_required(login_url='/auth/google/login/')
-def payForStall(request):
+def registerForStall(request):
     try:
         participant = Participant.objects.get(user = request.user)
     except Participant.DoesNotExist:
-        return render(request, 'main_page/show_info.html', {'message':'''You must register as a participant before 
-                    registering for an Event.
-                    <a href="/register-as-participant" >Click Here</a>'''})
+        return HttpResponseRedirect(reverse('main_page:workshop_participant') + '?next=' + 
+                    reverse('startup_conclave:register_for_stall'))
     
-    payment_detail = None
-
     try:
-        payment_detail = PaymentForStalls.objects.filter(participant = participant)[0]
-        if payment_detail.transaction_id == '0' or payment_detail.transaction_id == 'none':
-            raise Exception("Previous Payment was failure!")
+        stall_registration = RegisterForStalls.objects.filter(participant=participant)[0]
+        payment_detail = PayForStalls.objects.filter(stall = stall_registration)[0]
+        if not payment_detail.is_paid():
+            return HttpResponseRedirect(reverse('startup_conclave:pay_for_stall'))
         return render(request, 'main_page/show_info.html', {'message': "You have already paid for the stalls.",})
     except:
         pass
 
-    purpose = "Fee for stalls at Startup Conclave, Advitiya 2020"
-    response = payment_request(request.user.get_full_name(), os.environ.get('STALL_FEE', '1500'), purpose,
+    if request.method == 'POST':
+        team_form = StallsForm(request.POST)
+        if team_form.is_valid():
+            new_team = team_form.save(commit = False)
+            new_team.participant=participant
+            new_team.save()
+            return HttpResponseRedirect(reverse('startup_conclave:pay_for_stall'))
+    else:
+        team_form = StallsForm()
+    
+    return render(request, 'main_page/register_team.html', {
+        'team_form': team_form
+    })
+
+@login_required(login_url='/auth/google/login/')
+def payForStall(request):
+    try:
+        participant = Participant.objects.get(user = request.user)
+    except Participant.DoesNotExist:
+        return HttpResponseRedirect(reverse('startup_conclave:register_for_stall'))
+    
+    try:
+        stall_registration = RegisterForStalls.objects.filter(participant=participant)[0]
+    except:
+        return HttpResponseRedirect(reverse('startup_conclave:register_for_stall'))
+    
+    payment_detail = None
+
+    try:
+        payment_detail = PayForStalls.objects.filter(stall=stall_registration)[0]
+        if not payment_detail.is_paid():
+            raise Exception("Previous Payment was failure!")
+        return render(request, 'main_page/show_info.html', 
+            {'message': "You have already paid the registration fee for stall."})
+    except:
+        pass
+
+    purpose = "Registration for stalls at Startup Conclave, Advitiya'20"
+    response = payment_request(participant.name, os.environ.get('STALL_FEE', '1500'), purpose,
             request.user.email, str(participant.phone_number), payment_detail)
     
     if response['success']:
@@ -204,7 +239,8 @@ def payForStall(request):
         payment_request_id = response['payment_request']['id']
 
         if payment_detail == None:
-            payment_detail = PaymentForStalls.objects.create(participant = participant, payment_request_id = payment_request_id)
+            payment_detail = PayForStalls.objects.create(stall = stall_registration, 
+                payment_request_id = payment_request_id)
         return redirect(url)
     else:
         print(response)
@@ -232,12 +268,12 @@ def webhook(request):
                     send_mail(
                         'Payment confirmation of ' +
                         ' to ADVITIYA 2020',
-                        'Dear ' + str(payment_detail.participant.name) + '\n\nThis is to confirm '+
+                        'Dear ' + str(payment_detail.stall.participant.name) + '\n\nThis is to confirm '+
                         'that your payment of Rs.'+os.environ.get('STALL_FEE', '1500')+' to ADVITIYA 2020 ' +
-                        ' is successful.\n\nRegards\nADVITIYA 2020 Public Relations Team',
+                        ' is successful.\n\nRegards\n\nAdarsh(7355404764)\nWeb Development Head\nADVITIYA\'20',
                         os.environ.get(
                           'EMAIL_HOST_USER', ''),
-                        [payment_detail.participant.user.email],
+                        [payment_detail.stall.participant.user.email],
                         fail_silently=True,
                     )
                 else:
@@ -246,6 +282,7 @@ def webhook(request):
                 payment_detail.save()
             except Exception as err:
                 print(err)
+                return HttpResponse(status=400)
             return HttpResponse(status=200)
         else:
             return HttpResponse(status=400)
@@ -253,9 +290,10 @@ def webhook(request):
 
 def payment_redirect(request):
     
-    retry_for_payment = 'Payment to get a stall for Start Conclave at ADVITIYA, IIT Ropar was Successfull.'
+    retry_for_payment = '''Payment to get a stall for Start Conclave at ADVITIYA, IIT Ropar was Successfull.
+                                Please contact Shubhendra(<a href="tel:+91-9501687763">9501687763</a>)'''
     if request.GET['payment_status'] == 'Failed':
-        retry_for_payment = '<a href="/pay_for_stall">Click Here</a> for retry Payment.'
+        retry_for_payment = '<a href="'+reverse('startup_conclave:pay_for_stall')+'">Click Here</a> to retry Payment.'
 
     return render(request, 'main_page/show_info.html',
             {
