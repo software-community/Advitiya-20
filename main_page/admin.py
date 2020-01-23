@@ -73,7 +73,7 @@ admin.site.register(WorkshopPaidRegistration, WorkshopRegistrationPaidAdminView)
 class SEOWorkshopRegistrationsPaidAdminView(WorkshopRegistrationAdminView):
     def get_queryset(self, request):
         return self.model.objects.exclude(transaction_id='none').exclude(
-            transaction_id='0').filter(workshop__id=2)
+            transaction_id='0').filter(workshop__id=7)
 
 class SEOWorkshopPaidRegistration(WorkshopRegistration):
     class Meta:
