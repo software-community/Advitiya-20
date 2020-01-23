@@ -3,11 +3,13 @@ from main_page.models import (Coordinator, Events, Participant, EventRegistratio
                 CATEGORY_CHOCIES, WorkshopRegistration, Workshop, WorkshopAccomodation, Talk)
 from django.contrib.auth.decorators import login_required
 from main_page.forms import (ParticipationForm, TeamHasMemberForm, BaseTeamFormSet, TeamForm,
-             WorkshopAccomodationForm, WorkshopParticipantForm)
+             WorkshopAccomodationForm, WorkshopParticipantForm, RefferCAForWorkshop)
 from django.core.mail import send_mail
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse, HttpResponseRedirect
 from django.forms import formset_factory, modelformset_factory
 from main_page.methods import payment_request, workshop_payment_request
+from ca.models import Profile as CAProfile
+
 from django.urls import reverse
 import os
 import hashlib
@@ -109,8 +111,8 @@ def registerAsParticipant(request):
                       reverse('main_page:payment') +'''">Click Here</a> for Payment. Your registration is 
                                 not valid unless you make the payment.'''+
                       '<br>We wish you best ' +
-                      'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br>Advitiya 2020 ' +
-                      '<br>Public Relations Team')
+                      'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br><br>Adarsh(7355404764)<br><br>'+
+                      'Web Development Head<br>Advitiya 2020 ')
 
             next_url = request.GET.get('next')
             if next_url:
@@ -140,7 +142,25 @@ def registerForEvent(request, event_id):
         return render(request, 'main_page/show_info.html', {'message':'''You must register as a participant before 
                     registering for an Event.
                     <a href="/register-as-participant" >Click Here</a>''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
-    
+
+    bool_paid = False
+    workshop_registrations=WorkshopRegistration.objects.filter(participant=participant)
+    for workshop_registration in workshop_registrations:
+        if workshop_registration.is_paid() and workshop_registration.workshop.id != 6:
+            bool_paid = True
+            break
+    if not bool_paid:
+        try:
+            payment_detail = Payment.objects.filter(participant = participant)[0]
+            if not payment_detail.is_paid():
+                return render(request, 'main_page/show_info.html', {'message':'''You must pay participation fee 
+                        before registering for this event. Your last payment did not complete. 
+                        Please <a href="/pay">Click Here</a> to proceed for payment.''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+        except:
+            return render(request, 'main_page/show_info.html', {'message':'''You must pay participation fee 
+                        before registering for this event. <a href="/pay">Click Here</a> for payment.''', 
+                            'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+
     try:
         already_participant = EventRegistration.objects.filter(participant = participant, event = event)[0]
         return render(request, 'main_page/show_info.html', {'message':"You have already registered for this event.",
@@ -149,16 +169,7 @@ def registerForEvent(request, event_id):
         pass
 
     if event.team_upper_limit == 1:
-        try:
-            payment_detail = Payment.objects.filter(participant = participant)[0]
-            if payment_detail.transaction_id == 'none' or payment_detail.transaction_id == '0':
-                return render(request, 'main_page/show_info.html', {'message':'''You must pay participation fee 
-                        before registering for this event. Your last payment did not complete. 
-                        Please <a href="/pay">Click Here</a> to proceed for payment.''', 'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
-        except:
-            return render(request, 'main_page/show_info.html', {'message':'''You must register and pay participation fee 
-                        before registering for this event. <a href="/pay">Click Here</a> for payment.''', 
-                            'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+
         EventRegistration.objects.create(
             event = event, participant = participant
         )
@@ -172,8 +183,8 @@ def registerForEvent(request, event_id):
                       ',<br><br>You have successfully registered for participation in '+ event.name +' at Advitiya 2020.' +
                       'We are excited for your journey with us.<br><br>' +
                       'We wish you best ' +
-                      'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br>Advitiya 2020 ' +
-                      '<br>Public Relations Team')
+                      'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br><br>Adarsh(7355404764)<br><br>'+
+                      'Web Development Head<br>Advitiya\'20 ')
         return render(request, 'main_page/show_info.html', {'message': '''You are successfully registered for participation 
                         in '''+ event.name +''' at Advitiya. ''','CATEGORY_CHOCIES': CATEGORY_CHOCIES })
     else:
@@ -192,16 +203,24 @@ def registerForEvent(request, event_id):
                         continue
                     list_of_team_members.append(team_member)
                     list_of_email_address_of_team_members.append(team_member.user.email)
-                    try:
-                        team_member_payment = Payment.objects.filter(participant = team_member)[0]
-                        if team_member_payment.transaction_id == 'none' or team_member_payment.transaction_id == '0':
+                    
+                    bool_paid_member = False
+                    workshop_registrations = WorkshopRegistration.objects.filter(participant=team_member)
+                    for workshop_registration in workshop_registrations:
+                        if workshop_registration.is_paid() and workshop_registration.workshop.id != 6:
+                            bool_paid_member = True
+                            break
+                    if not bool_paid_member:
+                        try:
+                            team_member_payment = Payment.objects.filter(participant = team_member)[0]
+                            if not team_member_payment.is_paid():
+                                return render(request, 'main_page/show_info.html', {'message':'''Some of the Team Member has 
+                                        not paid the fees yet. Kindly check and ask them to complete their payment.''', 
+                                        'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+                        except:
                             return render(request, 'main_page/show_info.html', {'message':'''Some of the Team Member has 
-                                    not paid the fees yet. Kindly check and ask them to complete their payment.''', 
-                                    'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
-                    except Payment.DoesNotExist:
-                        return render(request, 'main_page/show_info.html', {'message':'''Some of the Team Member has 
-                                    not paid the fees yet. Kindly check and ask them to complete their payment.''', 
-                                    'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+                                        not paid the fees yet. Kindly check and ask them to complete their payment.''', 
+                                        'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
                 new_team = team_form.save(commit = False)
                 new_team.event = event
                 new_team.leader = participant
@@ -221,8 +240,8 @@ def registerForEvent(request, event_id):
                       'Do carry your photo identity card for your onsite registration, otherwise '+
                       'your registration might get cancelled.' + 
                       'We wish you best ' +
-                      'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br>Advitiya 2020 ' +
-                      '<br>Public Relations Team')
+                      'of luck. Give your best and earn exciting prizes !!!<br><br>Regards<br><br>Adarsh(7355404764)<br><br>'+
+                      'Web Development Head<br>Advitiya\'20 ')
                 return render(request, 'main_page/show_info.html', {'message': new_team.name + ''' has successfully registered 
                         for participation in '''+ event.name +''' at Advitiya. Each of the Team Members should carry their 
                         Photo Identity Cards for onsite registration. Failure to do so might result in cancellation 
@@ -262,16 +281,13 @@ def pay_for_participation(request):
 
     purpose = "Registration Fee for Advitiya 2020"
     response = payment_request(request.user.get_full_name(), os.environ.get('EVENT_FEE', '400'), purpose,
-            request.user.email, str(participant.phone_number))
+            request.user.email, str(participant.phone_number), payment_detail)
     
     if response['success']:
         url = response['payment_request']['longurl']
         payment_request_id = response['payment_request']['id']
 
-        if payment_detail:
-            payment_detail.payment_request_id = payment_request_id
-            payment_detail.save()
-        else:
+        if payment_detail == None:
             payment_detail = Payment.objects.create(participant = participant, payment_request_id = payment_request_id)
         return redirect(url)
     else:
@@ -303,7 +319,7 @@ def webhook(request):
                         ' to ADVITIYA 2020',
                         'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
                         'that your payment to ADVITIYA 2020 ' +
-                        ' is successful.\n\nRegards\nADVITIYA 2020 Public Relations Team',
+                        ' is successful.\n\nRegards\n\nAdarsh(7455404764)\nWeb Development Head\nADVITIYA\'20',
                         os.environ.get(
                           'EMAIL_HOST_USER', ''),
                         [payment_detail.participant.user.email],
@@ -322,9 +338,12 @@ def webhook(request):
 
 def payment_redirect(request):
     
-    retry_for_payment = 'Payment was Successfull. <a href="/events">Click Here</a> for event Registration.'
+    retry_for_payment = '''Payment was Successfull. <a href="/events">Click Here</a> 
+                                for event Registration.<br>
+                                <a href="'''+reverse('startup_conclave:index')+'''">Click Here</a> 
+                                for Startup Conclave Registrations.'''
     if request.GET['payment_status'] == 'Failed':
-        retry_for_payment = '<a href="/pay">Click Here</a> for retry Payment.'
+        retry_for_payment = '<a href="/pay">Click Here</a> to retry Payment.'
 
     return render(request, 'main_page/show_info.html',
             {
@@ -362,19 +381,62 @@ def workshop_register(request, workshop_id):
     except:
         pass
 
+    #--------------- free pass
+    try:
+        if os.environ.get('FREE_PASS', 'N') == 'N':
+            raise Exception('Not Allowed')
+        ca_profile = CAProfile.objects.get(user = request.user)
+        reffering_participants = Participant.objects.filter(ca_code=ca_profile)
+        ca_count = 0
+        for reffering_participant in reffering_participants:
+            if reffering_participant.has_participated_in_workshop():
+                ca_count = ca_count + 1
+        min_ca = os.environ.get('CA_COUNT', '10')
+        if ca_count > int(min_ca):
+            if already_participant == None:
+                WorkshopRegistration.objects.create(workshop = workshop,participant=participant,
+                    payment_request_id='free_pass', transaction_id='free_pass')
+            else:
+                already_participant.transaction_id = 'free_pass'
+                already_participant.save()
+            send_mail(
+                'Participation in workshop at' +
+                ' ADVITIYA, IIT Ropar.',
+                'Dear ' + str(participant.user.get_full_name()) + '''\n\nThis is to confirm 
+                that your participation in workshop at ADVITIYA, IIT Ropar is successful. \nAs we 
+                charge a subsidized amount for accomodation to our workshop participants, we believe that you might wish to 
+                book your accomodation during the fest dates before its too late and there are no rooms left. 
+                \n<a href="https://advitiya.in'''+reverse('main_page:workshop_accomodation')+'''"> Click Here </a> 
+                to book accomodation during the fest dates
+                \n\nRegards\nADVITIYA 2020 Public Relations Team''',
+                os.environ.get(
+                    'EMAIL_HOST_USER', ''),
+                [participant.user.email],
+                fail_silently=True,
+            )
+            return render(request, 'main_page/show_info.html',{
+                'message':  '''This is to confirm that your participation in workshop at ADVITIYA, IIT Ropar is successful. \nAs we 
+                charge a subsidized amount for accomodation to our workshop participants, we believe that you might wish to 
+                book your accomodation during the fest dates before its too late and there are no rooms left. 
+                \n<a href="https://advitiya.in'''+reverse('main_page:workshop_accomodation')+'''"> Click Here </a> 
+                to book accomodation during the fest dates''',
+            })
+        else:
+            raise Exception('Not sufficient CAs')
+    except:
+        pass
+    #---------------
+
     # Pay for the workshop
     purpose = "Workshop on " + workshop.name + " at Advitiya 2020"
     response = workshop_payment_request(participant.name, str(workshop.fees), purpose,
-            request.user.email, str(participant.phone_number), workshop.at_sudhir)
+            request.user.email, str(participant.phone_number), workshop.at_sudhir, already_participant)
     
     if response['success']:
         url = response['payment_request']['longurl']
         payment_request_id = response['payment_request']['id']
 
-        if already_participant:
-            already_participant.payment_request_id = payment_request_id
-            already_participant.save()
-        else:
+        if already_participant == None:
             WorkshopRegistration.objects.create(workshop = workshop,participant=participant, payment_request_id= payment_request_id)
         return redirect(url)
     else:
@@ -407,10 +469,10 @@ def workshop_webhook(request):
                         'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
                         'that your payment for participation in workshop at ADVITIYA, IIT Ropar is successful. \nAs we '+
                         'charge a subsidized amount for accomodation to our workshop participants, we believe that you might wish to ' +
-                        'book your accomodation during the fest dates before its too late and there are no rooms left. '+
-                        '\n<a href="https://advitiya.in'+reverse('main_page:workshop_accomodation')+'"> Click Here </a> to book accomodation during the '+
+                        'book your accomodation during the fest dates before its too late and there are no rooms left. Click '+
+                        'https://advitiya.in'+reverse('main_page:workshop_accomodation')+' to book accomodation during the '+
                         'fest dates'+
-                        '\n\nRegards\nADVITIYA 2020 Public Relations Team',
+                        '\n\nRegards\n\nAdarsh(7355404764)\nWeb Development Head\nADVITIYA\'20',
                         os.environ.get(
                           'EMAIL_HOST_USER', ''),
                         [payment_detail.participant.user.email],
@@ -429,7 +491,9 @@ def workshop_webhook(request):
 
 def workshop_payment_redirect(request):
     
-    retry_for_payment = 'Payment was Successfull. You have successfully registered for this workshop.'
+    retry_for_payment = '''Payment was Successfull. You have successfully registered for this workshop.
+                 If you want to give credit to some Campus Ambassador for your registration, ask them their CA Code, and 
+                 give credit at <a href="'''+reverse('main_page:reffer_ca')+'''">'''
     if request.GET['payment_status'] == 'Failed':
         retry_for_payment = '<a href="'+reverse('main_page:workshop')+'">Click Here</a> to go back to Workshops page.'
 
@@ -486,5 +550,32 @@ def talks(request):
     people = Talk.objects.all()
     return render(request,'main_page/talks.html',{'people': people})
 
-def talk1(request):
-    return render(request,'main_page/talk1.html',{'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
+@login_required(login_url='/auth/google/login/')
+def reffer_ca_for_workshop(request):
+
+    try:
+        participant = Participant.objects.get(user = request.user)
+        if not participant.has_participated_in_workshop():
+            raise Exception("not registered for any workshop")
+    except:
+        return render(request, 'main_page/show_info.html',{
+                'message':  '''You must register for some workshop before reffering any Campus Ambassador.
+                            <a href="'''+reverse('main_page:workshop')+'''"> 
+                            Click Here </a> to go to the workshops page.''',
+            })
+
+    if request.method == 'POST':
+        reffer_ca_form = RefferCAForWorkshop(request.POST)
+        if reffer_ca_form.is_valid():
+            ca_code = reffer_ca_form.cleaned_data['ca_code']
+            participant.ca_code = ca_code
+            participant.save()
+
+            return render(request, 'main_page/show_info.html',{
+                'message':  '''You have successfully reffered your Campus Ambassador.
+                                Thank You!''',
+            })
+
+    else:
+        reffer_ca_form = RefferCAForWorkshop()
+    return render(request, 'main_page/reffer_ca.html', { 'form' : reffer_ca_form})

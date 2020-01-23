@@ -74,3 +74,9 @@ class WorkshopRegistrations(models.Model):
 
     def __str__(self):
         return self.participant.name.__str__()+"\t"+self.workshop.workshop_name.__str__()
+
+    def is_paid(self):
+        if self.transaction_id != 'none' and self.transaction_id != '0':
+            return True
+        else:
+            return False

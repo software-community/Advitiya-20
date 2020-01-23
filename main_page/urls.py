@@ -1,15 +1,21 @@
+from rest_framework import routers
 from django.contrib import admin
 from django.urls import path,include
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import views as auth_views
 from . import views, accomodation_views
+from main_page.api import EventViewSet, TalkViewSet, NotificationViewSet
 app_name='main_page'
+
+router = routers.DefaultRouter()
+router.register(r'events', EventViewSet)
+router.register(r'talks', TalkViewSet)
+router.register(r'notifications', NotificationViewSet)
 
 urlpatterns=[
     path('',views.index, name='index'),
     path('events/',views.events, name='events'),
-    path('talks/',views.talks,name='talks'),
-    path('talk1/',views.talk1,name='talk1'),
+    path('lectures/',views.talks,name='talks'),
     path('sponsors/',views.sponsors, name='sponsors'),
     path('events/<int:num>/',views.event_page,name='event_page'),
     path('register-as-participant', views.registerAsParticipant, name = 'register_as_participant'),
@@ -19,6 +25,7 @@ urlpatterns=[
     path('webhook/', csrf_exempt(views.webhook), name= 'webhook'),
     path('accounts/google/logout/', auth_views.LogoutView.as_view(), name = "account_logout"),
     path('profile/', views.profile, name = "profile"),
+    path('reffer-ca', views.reffer_ca_for_workshop, name = 'reffer_ca'),
     # Workshops
     path('workshop/',views.workshop,name='workshop'),
     path('workshop-participant', views.workshopParticipant, name = 'workshop_participant'),
@@ -27,6 +34,7 @@ urlpatterns=[
     path('workshop_webhook/', csrf_exempt(views.workshop_webhook), name= 'workshop_webhook'),
     path('benefits/',views.benefits,name="benefits"),
     # Workshop Accomodation
+    path('get_workshop_accommodation/',accomodation_views.get_workshop_accommodation,name='get_workshop_accommodation'),
     path('workshop_accomodation_curr/',accomodation_views.curr_accomodation,name='workshop_accomodation_curr'),
     path('workshop_accomodation/',accomodation_views.workshop_accomodation,name='workshop_accomodation'),
     path('workshop_accomodation/<int:pre_id>',accomodation_views.workshop_accomodation,name='workshop_accomodation'),
@@ -34,4 +42,7 @@ urlpatterns=[
         name = 'workshop_accomodation_payment_redirect'),
     path('workshop_accomodation_webhook/', csrf_exempt(accomodation_views.workshop_accomodation_webhook), 
         name= 'workshop_accomodation_webhook'),
+
+    #api
+    path('api/', include(router.urls)),
 ]
