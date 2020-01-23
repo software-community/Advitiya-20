@@ -9,6 +9,9 @@ from django.http import HttpResponseNotFound, HttpResponseServerError, HttpRespo
 from django.forms import formset_factory, modelformset_factory
 from main_page.methods import payment_request, workshop_payment_request
 from ca.models import Profile as CAProfile
+from accomodation.models import Accommodation
+from startup_conclave.models import PayForStalls
+from django.contrib.admin.views.decorators import staff_member_required
 
 from django.urls import reverse
 import os
@@ -579,3 +582,68 @@ def reffer_ca_for_workshop(request):
     else:
         reffer_ca_form = RefferCAForWorkshop()
     return render(request, 'main_page/reffer_ca.html', { 'form' : reffer_ca_form})
+
+@staff_member_required
+def get_info(request):
+    count_unique_event_and_startup_participants=0
+    count_unique_event_accommodations=0
+    count_stalls=0
+    revenue_from_workshop=0
+    revenue_from_workshop_accommodation=0
+
+    # Event and startup/bootcamp payments
+    payments = Payment.objects.all()
+    for payment in payments:
+        if payment.is_paid():
+            count_unique_event_and_startup_participants = count_unique_event_and_startup_participants + 1
+    
+    # Event Accommodations
+    event_accommodations = Accommodation.objects.all()
+    for event_accommodation in event_accommodations:
+        if event_accommodation.is_paid():
+            count_unique_event_accommodations = count_unique_event_accommodations + 1
+    
+    # Startup Conclave Stalls
+    stalls = PayForStalls.objects.all()
+    for stall in stalls:
+        if stall.is_paid():
+            count_stalls=count_stalls+1
+
+    # Workshop Participation
+    workshop_registrations = WorkshopRegistration.objects.all()
+    for workshop_registration in workshop_registrations:
+        if workshop_registration.is_paid():
+            if workshop_registration.workshop.id is not 6:
+                revenue_from_workshop=revenue_from_workshop+(workshop_registration.workshop.fees/2)
+            else:
+                revenue_from_workshop=revenue_from_workshop+150
+    
+    # Workshop Accommodation
+    workshop_accommodations= WorkshopAccomodation.objects.all()
+    for workshop_accommodation in workshop_accommodations:
+        if workshop_accommodation.is_paid():
+            revenue_from_workshop_accommodation=revenue_from_workshop_accommodation+workshop_accommodation.no_of_days()*250
+    
+    # Total Revenue Generated
+    total_revenue = (count_unique_event_and_startup_participants*int(os.environ.get('EVENT_FEE', '400'))+
+                        count_unique_event_accommodations*int(os.environ.get('ACCOMMODATION_FEE',400))+
+                        count_stalls*int(os.environ.get('STALL_FEE',1500))+
+                        revenue_from_workshop+
+                        revenue_from_workshop_accommodation)
+
+    message= ("Revenue from Unique Event and Startup/Bootcamp Registrations: "+
+                        str(count_unique_event_and_startup_participants*int(os.environ.get('EVENT_FEE', '400')))+"<br><br>"+
+                        "Revenue from Event Accommodations: "+
+                        str(count_unique_event_accommodations*int(os.environ.get('ACCOMMODATION_FEE',400)))+"<br><br>"+
+                        "Revenue from stalls: "+
+                        str(count_stalls*int(os.environ.get('STALL_FEE',1500)))+"<br><br>"+
+                        "Revenue From Workshops: "+
+                        str(revenue_from_workshop)+"<br><br>"+
+                        "Revenue from Workshop Accommodation: "+
+                        str(revenue_from_workshop_accommodation)+"<br><br>"+
+                        "Total Revenue Generated: "+
+                        str(total_revenue))
+    
+    return render(request, 'main_page/show_info.html', {
+        'message':message,
+        'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
