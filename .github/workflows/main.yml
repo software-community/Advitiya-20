@@ -26,4 +26,4 @@ jobs:
           git pull source production
           python manage.py migrate
           echo "yes" | python manage.py collectstatic
-          sudo systemctl restart gunicorn
+          systemctl restart gunicorn
