@@ -50,6 +50,8 @@ class StartupTeamHasRequirements(models.Model):
 class BootCampTeam(models.Model):
     name = models.CharField(max_length = 100, verbose_name = 'Team Name')
     leader = models.ForeignKey(Participant, on_delete = models.CASCADE)
+    startup_name= models.CharField(max_length=100, verbose_name='Startup Name(If applicable)', null=True, blank=True)
+    description= models.TextField(verbose_name="Brief Description about your idea")
     
     def __str__(self):
         return self.name+"\t"+self.leader.__str__()
