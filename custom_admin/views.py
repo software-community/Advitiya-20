@@ -7,7 +7,7 @@ import datetime
 from rest_framework import status
 
 from ca.models import Profile
-from main_page.models import (Participant, WorkshopRegistration, EventRegistration,
+from main_page.models import (Participant, Payment, WorkshopRegistration, EventRegistration,
                                 Events, Team, TeamHasMembers)
 
 # Create your views here.
@@ -44,6 +44,62 @@ def gen_participant_csv(request):
             writer.writerow([participant.user.get_full_name(), participant.college_name, 
                 participant.phone_number, participant.user.email, participant.city])
 
+    return response
+
+@staff_member_required
+def gen_unpaid_participant_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="unpaid_participant_details.csv"'
+    writer = csv.writer(response)
+    participants = Participant.objects.all()
+    writer.writerow(['Name', 'College Name', 'Phone Number', 'Email', 'City'])
+    for participant in participants:
+        payment_objects=None
+        bool_paid=False
+        try:
+            payment_objects=Payment.objects.filter(participant=participant)
+            for payment_object in payment_objects:
+                if payment_object.is_paid():
+                    bool_paid=True
+                    break
+            if bool_paid is False:
+                if participant.name!="Your Name":
+                    writer.writerow([participant.name, participant.college_name, 
+                        participant.phone_number, participant.user.email, participant.city])
+                else:
+                    writer.writerow([participant.user.get_full_name(), participant.college_name, 
+                        participant.phone_number, participant.user.email, participant.city])
+        except:
+            pass
+
+    return response
+
+@staff_member_required
+def gen_paid_participant_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="paid_participant_details.csv"'
+    writer = csv.writer(response)
+    participants = Participant.objects.all()
+    writer.writerow(['Name', 'College Name', 'Phone Number', 'Email', 'City'])
+    for participant in participants:
+        payment_objects=None
+        bool_paid=False
+        try:
+            payment_objects=Payment.objects.filter(participant=participant)
+            for payment_object in payment_objects:
+                if payment_object.is_paid():
+                    bool_paid=True
+                    break
+            if bool_paid is True:
+                if participant.name!="Your Name":
+                    writer.writerow([participant.name, participant.college_name, 
+                        participant.phone_number, participant.user.email, participant.city])
+                else:
+                    writer.writerow([participant.user.get_full_name(), participant.college_name, 
+                        participant.phone_number, participant.user.email, participant.city])
+        except:
+            pass
+        
     return response
 
 @staff_member_required
