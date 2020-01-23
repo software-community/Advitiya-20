@@ -32,7 +32,7 @@
     </div>
     <header class="header-area" style="background-color: black;">
         <div class="classy-nav-container breakpoint-off">
-            <div class="container">
+            <div class="container" style="padding-left: 0px; padding-right: 0px;">
                 <!-- Classy Menu -->
                 <nav class="classy-navbar justify-content-between" id="conferNav">
                     <!-- Logo -->
@@ -55,20 +55,30 @@
                         <div class="classynav">
                             <ul id="nav" class="resizeflex">
                                 <li><a href="{% url 'main_page:events'%}">Events</a></li>
+                                <li><a href="{% url 'main_page:talks'%}">Lectures</a></li>
                                 <li><a href="{% url 'techconnect:index'%}">TechConnect</a></li>
                                 <li><a href="{% url 'main_page:workshop'%}">Workshops</a></li>
                                 <li><a href="{% url 'main_page:sponsors'%}">Sponsors</a></li>
 
                                 <li><a href="#"><i class="zmdi zmdi-caret-down-circle"></i> More</a>
                                     <ul class="dropdown" style="width: 300%;">
+                                        <li><a href="{% url 'startup_conclave:index' %}">Startup Conclave</a></li>
                                         <li><a href="{% url 'TSP:home' %}">Techno School Program(TSP)</a></li>
-
                                         <li><a href="{% url 'ca:home' %}">Campus Ambassador</a></li>
+                                        <li><a href="#"><i class="zmdi zmdi-caret-down-circle"></i> Accommodation</a>
+                                            <ul class="dropdown" style="width: 200%;">
+                                                <li><a href="{% url 'main_page:get_workshop_accommodation' %}">Workshop
+                                                        Participants</a></li>
+                                                <li><a href="{% url 'accomodation:index' %}">Non-Workshop
+                                                        Participants</a></li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </li>
 
                                 {% if user.is_authenticated %}
-                                <li><a href="#"><i class="zmdi zmdi-account-circle zmdi-hc-3x"></i></a>
+                                <li>
+                                    <a href="#"><i class="zmdi zmdi-account-circle zmdi-hc-3x"></i></a>
                                     <ul class="dropdown">
                                         <li><a href="{% url 'main_page:profile' %}">Profile</a></li>
                                         <li><a
@@ -76,18 +86,15 @@
                                         </li>
                                     </ul>
                                 </li>
+                                {% else %}
+                                <li>
+                                    <a href="{% provider_login_url 'google' %}?next={{ request.path}}"
+                                        class="btn btn-secondary" style="margin-bottom: 3px;">
+                                        <i class="fab fa-google"></i> Sign In
+                                    </a>
+                                </li>
                                 {% endif %}
                             </ul>
-
-                            <!-- Signing in -->
-                            {% if not user.is_authenticated %}
-                            <!-- <a href="{% provider_login_url 'google' %}?next={% url 'main_page:index' %}"
-                                class="vcenter"><img src="{% static 'ca/img/gsignin.png' %}" class='gsignin-btn'
-                                    height="50px" width="50px" alt="" srcset="">google</a> -->
-                            <a href="{% provider_login_url 'google' %}?next={{ request.path}}" class="btn btn-secondary"
-                                style="margin-bottom: 3px;">
-                                <i class="fab fa-google"></i> Sign In</a>
-                            {% endif %}
                         </div>
                     </div>
                     <!-- Nav End -->
@@ -136,8 +143,12 @@
                             <p>Indian Institute of Technology Ropar, Bara Phool, Birla Seed Farms, Rupnagar,Punjab,
                                 INDIA 140001
                             </p>
-                            <p><i class="fa fa-phone mr-3"></i>+91 9915405007</p>
-                            <p><i class="fa fa-phone mr-3"></i>+91 8619174962</p>
+                            <p><i class="fa fa-phone mr-3"></i>Website Related Queries: Adarsh(
+                                    <a href="tel:+91-7355404764" style="color: white;">7355404764</a>)</p>
+                            <p><i class="fa fa-phone mr-3"></i>Marketing Concerns: Rahul(
+                                    <a href="tel:+91-9915405007" style="color: white;">9915405007</a>)</p>
+                            <p><i class="fa fa-phone mr-3"></i>Event Related Queries: Abhinash(
+                                    <a href="tel:+91-8001481473" style="color: white;">8001481473</a>)</p>
                             <p><i class="fa fa-envelope-o mr-3"></i>advitiya@iitrpr.ac.in</p>
                         </div>
                     </div>
@@ -152,11 +163,8 @@
                                 <li><a href="{% url 'main_page:workshop'%}">Workshops at IIT Ropar</a></li>
                             </ul>
                             <br>
-                            <h5 class="widget-title"><a href="#" style="color: white;">Talks</a></h5>
-                            <!-- Footer Nav -->
-                            <ul class="footer-nav">
-                                <li><a href="{% url 'main_page:talks' %}">Click here</a></li>
-                            </ul>
+                            <h5 class="widget-title"><a href="{% url 'main_page:talks' %}" style="color: white;">Lectures</a></h5>
+                            <h5 class="widget-title"><a href="{% url 'startup_conclave:index' %}" style="color: white;">Startup Conclave</a></h5>
                         </div>
                     </div>
 
@@ -204,6 +212,118 @@
     <script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>
     <script src="{% static 'main_page/js/active.js' %}"></script>
     <!-- <script src="{% static 'main_page/js/jquery.min.js' %}"></script> -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-messaging.js"></script>
+    <!-- START INITIALIZATION CODE -->
+    <script>
+        // Initialize Firebase
+        var firebaseConfig = {
+            apiKey: "AIzaSyDbNJ--j-m1WNrMxSHys81rjseH4FMuHys",
+            authDomain: "advitiya2020-719da.firebaseapp.com",
+            databaseURL: "https://advitiya2020-719da.firebaseio.com",
+            projectId: "advitiya2020-719da",
+            storageBucket: "advitiya2020-719da.appspot.com",
+            messagingSenderId: "598295117177",
+            appId: "1:598295117177:web:946a6512b805df9b0203a8",
+            measurementId: "G-WRN5HSTQL9"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+    <!-- END INITIALIZATION CODE -->
+    <!-- ******************************************************** -->
+    <script>
+        // [START get_messaging_object]
+        // Retrieve Firebase Messaging object.
+        const messaging = firebase.messaging();
+        // [END get_messaging_object]
+
+        // [START refresh_token]
+        // Callback fired if Instance ID token is updated.
+        messaging.onTokenRefresh(function () {
+            messaging.getToken()
+                .then(function (refreshedToken) {
+                    console.log('Token refreshed.');
+                    // Indicate that the new Instance ID token has not yet been sent to the
+                    // Send Instance ID token to app server.
+                    sendTokenToServer(refreshedToken);
+                })
+                .catch(function (err) {
+                    console.log('Unable to retrieve refreshed token ', err);
+                });
+        });
+        requestPermission();
+        // [END refresh_token]
+        messaging.onMessage(function (payload) {
+            console.log("Message received. ", payload);
+        });
+        // [END receive_message]
+
+
+        // Send the Instance ID token your application server, so that it can:
+        // - send messages back to this app
+        // - subscribe/unsubscribe the token from topics
+        function sendTokenToServer(currentToken) {
+            if (!isTokenSentToServer()) {
+                console.log('Sending token to server...');
+                // TODO(developer): Send the current token to your server.
+                fetch('/devices/', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        'registration_id': currentToken,
+                        'type': 'web',
+                    }),
+                    credentials: "include",
+                }).then(function (response) {
+                    console.log(response);
+                })
+                setTokenSentToServer(true);
+            } else {
+                console.log('Token already sent to server so won\'t send it again ' +
+                    'unless it changes');
+            }
+
+        }
+
+        function isTokenSentToServer() {
+            if (window.localStorage.getItem('sentToServer') == 1) {
+                return true;
+            }
+            return false;
+        }
+
+        function setTokenSentToServer(sent) {
+            if (sent) {
+                window.localStorage.setItem('sentToServer', 1);
+            } else {
+                window.localStorage.setItem('sentToServer', 0);
+            }
+        }
+
+
+        function requestPermission() {
+            console.log('Requesting permission...');
+            // [START request_permission]
+            messaging.requestPermission()
+                .then(function () {
+                    console.log('Notification permission granted.');
+                })
+                .catch(function (err) {
+                    console.log('Unable to get permission to notify.', err);
+                });
+            // [END request_permission]
+        }
+
+
+    </script>
 </body>
 
 </html>

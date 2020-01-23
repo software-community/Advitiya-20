@@ -25,7 +25,7 @@
 <!-- Breadcrumb Area End -->
 
 <!-- Blog Area Start -->
-<section class="confer-blog-details-area section-padding-100-0" style="background-image: url({{ event.image.url }});
+<section class="confer-blog-details-area section-padding-100-0" style="background-image: url({{ event.photo_url }});
                 background-size: cover; background-position: center; background-repeat: no-repeat;">
     <div class="container">
         <div class="row justify-content-center">
@@ -35,11 +35,6 @@
                     <!-- Post Content -->
                     <div class="post-details-content" style="background-color: rgba(255, 255, 255, 0.7);
                             padding: 20px;border-radius: 10px;">
-
-                        <!-- Post Thumbnail -->
-                        <!-- <div class="post-blog-thumbnail mb-30">
-                            <img src="{{ event.image.url }}" alt="" width="450px" height="350px">
-                        </div> -->
 
                         <!-- Post Title -->
                         <h4 class="post-title">ABOUT EVENT</h4>
@@ -102,8 +97,8 @@
                             <div class="post-author-content">
 
                                 <br>
-                                <!-- <p>Venue of Event: {{event.venue}}</p>
-                                <p>Timings: {{event.start_date_time}}</p> -->
+                                <h6 style="color:black">Venue of Event: {{event.venue}}</h6>
+                                <h6 style="color:black">Timings: {{event.start_date_time}}</h6>
                                 <h5>Event Coordinator</h5>
                                 <span>Name: {{event.coordinator.name}}</span>
                                 <span>Contact Details: {{event.coordinator.phone }}</span>

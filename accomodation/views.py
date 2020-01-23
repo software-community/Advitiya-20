@@ -43,16 +43,13 @@ def registerForAccommodation(request):
     purpose= "Accomodation during Advitiya 2020"
     
     response = accommodation_payment_request(participant.name, os.environ.get('ACCOMMODATION_FEE', '400'), purpose,
-            request.user.email, str(participant.phone_number))
+            request.user.email, str(participant.phone_number), already_participant)
     
     if response['success']:
         url = response['payment_request']['longurl']
         payment_request_id = response['payment_request']['id']
 
-        if already_participant:
-            already_participant.payment_request_id = payment_request_id
-            already_participant.save()
-        else:
+        if already_participant == None:
             Accommodation.objects.create(participant=participant, payment_request_id= payment_request_id)
         return redirect(url)
     else:
@@ -83,13 +80,13 @@ def accommodation_webhook(request):
                       message='',
                       from_email=os.environ.get(
                           'EMAIL_HOST_USER', ''),
-                      recipient_list=[request.user.email],
+                      recipient_list=[payment_detail.participant.user.email],
                       fail_silently=True,
-                      html_message='Dear ' + str(request.user.get_full_name()) +
+                      html_message='Dear ' + str(payment_detail.participant.name) +
                       ',<br><br>You have successfuly paid the accommodation charges for stay during Advitiya 2020.' +
-                      '''<br><a href="https://advitiya.in'''+ reverse('main_page:index') +'''">Click Here</a> to go to Advitiya Home Page.'''+
-                      '<br><br>Regards<br>Advitiya 2020 ' +
-                      '<br>Public Relations Team')
+                      '<br><a href="https://advitiya.in'+ reverse('main_page:index') +'''">Click Here</a> to go to Advitiya Home Page.
+                      <br><br>Regards<br>Advitiya 2020 
+                      <br>Public Relations Team''')
                 else:
                     # Payment was unsuccessful, mark it as failed in your database.
                     payment_detail.transaction_id = '0'

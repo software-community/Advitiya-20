@@ -10,6 +10,12 @@ import hashlib
 import hmac
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse, HttpResponseRedirect
 
+@login_required(login_url='/auth/google/login/')
+def get_workshop_accommodation(request):
+    accommodation_fee = os.environ.get('WORKSHOP_ACCOMODATION_FEE', '250')
+    return render(request, 'main_page/accommodation.html',{
+        'accommodation_fee':accommodation_fee,
+    })
 
 @login_required(login_url='/auth/google/login/')
 def workshop_accomodation(request, pre_id = None):
@@ -22,12 +28,7 @@ def workshop_accomodation(request, pre_id = None):
                                 the workshops page.''',
         })
 
-    participant_registrations = WorkshopRegistration.objects.filter(participant=participant)
-    bool_participated = False
-    for participant_registration in participant_registrations:
-        if participant_registration.transaction_id != 'none' and participant_registration.transaction_id != '0':
-            bool_participated = True
-    if bool_participated == False:
+    if not participant.has_participated_in_workshop():
         return render(request, 'main_page/show_info.html',{
             'message':  '''You must register for some workshop before opting for accomodation.<a href="'''+
                         reverse('main_page:workshop')+'''"> Click Here </a> to go to 
@@ -38,7 +39,7 @@ def workshop_accomodation(request, pre_id = None):
     previous_accomodation = None
     if pre_id:
         previous_accomodation = WorkshopAccomodation.objects.get(id=pre_id)
-        if previous_accomodation.transaction_id != 'none' and previous_accomodation.transaction_id != '0':
+        if previous_accomodation.is_paid():
             return render(request, 'main_page/show_info.html',{
                 'message': '''You have already paid for this accomodation !!'''
             })
@@ -66,7 +67,7 @@ def workshop_accomodation(request, pre_id = None):
     fee = os.environ.get('WORKSHOP_ACCOMODATION_FEE', '250')
     purpose = "Accomodation for "+ str(days) +" days for workshop"
     response = workshop_accomodation_payment_request(participant.name, str(int(fee)*days), purpose,
-            request.user.email, str(participant.phone_number))
+            request.user.email, str(participant.phone_number), previous_accomodation)
     
     if response['success']:
         url = response['payment_request']['longurl']
@@ -107,7 +108,7 @@ def workshop_accomodation_webhook(request):
                             'that your payment to ADVITIYA 2020 for '+
                             str(payment_detail.no_of_days())
                             +' day(s) accomodation during the fest' +
-                            ' is successful.\n\nRegards\nADVITIYA 2020 Public Relations Team',
+                            ' is successful.\n\nRegards\n\nAdarsh(7355404764)\nWeb Development Head\nADVITIYA\'20',
                             os.environ.get(
                             'EMAIL_HOST_USER', ''),
                             [payment_detail.participant.user.email],
@@ -144,7 +145,31 @@ def workshop_accomodation_payment_redirect(request):
 def curr_accomodation(request):
     try:
         participant = Participant.objects.get(user=request.user)
+    except Participant.DoesNotExist:
+        return render(request, 'main_page/show_info.html',{
+            'message':  '''You must register for some workshop before opting for accomodation.<a href="'''+
+                        reverse('main_page:workshop')+'''"> Click Here </a> to go to 
+                                the workshops page.''',
+        })
+
+    
+    if not participant.has_participated_in_workshop():
+        return render(request, 'main_page/show_info.html',{
+            'message':  '''You must register for some workshop before opting for accomodation.<a href="'''+
+                        reverse('main_page:workshop')+'''"> Click Here </a> to go to 
+                                the workshops page.''',
+        })
+
+    try:
         accs = WorkshopAccomodation.objects.filter(participant=participant)
-        return render(request,'main_page/workshop_accomodations.html', {'accs':accs})
+        paid_acc=False
+        for acc in accs:
+            if acc.is_paid():
+                paid_acc=True
+        if paid_acc==True:
+            return render(request,'main_page/workshop_accomodations.html', {'accs':accs})
+        else:
+            return HttpResponseRedirect(reverse('main_page:workshop_accomodation'))
+
     except Participant.DoesNotExist:
         return HttpResponseRedirect(reverse('main_page:workshop_accomodation'))

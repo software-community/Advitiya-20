@@ -27,7 +27,7 @@ background: linear-gradient(to right, #fbc7d4, #9796f0); /* W3C, IE 10+/ Edge, F
                                 </li>
                                 <li style="list-style-type:disc; text-align: left;">
                                     Step 2: [Optional] Get accomodation. <a
-                                        href="{% url 'main_page:workshop_accomodation' %}" style="color: blue;">(Click
+                                        href="{% url 'main_page:get_workshop_accommodation' %}" style="color: blue;">(Click
                                         Here)</a>
                                 </li>
                             </ul>
@@ -38,7 +38,7 @@ background: linear-gradient(to right, #fbc7d4, #9796f0); /* W3C, IE 10+/ Edge, F
                                     accomodation at cheaper rates.
                                     Get accomodation @ Rs.250 per day and enjoy a relaxing stay with 2 meals included.
                                 </li><br>
-                                <a href="{% url 'main_page:workshop_accomodation_curr'  %}" class="btn confer-btn-white"
+                                <a href="{% url 'main_page:get_workshop_accommodation'  %}" class="btn confer-btn-white"
                                     style="border: 2px solid rgb(43, 2, 143); color: black;"
                                     onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">
                                     <i class="zmdi zmdi-hotel zmdi-hc-lg"> Get Accomodation</i></a>
@@ -47,6 +47,14 @@ background: linear-gradient(to right, #fbc7d4, #9796f0); /* W3C, IE 10+/ Edge, F
                                     'Personality Development and Placement
                                     Preparation' and other on any one of the below mentioned technical topics.)
                                     </li>
+                                <li style="text-align: justify;"><br>If you are a Campus Ambassador for ADVITIYA, you can register 
+                                    for any of the workshops listed here for free. Get 10 people to register for some workshop and refer you
+                                    after payment. Thereafter, you may register for any workshop for free.
+                                </li><br>
+                                <li style="text-align: justify;">After you register for some workshop, you may give credit for 
+                                    registration to some of our Campus Ambassador. If you have already registered, 
+                                    <a href="{% url 'main_page:reffer_ca' %}">click here</a> to give them credits.
+                                </li><br>
                             </ul>
                         </div>
                     </div>
@@ -72,7 +80,7 @@ background: linear-gradient(to right, #fbc7d4, #9796f0); /* W3C, IE 10+/ Edge, F
                     <!-- Icon -->
                     <div class="single-blog-thumb">
                         <center><a href="{% url 'main_page:workshop_register' workshop.id  %}">
-                                <img src="{{ workshop.image.url }}" style="height: 200px;" alt=""></a>
+                                <img src="{{ workshop.photo_url }}" style="height: 200px;" alt=""></a>
                         </center>
                     </div>
                     <h5>{{workshop.name}}</h5>
