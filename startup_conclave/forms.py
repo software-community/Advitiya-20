@@ -48,7 +48,7 @@ class BootCampTeamForm(forms.ModelForm):
     
     class Meta:
         model = BootCampTeam
-        fields = ["name"]
+        fields = ["name", "startup_name", "description"]
 
 class BootCampTeamHasMemberForm(forms.Form):
 
