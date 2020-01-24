@@ -218,6 +218,8 @@ class Talk(models.Model):
     para3 = models.TextField(null=True, blank=True)
     para4 = models.TextField(null=True, blank=True)
     show = models.BooleanField(default=True)
+    link = models.CharField(max_length=150, default="Google_Form_Link")
+    show_link = models.BooleanField(default=False)
 
     @property
     def photo_url(self):

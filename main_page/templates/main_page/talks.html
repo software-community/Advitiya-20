@@ -42,11 +42,27 @@
                                         <center>
                                             <h1 style="color: white;">{{person.name}}</h1>
                                             <br><br>
-                                            <h5 class="carousel-title" style="background-color: rgba(255, 255, 255, 0.7);
-                                                padding: 20px;border-radius: 10px; color: black;">
-                                                <i class="zmdi zmdi-gps-dot"></i> Venue: {{person.venue}}<br><br>
-                                                <i class="zmdi zmdi-time"></i> {{person.start_date_time}}
-                                            </h5>
+                                            {% if person.show_link %}
+                                            <div class="row col-12" style="background-color: rgba(255, 255, 255, 0.7);
+                                            padding: 20px;border-radius: 10px; color: black;">
+                                                <div class="col-md-6">
+                                                    <h5 class="carousel-title">
+                                                        <i class="zmdi zmdi-gps-dot"></i> Venue: {{person.venue}}<br><br>
+                                                        <i class="zmdi zmdi-time"></i> {{person.start_date_time}}
+                                                    </h5>
+                                                </div>
+                                                <div class="col-md-6" style="padding-top: 3%;">
+                                                    <a href="{{ person.link }}"
+                                                        class="btn confer-btn">Register For this Lecture</a>
+                                                </div>
+                                            </div>
+                                            {% else %}
+                                                <h5 class="carousel-title" style="background-color: rgba(255, 255, 255, 0.7);
+                                                    padding: 20px;border-radius: 10px; color: black;">
+                                                    <i class="zmdi zmdi-gps-dot"></i> Venue: {{person.venue}}<br><br>
+                                                    <i class="zmdi zmdi-time"></i> {{person.start_date_time}}
+                                                </h5>
+                                            {% endif %}
                                             <br>
                                         </center>
                                         <h4 style="color: white;">About {{person.name}}</h1><br>
