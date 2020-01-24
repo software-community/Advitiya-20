@@ -59,6 +59,7 @@ class Workshops(models.Model):
     center = models.ForeignKey(Centers, on_delete = models.CASCADE)
     workshop_name = models.CharField(max_length=100, verbose_name = 'Workshop')
     fees = models.IntegerField(default = 1000)
+    dates= models.CharField(max_length=100, verbose_name="Dates", default="21st & 22nd March")
     rulebook = models.URLField(blank=True)
 
     def __str__(self):
