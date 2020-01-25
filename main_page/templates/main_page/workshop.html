@@ -101,7 +101,9 @@ background: linear-gradient(to right, #fbc7d4, #9796f0); /* W3C, IE 10+/ Edge, F
                         <a class="post-date"><i class="zmdi zmdi-calendar-check"></i> 8th & 9th February, 2020</a>
                     </div>
                     {% endif %}
-                    <br>
+                    <div class="post-meta">
+                        <h6 class="post-date"> Fee: Rs. {{workshop.fees}}</h6>
+                    </div>
                     <a href="{% url 'main_page:workshop_register' workshop.id  %}" class="btn confer-btn-white"
                         style="border: 2px solid rgb(43, 2, 143); color: black;"
                         onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#000000'">Register
