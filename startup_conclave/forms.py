@@ -84,5 +84,5 @@ class BaseBootCampTeamFormSet(forms.BaseFormSet):
 class StallsForm(forms.ModelForm):
     class Meta:
         model = RegisterForStalls
-        fields = ["startup_name","founder_name", "founder_phone_number", "number",
-                        "about"]
+        fields = ["startup_name","founder_name", "founder_phone_number",
+                    'stall_on_7th', 'stall_on_8th', 'stall_on_9th', "about"]
