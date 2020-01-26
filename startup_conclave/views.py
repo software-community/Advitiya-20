@@ -183,6 +183,16 @@ def registerForStall(request):
     except Participant.DoesNotExist:
         return HttpResponseRedirect(reverse('main_page:workshop_participant') + '?next=' + 
                     reverse('startup_conclave:register_for_stall'))
+
+    try:
+        participation_payment = Payment.objects.filter(participant = participant)[0]
+        if not participation_payment.is_paid():
+            return render(request, 'main_page/show_info.html', {'message':'''You must pay participation fee 
+                    before registering for this event. 
+                    Please <a href="/pay">Click Here</a> to proceed for payment.''',})
+    except:
+        return render(request, 'main_page/show_info.html', {'message':'''You must pay participation fee 
+                    before registering for this event. <a href="/pay">Click Here</a> for payment.''', })
     
     try:
         stall_registration = RegisterForStalls.objects.filter(participant=participant)[0]
