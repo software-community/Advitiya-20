@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import user_passes_test #For determining Superuser status
 from django.contrib.auth.decorators import login_required
 import csv
 import datetime
@@ -217,3 +218,21 @@ def event_registration_csv(request):
                 writer.writerow(row)
 
     return response
+
+#get data for payments in workshop and event
+@user_passes_test(lambda u: u.is_superuser)
+def get_event_workshop_payments(request):
+    participants=Participant.objects.all()
+    message=""
+    for participant in participants:
+        workshop_payments = WorkshopRegistration.objects.filter(participant=participant)
+        for workshop_payment in workshop_payments:
+            if workshop_payment.is_paid() and workshop_payment.workshop_id is not 6:
+                event_payments = Payment.objects.filter(participant=participant)
+                for event_payment in event_payments:
+                    if event_payment.is_paid():
+                        message+=str(workshop_payment.participant)+str("<br>")+str(event_payment.transaction_id)+str("<br><br>")
+                        break
+                break
+    return render(request, 'main_page/show_info.html', {
+        'message':message})

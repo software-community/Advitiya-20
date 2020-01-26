@@ -24,4 +24,6 @@ urlpatterns=[
 
     path('gen-paid-participant-detail', views.gen_paid_participant_csv,
         name='gen_paid_participant_details'),
+    
+    path('gen-refund-contacts', views.get_event_workshop_payments, name='get_event_workshop_payments'),
 ]
