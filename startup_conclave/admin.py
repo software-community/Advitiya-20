@@ -1,7 +1,8 @@
 from django.contrib import admin
 
-from startup_conclave.models import (StartupTeam, StartupTeamHasMembers, StartupRegistrations, RequirementChoices, StartupTeamHasRequirements,
-                                        BootCampTeam, BootCampTeamHasMembers, BootCampRegistrations, PayForStalls, RegisterForStalls)
+from startup_conclave.models import (StartupTeam, StartupTeamHasMembers, StartupRegistrations,
+        RequirementChoices, StartupTeamHasRequirements, BootCampTeam, BootCampTeamHasMembers,
+        BootCampRegistrations, PayForStalls, RegisterForStalls, RegisterForStallsHasMembers)
 
 class StartupTeamAdminView(admin.ModelAdmin):
     list_display = [field.name for field in StartupTeam._meta.fields]
@@ -53,3 +54,8 @@ class StartupTeamHasRequirementsAdminView(admin.ModelAdmin):
     list_display = [field.name for field in StartupTeamHasRequirements._meta.fields]
 
 admin.site.register(StartupTeamHasRequirements, StartupTeamHasRequirementsAdminView)
+
+class RegisterForStallsHasMembersAdminView(admin.ModelAdmin):
+    list_display = [field.name for field in RegisterForStallsHasMembers._meta.fields]
+
+admin.site.register(RegisterForStallsHasMembers, RegisterForStallsHasMembersAdminView)
