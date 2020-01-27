@@ -3,7 +3,7 @@ import os
 
 def sendNotification(title, message):
     headers = {'Content-type': 'application/json',
-               'Authorization': 'key=' + os.environ.get('FCM_APIKEY', '')}
+               'Authorization': 'key=' + os.environ.get('FCM_KEY', '')}
     postdata = {
         
             "notification":

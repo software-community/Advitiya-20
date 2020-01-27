@@ -87,16 +87,26 @@ class BootCampRegistrations(models.Model):
         return self.participant.__str__()
 
 class RegisterForStalls(models.Model):
-    participant=models.ForeignKey(Participant, on_delete = models.CASCADE)
+    participant=models.ForeignKey(Participant, verbose_name = 'Leader', on_delete = models.CASCADE)
     startup_name= models.CharField(max_length = 100, verbose_name = 'Startup Name', default="Startup Name")
     founder_name = models.CharField(max_length = 100, verbose_name = 'Founder Name', null=True, blank=True)
     founder_phone_number = models.CharField(max_length=50, null=True, blank=True,
             verbose_name="Founder Phone Number")
     number = models.PositiveSmallIntegerField(verbose_name="No. of people representing the startup")
     about = models.TextField(verbose_name="About Your Startup", null=True, blank=True)
+    stall_on_7th = models.BooleanField(default=False)
+    stall_on_8th = models.BooleanField(default=False)
+    stall_on_9th = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.participant.__str__()
+        return self.participant.__str__() + '\t' + str(self.startup_name)
+
+class RegisterForStallsHasMembers(models.Model):
+    team = models.ForeignKey(RegisterForStalls, on_delete = models.CASCADE)
+    participant = models.ForeignKey(Participant, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return self.team.__str__()
 
 class PayForStalls(models.Model):
     stall=models.ForeignKey(RegisterForStalls, on_delete = models.CASCADE)
