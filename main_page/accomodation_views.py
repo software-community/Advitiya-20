@@ -27,8 +27,23 @@ def workshop_accomodation(request, pre_id = None):
                         reverse('main_page:workshop')+'''"> Click Here </a> to go to 
                                 the workshops page.''',
         })
-
-    if not participant.has_participated_in_workshop():
+    
+    bool_participated_in_workshop=False
+    try:
+        workshop_registrations=WorkshopRegistration.objects.filter(participant=participant)
+        for workshop_registration in workshop_registrations:
+            if workshop_registration.is_paid():
+                bool_participated_in_workshop=True
+                break
+    except:
+        return render(request, 'main_page/show_info.html',{
+            'message':  '''You must register for some workshop before opting for accomodation.<a href="'''+
+                        reverse('main_page:workshop')+'''"> Click Here </a> to go to 
+                                the workshops page.''',
+        })
+    if bool_participated_in_workshop is True:
+        pass
+    else:
         return render(request, 'main_page/show_info.html',{
             'message':  '''You must register for some workshop before opting for accomodation.<a href="'''+
                         reverse('main_page:workshop')+'''"> Click Here </a> to go to 
