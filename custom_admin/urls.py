@@ -15,6 +15,8 @@ urlpatterns=[
 
     path('gen-workshop-registered-csv/',views.gen_workshop_participants_csv,
         name='gen_workshop_registered_participants_csv'),
+        
+    path('workshop_registrations/<int:workshop_id>/',views.workshop_registrations,name="workshop_registrations"),
 
     path('gen-event-registrations-detail', views.event_registration_csv,
         name='gen_event_registrations_detail'),
