@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import user_passes_test #For determining Superuser status
 from django.contrib.auth.decorators import login_required
@@ -7,9 +7,11 @@ import csv
 import datetime
 from rest_framework import status
 
+from django.urls import reverse
+
 from ca.models import Profile
 from main_page.models import (Participant, Payment, WorkshopRegistration, EventRegistration,
-                                Events, Team, TeamHasMembers)
+                                Events, Team, TeamHasMembers, Workshop)
 
 # Create your views here.
 
@@ -180,6 +182,56 @@ def gen_workshop_participants_csv(request):
     except Exception as e:
         print(e)
     
+    return response
+
+@staff_member_required
+def workshop_registrations(request, workshop_id=None):
+    response = HttpResponse(content_type='text/csv')
+    workshops=Workshop.objects.all()
+    workshop_ids=[]
+    for workshop in workshops:
+        workshop_ids.append(workshop.id)
+    if workshop_id is 0:
+        message=""
+        for w_id in workshop_ids:
+            try:
+                workshop=Workshop.objects.get(id=w_id)
+                if workshop.at_sudhir == True:
+                    message=(message+'''Get <a href="'''+str(reverse('custom_admin:workshop_registrations', args=[str(w_id)]))+
+                        '''">'''+str(workshop.name)+'''</a> CSV<br><br>''')
+            except Exception as e:
+                print(e)
+        return render(request, 'main_page/show_info.html', {
+                'message':message})
+    else:
+        try:
+            workshop=Workshop.objects.get(id=workshop_id)
+        except Exception as e:
+            print(e)
+            return HttpResponseRedirect(reverse('custom_admin:workshop_registrations', args=['0']))
+        filename=str(workshop.name)+" Participants.csv"
+        response['Content-Disposition'] = 'attachment; filename='+filename
+
+    writer = csv.writer(response)
+    writer.writerow(['Name', 'College Name', 'Phone Number', 'Email', 'City'])
+
+    workshop_registrations=WorkshopRegistration.objects.all()
+
+    try:
+        for workshop_registration in workshop_registrations:
+            if workshop_registration.is_paid():
+                if workshop_registration.workshop.id==workshop_id:
+                    participant=workshop_registration.participant
+                    if participant.name!="Your Name":
+                        writer.writerow([participant.name, participant.college_name, 
+                            participant.phone_number, participant.user.email, participant.city])
+                    else:
+                        writer.writerow([participant.user.get_full_name(), participant.college_name, 
+                            participant.phone_number, participant.user.email, participant.city])
+
+    except Exception as e:
+        print(e)
+
     return response
 
 #registered_event_csv
