@@ -224,3 +224,39 @@ class Talk(models.Model):
     @property
     def photo_url(self):
         return self.image.url if self.image else ''
+
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+from django.core.mail import send_mail
+# Triggers when a worshop is deleted. Adds to WorkshopHadArtist
+@receiver(pre_delete, sender=WorkshopRegistration, dispatch_uid='workshop_delete_signal')
+def log_deleted_workshop(sender, instance, using, **kwargs):
+    send_mail(subject='Workshop Deleted',
+        message='',
+        from_email=os.environ.get('EMAIL_HOST_USER', ''),
+        recipient_list=['2017csb1073@iitrpr.ac.in', '2017csb1064@iitrpr.ac.in'],
+        fail_silently=True,
+        html_message= str(instance.workshop) + '\t' + str(instance.participant) +
+            '\t' + str(instance.payment_request_id) + '\t' + str(instance.transaction_id)
+    )
+
+@receiver(pre_delete, sender=Payment, dispatch_uid='payment_delete_signal')
+def log_deleted_payment(sender, instance, using, **kwargs):
+    send_mail(subject='Payment Deleted',
+        message='',
+        from_email=os.environ.get('EMAIL_HOST_USER', ''),
+        recipient_list=['2017csb1073@iitrpr.ac.in', '2017csb1064@iitrpr.ac.in'],
+        fail_silently=True,
+        html_message= str(instance.participant) +
+            '\t' + str(instance.payment_request_id) + '\t' + str(instance.transaction_id)
+    )
+    
+@receiver(pre_delete, sender=EventRegistration, dispatch_uid='EventRegistration_delete_signal')
+def log_deleted_EventRegistration(sender, instance, using, **kwargs):
+    send_mail(subject='EventRegistration Deleted',
+        message='',
+        from_email=os.environ.get('EMAIL_HOST_USER', ''),
+        recipient_list=['2017csb1073@iitrpr.ac.in', '2017csb1064@iitrpr.ac.in'],
+        fail_silently=True,
+        html_message= str(instance.event) + '\t' + str(instance.participant)
+    )
