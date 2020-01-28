@@ -4,6 +4,7 @@ from django.urls import path,include
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import views as auth_views
 from . import views, accomodation_views
+from custom_admin.views import service_worker, service_manifest
 from main_page.api import EventViewSet, TalkViewSet, NotificationViewSet
 app_name='main_page'
 
@@ -46,4 +47,8 @@ urlpatterns=[
     path('get_info/', csrf_exempt(views.get_info), name= 'get_info'),
     #api
     path('api/', include(router.urls)),
+    
+    #webpush service wroker
+    path('firebase-messaging-sw.js', service_worker, name='service_worker'),
+    path('manifest.json', service_worker, name='manifest_json'),
 ]
