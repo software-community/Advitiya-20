@@ -15,6 +15,13 @@ from main_page.models import (Participant, Payment, WorkshopRegistration, EventR
 
 # Create your views here.
 
+def service_worker(request):
+    return render(request, 'custom_admin/firebase-messaging-sw.js', content_type="application/x-javascript")
+
+def service_manifest(request):
+    return render(request, 'custom_admin/service_manifest.json', content_type="application/json")
+
+
 @staff_member_required
 def gen_ca_csv(request):
     
