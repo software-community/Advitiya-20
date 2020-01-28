@@ -144,11 +144,11 @@
                                 INDIA 140001
                             </p>
                             <p><i class="fa fa-phone mr-3"></i>Website Related Queries: Adarsh(
-                                    <a href="tel:+91-7355404764" style="color: white;">7355404764</a>)</p>
+                                <a href="tel:+91-7355404764" style="color: white;">7355404764</a>)</p>
                             <p><i class="fa fa-phone mr-3"></i>Marketing Concerns: Rahul(
-                                    <a href="tel:+91-9915405007" style="color: white;">9915405007</a>)</p>
+                                <a href="tel:+91-9915405007" style="color: white;">9915405007</a>)</p>
                             <p><i class="fa fa-phone mr-3"></i>Event Related Queries: Abhinash(
-                                    <a href="tel:+91-8001481473" style="color: white;">8001481473</a>)</p>
+                                <a href="tel:+91-8001481473" style="color: white;">8001481473</a>)</p>
                             <p><i class="fa fa-envelope-o mr-3"></i>advitiya@iitrpr.ac.in</p>
                         </div>
                     </div>
@@ -163,8 +163,10 @@
                                 <li><a href="{% url 'main_page:workshop'%}">Workshops at IIT Ropar</a></li>
                             </ul>
                             <br>
-                            <h5 class="widget-title"><a href="{% url 'main_page:talks' %}" style="color: white;">Lectures</a></h5>
-                            <h5 class="widget-title"><a href="{% url 'startup_conclave:index' %}" style="color: white;">Startup Conclave</a></h5>
+                            <h5 class="widget-title"><a href="{% url 'main_page:talks' %}"
+                                    style="color: white;">Lectures</a></h5>
+                            <h5 class="widget-title"><a href="{% url 'startup_conclave:index' %}"
+                                    style="color: white;">Startup Conclave</a></h5>
                         </div>
                     </div>
 
@@ -241,87 +243,13 @@
         // [START get_messaging_object]
         // Retrieve Firebase Messaging object.
         const messaging = firebase.messaging();
-        // [END get_messaging_object]
-
-        // [START refresh_token]
-        // Callback fired if Instance ID token is updated.
-        messaging.onTokenRefresh(function () {
-            messaging.getToken()
-                .then(function (refreshedToken) {
-                    console.log('Token refreshed.');
-                    // Indicate that the new Instance ID token has not yet been sent to the
-                    // Send Instance ID token to app server.
-                    sendTokenToServer(refreshedToken);
-                })
-                .catch(function (err) {
-                    console.log('Unable to retrieve refreshed token ', err);
-                });
-        });
-        requestPermission();
-        // [END refresh_token]
-        messaging.onMessage(function (payload) {
-            console.log("Message received. ", payload);
-        });
-        // [END receive_message]
-
-
-        // Send the Instance ID token your application server, so that it can:
-        // - send messages back to this app
-        // - subscribe/unsubscribe the token from topics
-        function sendTokenToServer(currentToken) {
-            if (!isTokenSentToServer()) {
-                console.log('Sending token to server...');
-                // TODO(developer): Send the current token to your server.
-                fetch('/devices/', {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        'registration_id': currentToken,
-                        'type': 'web',
-                    }),
-                    credentials: "include",
-                }).then(function (response) {
-                    console.log(response);
-                })
-                setTokenSentToServer(true);
-            } else {
-                console.log('Token already sent to server so won\'t send it again ' +
-                    'unless it changes');
-            }
-
-        }
-
-        function isTokenSentToServer() {
-            if (window.localStorage.getItem('sentToServer') == 1) {
-                return true;
-            }
-            return false;
-        }
-
-        function setTokenSentToServer(sent) {
-            if (sent) {
-                window.localStorage.setItem('sentToServer', 1);
-            } else {
-                window.localStorage.setItem('sentToServer', 0);
-            }
-        }
-
-
-        function requestPermission() {
-            console.log('Requesting permission...');
-            // [START request_permission]
-            messaging.requestPermission()
-                .then(function () {
-                    console.log('Notification permission granted.');
-                })
-                .catch(function (err) {
-                    console.log('Unable to get permission to notify.', err);
-                });
-            // [END request_permission]
-        }
-
+        messaging.requestPermission()
+            .then(function () {
+                console.log('Notification permission granted.');
+            })
+            .catch(function (err) {
+                console.log('Unable to get permission to notify.', err);
+            });
 
     </script>
 </body>
