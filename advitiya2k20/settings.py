@@ -170,7 +170,7 @@ FCM_DJANGO_SETTINGS = {
 if not C_DEBUG:
     LOGGING = {
         'version': 1,
-        'disable_existing_loggers': True,
+        'disable_existing_loggers': False,
         'formatters': {
             'verbose': {
                 'format': '%(asctime)s %(levelname)s [%(name)s:%(lineno)s] %(module)s %(process)d %(thread)d %(message)s'
