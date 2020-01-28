@@ -71,10 +71,16 @@ def events(request):
     })
 
 def event_page(request,num):
+    event= Events.objects.get(id=num)
     context = {
-        'event' : Events.objects.get(id=num),
+        'event' : event,
         'CATEGORY_CHOCIES': CATEGORY_CHOCIES
     }
+    if event.id is 14 or event.id is 44:
+        message=("The registration for "+event.name+" is closed now. Find the rulebook <a href=\""+event.rulebook+
+                    "\">here.</a> Contact "+
+                    event.coordinator.name+"("+event.coordinator.phone+") for other queries.")
+        return render(request, 'main_page/show_info.html', {'message':message,})
     template_name='main_page/event1.html'
     return render(request,template_name,context=context)
 
