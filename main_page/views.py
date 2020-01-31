@@ -323,17 +323,20 @@ def webhook(request):
                     # Payment was successful, mark it as completed in your database.
                     payment_detail.transaction_id = data['payment_id']
                     # str(participantpaspaid.paid_subcategory) inlcudes name of category also
-                    send_mail(
-                        'Payment confirmation of ' +
-                        ' to ADVITIYA 2020',
-                        'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
-                        'that your payment to ADVITIYA 2020 ' +
-                        ' is successful.\n\nRegards\n\nAdarsh(7455404764)\nWeb Development Head\nADVITIYA\'20',
-                        os.environ.get(
-                          'EMAIL_HOST_USER', ''),
-                        [payment_detail.participant.user.email],
-                        fail_silently=True,
-                    )
+                    try:
+                        send_mail(
+                            'Payment confirmation of ' +
+                            ' to ADVITIYA 2020',
+                            'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
+                            'that your payment to ADVITIYA 2020 ' +
+                            ' is successful.\n\nRegards\n\nAdarsh(7455404764)\nWeb Development Head\nADVITIYA\'20',
+                            os.environ.get(
+                            'EMAIL_HOST_USER', ''),
+                            [payment_detail.participant.user.email],
+                            fail_silently=True,
+                        )
+                    except:
+                        pass
                 else:
                     # Payment was unsuccessful, mark it as failed in your database.
                     payment_detail.transaction_id = '0'
