@@ -70,17 +70,6 @@ class WorkshopPaidRegistration(WorkshopRegistration):
 
 admin.site.register(WorkshopPaidRegistration, WorkshopRegistrationPaidAdminView)
 
-class SEOWorkshopRegistrationsPaidAdminView(WorkshopRegistrationAdminView):
-    def get_queryset(self, request):
-        return self.model.objects.exclude(transaction_id='none').exclude(
-            transaction_id='0').filter(workshop__id=7)
-
-class SEOWorkshopPaidRegistration(WorkshopRegistration):
-    class Meta:
-        proxy=True
-
-admin.site.register(SEOWorkshopPaidRegistration, SEOWorkshopRegistrationsPaidAdminView)
-
 class WorkshopAccomodationAdminView(admin.ModelAdmin):
     list_display = [field.name for field in WorkshopAccomodation._meta.fields]
 
