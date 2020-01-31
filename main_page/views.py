@@ -76,7 +76,7 @@ def event_page(request,num):
         'event' : event,
         'CATEGORY_CHOCIES': CATEGORY_CHOCIES
     }
-    if event.id is 14 or event.id is 44:
+    if event.id is 14 or event.id is 44 or event.id is 22:
         message=("The registration for "+event.name+" is closed now. Find the rulebook <a href=\""+event.rulebook+
                     "\">here.</a> Contact "+
                     event.coordinator.name+"("+event.coordinator.phone+") for other queries.")
