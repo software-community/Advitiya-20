@@ -354,6 +354,7 @@ def gen_event_details(request, event_id=None):
                     message=(message+member.participant.name+" "+member.participant.phone_number+"<br>"+
                             member.participant.user.email+"<br><br>")
                 message=message+"__________________________________<br><br>"
+                count=count+1
     return render(request, 'main_page/show_info.html',{
                 'message':message,
             })
