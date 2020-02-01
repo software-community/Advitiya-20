@@ -28,4 +28,7 @@ urlpatterns=[
         name='gen_paid_participant_details'),
     
     path('gen-refund-contacts', views.get_event_workshop_payments, name='get_event_workshop_payments'),
+
+    path('gen_event_details', views.gen_event_details, name='gen_event_details'),
+    path('gen_event_details/<int:event_id>',views.gen_event_details,name='gen_event_details'),
 ]

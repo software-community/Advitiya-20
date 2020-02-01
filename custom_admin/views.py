@@ -11,7 +11,7 @@ from django.urls import reverse
 
 from ca.models import Profile
 from main_page.models import (Participant, Payment, WorkshopRegistration, EventRegistration,
-                                Events, Team, TeamHasMembers, Workshop)
+                                Events, Team, TeamHasMembers, Workshop, Coordinator)
 
 # Create your views here.
 
@@ -254,7 +254,7 @@ def event_registration_csv(request):
     response['Content-Disposition'] = 'attachment; filename="event_reg_detail_at_'+ time +'.csv"'
 
     writer = csv.writer(response)
-    writer.writerow(['Event', 'Leader', 'College', 'Team', 'Contact', 'Team Members'])
+    writer.writerow(['Event', 'Leader', 'College', 'Team', 'Contact', 'Email', 'Team Members'])
     events = Events.objects.all()
     for event in events:
         if event.team_upper_limit == 1:
@@ -262,14 +262,14 @@ def event_registration_csv(request):
 
             for reg in regs:
                 writer.writerow([reg.event.name, reg.participant.name, reg.participant.college_name,
-                    'NA', reg.participant.phone_number, 'NA'])
+                    'NA', reg.participant.phone_number, reg.participant.user.email, 'NA'])
 
         else:
             teams = Team.objects.filter(event=event)
 
             for team in teams:
                 row = [team.event.name, team.leader.name, team.leader.college_name,
-                    team.name, team.leader.phone_number]
+                    team.name, team.leader.phone_number, team.leader.user.email]
                 team_members = TeamHasMembers.objects.filter(team=team)
                 for member in team_members:
                     row.append(member.participant.name)
@@ -295,3 +295,65 @@ def get_event_workshop_payments(request):
                 break
     return render(request, 'main_page/show_info.html', {
         'message':message})
+
+
+@login_required(login_url='/auth/google/login/')
+def gen_event_details(request, event_id=None):
+    if event_id==None:
+        try:
+            participant = Participant.objects.get(
+                user = request.user
+            )
+            coordinator = Coordinator.objects.get(participant=participant)
+        except:
+            coordinator = None
+            return render(request, 'main_page/show_info.html',{
+                'message':"You are not authorized to access this page."
+            })
+            
+        events=Events.objects.filter(coordinator=coordinator)
+        if len(events) is 0:
+            events=Events.objects.all()
+
+        message=""
+        for event in events:
+            message=(message+"<a href=\""+reverse('custom_admin:gen_event_details', args=[event.id])+"\">"+
+                        str(event.name)+"</a><br><br>")
+    
+    else:
+        try:
+            participant = Participant.objects.get(
+                user = request.user
+            )
+            coordinator = Coordinator.objects.get(participant=participant)
+        except:
+            coordinator = None
+            return render(request, 'main_page/show_info.html',{
+                'message':"You are not authorized to access this page."
+            })
+        
+        event = Events.objects.get(id=event_id)
+        message="<b>"+event.name+"</b><br><br>"
+        if event.team_upper_limit==1:
+            registrations = EventRegistration.objects.filter(event=event)
+            count=1
+            for reg in registrations:
+                message=(message+"<b>"+str(count)+". "+reg.participant.name+" "+reg.participant.phone_number+"<br></b>"+
+                                reg.participant.college_name+"<br>"+reg.participant.user.email+"<br><br>")
+                count=count+1
+        else:
+            teams = Team.objects.filter(event=event)
+            for team in teams:
+                count=1
+                message=message+"__________________________________<br><br>"
+                message=(message+str(count)+". "+"Team Name:<b>"+team.name+"</b><br>Team Leader Details:<br><b>"+ team.leader.name +" "+
+                            team.leader.phone_number+"<br></b>"+team.leader.college_name+"<br>"+team.leader.user.email+"<br><br>")
+
+                team_members = TeamHasMembers.objects.filter(team=team)
+                for member in team_members:
+                    message=(message+member.participant.name+" "+member.participant.phone_number+"<br>"+
+                            member.participant.user.email+"<br><br>")
+                message=message+"__________________________________<br><br>"
+    return render(request, 'main_page/show_info.html',{
+                'message':message,
+            })
