@@ -35,39 +35,6 @@ CATEGORY_CHOCIES = (
     ('12', 'Departmental Events'),
 )
 
-
-class Coordinator(models.Model):
-    name = models.CharField(max_length=100)
-    phone = models.CharField(max_length=10)
-
-    def __str__(self):
-        return self.name + "\t"+self.phone
-
-
-class Events(models.Model):
-
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOCIES)
-    image = models.ImageField(
-        upload_to=get_file_path, null=True, blank=True)
-    name = models.CharField(max_length=200)
-    description = models.TextField(null=True, blank=True)
-    venue = models.CharField(max_length=100)
-    team_lower_limit = models.IntegerField()
-    team_upper_limit = models.IntegerField()
-    fees = models.IntegerField(default = 400)
-    coordinator = models.ForeignKey(Coordinator, on_delete=models.CASCADE)
-    prize = models.DecimalField(max_digits=6, decimal_places=3)
-    rulebook = models.URLField()
-    start_date_time = models.DateTimeField(blank=False)
-    end_date_time = models.DateTimeField(blank=False)
-
-    def __str__(self):
-        return self.name+"\t"+self.coordinator.name
-    
-    @property
-    def photo_url(self):
-        return self.image.url if self.image else ''
-
 class Participant(models.Model):
 
     user = models.OneToOneField(User, on_delete = models.CASCADE)
@@ -92,6 +59,38 @@ class Participant(models.Model):
                 bool_participated = True
                 break
         return bool_participated
+
+class Coordinator(models.Model):
+    name = models.CharField(max_length=100)
+    participant = models.ForeignKey(Participant, on_delete=models.CASCADE, blank=True, null=True)
+    phone = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.name + "\t"+self.phone
+
+class Events(models.Model):
+
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOCIES)
+    image = models.ImageField(
+        upload_to=get_file_path, null=True, blank=True)
+    name = models.CharField(max_length=200)
+    description = models.TextField(null=True, blank=True)
+    venue = models.CharField(max_length=100)
+    team_lower_limit = models.IntegerField()
+    team_upper_limit = models.IntegerField()
+    fees = models.IntegerField(default = 400)
+    coordinator = models.ForeignKey(Coordinator, on_delete=models.CASCADE)
+    prize = models.DecimalField(max_digits=6, decimal_places=3)
+    rulebook = models.URLField()
+    start_date_time = models.DateTimeField(blank=False)
+    end_date_time = models.DateTimeField(blank=False)
+
+    def __str__(self):
+        return self.name+"\t"+self.coordinator.name
+    
+    @property
+    def photo_url(self):
+        return self.image.url if self.image else ''
 
 class Payment(models.Model):
 
