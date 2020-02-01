@@ -143,6 +143,7 @@ class Workshop(models.Model):
     fees = models.IntegerField(default = 1000)
     rulebook = models.URLField(blank=True)
     at_sudhir = models.BooleanField(default=False)
+    show = models.BooleanField(default=True)
 
     WORKSHOP_CHOCIES = (
         ('t', 'Technical'),
