@@ -343,8 +343,8 @@ def gen_event_details(request, event_id=None):
                 count=count+1
         else:
             teams = Team.objects.filter(event=event)
+            count=1
             for team in teams:
-                count=1
                 message=message+"__________________________________<br><br>"
                 message=(message+str(count)+". "+"Team Name:<b>"+team.name+"</b><br>Team Leader Details:<br><b>"+ team.leader.name +" "+
                             team.leader.phone_number+"<br></b>"+team.leader.college_name+"<br>"+team.leader.user.email+"<br><br>")
