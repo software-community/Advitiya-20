@@ -32,7 +32,10 @@ def result_view(request):
             try:
                 data = models.TSPResult.objects.filter(
                     name__contains=name, advitiya_id=advitiya_id)[0]
-                return render(request, "TSP/result_view.html", { 'data' : data})
+                if data.marks == -100:
+                    form.add_error(None, error='You didn\'t appear for the test')
+                else:
+                    return render(request, "TSP/result_view.html", { 'data' : data})
             except:
                 form.add_error(None, error='Result Not Found')
     return render(request, "TSP/result.html", { 'form' : form})
@@ -179,18 +182,18 @@ def upload_tsp_data(request):
     added = 0
     failed = ''
     already = 0
-    with open('path') as f:
+    with open('tsp_data.csv') as f:
         reader = csv.reader(f)
         for row in reader:
-            advitiya_id = row[1]
+            advitiya_id = row[0]
             try:
                 _, created = models.TSPResult.objects.get_or_create(
                         advitiya_id = advitiya_id,
                         defaults={
-                            'name': row[2],
-                            'school' : row[3],
-                            'marks' : row[4],
-                            'rank' : row[5]
+                            'name': row[1],
+                            'school' : row[2],
+                            'marks' : row[3],
+                            'rank' : row[4]
                             }
                     )
                 if created:
@@ -202,5 +205,5 @@ def upload_tsp_data(request):
                     advitiya_id = 'not found'
                 failed = failed + ' ' + advitiya_id
     return HttpResponse('Added : ' + str(added) + ' Already : ' + str(already) + 
-                        'Failed : ' + str(failed))
+                        ' Failed : ' + str(failed))
     
