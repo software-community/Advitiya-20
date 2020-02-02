@@ -48,3 +48,10 @@ class Payment(models.Model):
             return True
         else:
             return False
+
+class TSPResult(models.Model):
+    advitiya_id = models.CharField(max_length = 10, blank=False)
+    name = models.CharField(max_length = 50, blank=False)
+    school = models.CharField(max_length = 50, blank=False)
+    marks = models.PositiveSmallIntegerField(blank=False)
+    rank = models.PositiveSmallIntegerField(blank=False)

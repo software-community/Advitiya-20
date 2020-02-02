@@ -8,13 +8,14 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse
+from django.contrib.auth.decorators import user_passes_test 
 
 import os
 import hashlib
 import hmac
 
 from TSP import models
-from TSP.forms import registerForm, PaymentForm
+from TSP.forms import registerForm, PaymentForm, ResultForm
 from TSP.methods import get_paid_details, payment_request
 
 
@@ -22,6 +23,19 @@ def home(request):
     person = True
     return render(request, 'TSP/index.html', {'person': person})
 
+def result_view(request):
+    form = ResultForm(request.POST or None)
+    if(request.method == 'POST'):
+        if form.is_valid():
+            advitiya_id = form.cleaned_data['advitiya_id']
+            name = form.cleaned_data['name']
+            try:
+                data = models.TSPResult.objects.filter(
+                    name__contains=name, advitiya_id=advitiya_id)[0]
+                return render(request, "TSP/result_view.html", { 'data' : data})
+            except:
+                form.add_error(None, error='Result Not Found')
+    return render(request, "TSP/result.html", { 'form' : form})
 
 @login_required(login_url='/auth/google/login/')
 def register_profile(request):
@@ -156,3 +170,37 @@ def payment_redirect(request):
                             "</p><p><b>Payment Transaction ID:</b> " + request.GET['payment_id'] +
                             "<p>" + retry_for_payment + "</p>"
             })
+
+import csv 
+from django.http import HttpResponse
+
+@user_passes_test(lambda u: u.is_superuser)
+def upload_tsp_data(request):
+    added = 0
+    failed = ''
+    already = 0
+    with open('path') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            advitiya_id = row[1]
+            try:
+                _, created = models.TSPResult.objects.get_or_create(
+                        advitiya_id = advitiya_id,
+                        defaults={
+                            'name': row[2],
+                            'school' : row[3],
+                            'marks' : row[4],
+                            'rank' : row[5]
+                            }
+                    )
+                if created:
+                    added = added + 1
+                else:
+                    already = already + 1
+            except:
+                if advitiya_id == None:
+                    advitiya_id = 'not found'
+                failed = failed + ' ' + advitiya_id
+    return HttpResponse('Added : ' + str(added) + ' Already : ' + str(already) + 
+                        'Failed : ' + str(failed))
+    

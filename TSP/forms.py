@@ -26,3 +26,7 @@ class PaymentForm(forms.ModelForm):
     class Meta:
         model = Payment
         fields=["category_a", "category_b"]
+
+class ResultForm(forms.Form):
+    name = forms.CharField(label="Your Name",widget=forms.TextInput)
+    advitiya_id = forms.CharField(label="Advitiya ID",widget=forms.TextInput)
