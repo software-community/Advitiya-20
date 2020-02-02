@@ -15,4 +15,5 @@ urlpatterns=[
     path('webhook/', csrf_exempt(views.webhook), name= 'payment_webhook'),
 
     path('result/', views.result_view,name='result'),
+    path('load-data/', views.upload_tsp_data,name='load_data'),
 ]
