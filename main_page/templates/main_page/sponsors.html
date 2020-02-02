@@ -1,140 +1,308 @@
 {% extends "main_page/base.html" %}
 {% load static %}
-
+{% block style %}
+<style>
+    .sponsor-single {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 30px;
+    }
+</style>
+{%endblock%}
+{% block title %} Sponsors | Advitiya{%endblock%}
 {% block body %}
-<section class="our-sponsor-client-area section-padding-100">
+<section class="our-sponsor-client-area section-padding-100" style="background-color: white;">
     <div class="container">
         <div class="row">
+            <div class="col-12 mx-auto sponsor-single">
+                <h2>Title Sponsor</h2>
+                <a href="https://www.onlinesbi.com/">
+                    <img src="{% static 'main_page/img/core-img/sbi.png' %}" style="height:180px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-12 mx-auto sponsor-single">
+                <h2>Co-Title Sponsor</h2>
+                <a href="http://ncclimited.com/">
+                    <img src="{% static 'main_page/img/core-img/ncc.jpg' %}" style="height:150px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-12 mx-auto sponsor-single">
+                <h2>Powered By</h2>
+                <a href="https://www.vivo.com/in">
+                    <img src="{% static 'main_page/img/core-img/vivo.png' %}" style="height:150px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-12 mx-auto sponsor-single">
+                <h2>In Association With</h2>
+                <a href="https://en.xlpat.com/">
+                    <img src="{% static 'main_page/img/core-img/xlpat.png' %}" style="height:180px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-12 text-center">
+                <h2>Grand Sponsors</h2>
+            </div>
+            <div class="col-md-6 mx-auto sponsor-single">
+                <a href="https://www.boredprogrammers.com/">
+                    <img src="{% static 'main_page/img/core-img/boredprogrammer.jpg' %}"
+                        style="height:180px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-6 mx-auto sponsor-single">
+                <a href="http://www.iitrpr.ac.in/research_conclave/">
+                    <img src="{% static 'main_page/img/core-img/research_conlave.png' %}"
+                        style="height:180px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-4 mx-auto sponsor-single">
+                <a href="https://www.canarabank.com/english/">
+                    <img src="{% static 'main_page/img/core-img/canara.png' %}" style="height:150px; width:auto;"
+                        alt="">
+                </a>
+            </div>
+            <div class="col-md-4 mx-auto sponsor-single">
+                <a href="https://www.yesbank.in/">
+                    <img src="{% static 'main_page/img/core-img/yes.png' %}" style="height:150px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-12 text-center">
+                <br><br>
+                <h2>Events Partners</h2>
+                <br>
+            </div>
+            <div class="col-md-4 mx-auto sponsor-single">
+                <h5> Robotics Event Partner</h5>
+                <a href="https://mechatron-lab-house-of.business.site/">
+                    <img src="{% static 'main_page/img/core-img/mechatron.webp' %}" style="height:180px; width:auto;"
+                        alt="">
+                </a>
+            </div>
+            <div class="col-md-4 mx-auto sponsor-single">
+                <h5> Coding Event Partner</h5>
+                <a href="https://en.xlpat.com/">
+                    <img src="{% static 'main_page/img/core-img/xlpat.png' %}" style="height:180px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-4 mx-auto sponsor-single">
+                <h5> Debug IT Partner</h5>
+                <a href="https://www.codingninjas.com/">
+                    <img src="{% static 'main_page/img/core-img/ninja.svg' %}" style="height:100px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.codingninjas.com/">
+                    <img src="{% static 'main_page/img/core-img/hover.png' %}" style="height:80px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.codingninjas.com/">
+                    <img src="{% static 'main_page/img/core-img/ids.png' %}" style="height:80px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.codingninjas.com/">
+                    <img src="{% static 'main_page/img/core-img/isro.png' %}" style="height:150px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.codingninjas.com/">
+                    <img src="{% static 'main_page/img/core-img/mentox.jpg' %}" style="height:100px; width:auto;"
+                        alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.codingninjas.com/">
+                    <img src="{% static 'main_page/img/core-img/net_solutuons.jpg' %}" style="height:80px; width:auto;"
+                        alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.codingninjas.com/">
+                    <img src="{% static 'main_page/img/core-img/nova.png' %}" style="height:80px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.codingninjas.com/">
+                    <img src="{% static 'main_page/img/core-img/punjab_infro_tech.png' %}"
+                        style="height:80px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.codingninjas.com/">
+                    <img src="{% static 'main_page/img/core-img/scl_lab.png' %}" style="height:80px; width:auto;"
+                        alt="">
+                </a>
+            </div>
+            <div class="col-12 text-center">
+                <br><br><br>
+            </div>
+            <div class="col-md-4 mx-auto sponsor-single">
+                <h4>Commute Partner</h4>
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/zoomcar.png' %}" style="height:180px; width:auto;"
+                        alt="">
+                </a>
+            </div>
+            <div class="col-md-4 mx-auto sponsor-single">
+                <h4>Grooming Partner</h4>
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/beardo.jpg' %}" style="height:180px; width:auto;"
+                        alt="">
+                </a>
+            </div>
+            <div class="col-md-4 mx-auto sponsor-single">
+                <h4>Energy Drink Partner</h4>
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/monster.png' %}" style="height:180px; width:auto;"
+                        alt="">
+                </a>
+            </div>
 
-            <div class="col-12">
-                <div class="section-heading-2 text-center wow fadeInUp" data-wow-delay="300ms">
-                    <br>
-                    <p>Partners &amp; Sponsors</p>
-                    <h4>CURRENT SPONSORS</h4>
-                </div>
+            <div class="col-12 text-center">
+                <br>
+                <h2>School Outreach Partners</h2><br>
             </div>
-    
-             <div class="row">
-                <div class="col-12">
-                    
-                    <div class="our-sponsor-area d-flex flex-wrap">
-                    
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://youthincmag.com/"><img src="{% static 'main_page/img/core-img/youth.png' %}" alt=""></a>
-                        </div>
-                    
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://influence.co/campusbloggers"><img src="{% static 'main_page/img/core-img/download.png' %}" alt=""></a>
-                        </div>
-                    
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://feevin.in/"><img src="{% static 'main_page/img/core-img/feevin.jpg' %}" alt=""></a>
-                        </div>
-                        
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="http://www.faadooengineers.com/"><img src="{% static 'main_page/img/core-img/faadoo.png' %}" alt=""></a>
-                        </div>
-        
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="http://www.knowafest.com/college-fests/events"><img src="{% static 'main_page/img/core-img/know.png' %}" alt=""></a>
-                        </div>
-        
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://duexpress.in/"><img src="{% static 'main_page/img/core-img/duex.png' %}" alt=""></a>
-                        </div>
-                        
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://chandigarhx.com/"><img src="{% static 'main_page/img/core-img/chand.png' %}" alt=""></a>
-                        </div>
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://collegedunia.com/"><img src="{% static 'main_page/img/core-img/dunia.png' %}" alt=""></a>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/ednite.png' %}" style="height:150px; width:auto;"
+                        alt="">
+                </a>
             </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/wiley.png' %}" style="height:80px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/school_log.jpg' %}" style="height:100px; width:auto;"
+                        alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/spsti.jpg' %}" style="height:180px; width:auto;" alt="">
+                </a>
+            </div>
+
+            <div class="col-md-12 mx-auto sponsor-single">
+                <h4>Workshops Partner</h4>
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/dignique.png' %}" style="height:120px; width:auto;"
+                        alt="">
+                </a>
+            </div>
+            <div class="col-md-4 mx-auto sponsor-single">
+                <h4>Beverage Partner</h4>
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/jal.jpg' %}" style="height:120px; width:auto;" alt="">
+                </a>
+            </div>
+
+            <div class="col-md-4 mx-auto sponsor-single">
+                <h4>Eco-System Partner</h4>
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/lwt.jpg' %}" style="height:120px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-4 mx-auto sponsor-single">
+                <h5>Official Gifting Partner</h5>
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/souled_store_logo.png' %}"
+                        style="height:120px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-4 mx-auto sponsor-single">
+                <h4>Vision Partner</h4>
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/lensfit.png' %}" style="height:120px; width:auto;"
+                        alt="">
+                </a>
+            </div>
+            <div class="col-md-4 mx-auto sponsor-single">
+                <h5>Internship & Training Partner</h5>
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/Internshala_company_logo.png' %}"
+                        style="height:120px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-4 mx-auto sponsor-single">
+                <h4>Goodies Partner</h4>
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/turns_wear.jpg' %}" style="height:120px; width:auto;"
+                        alt="">
+                </a>
+            </div>
+            <div class="col-md-4 mx-auto sponsor-single">
+                <h6> Industrial Skill Development & Internship Partner</h6>
+                <a href="https://foxmula.com/">
+                    <img src="{% static 'main_page/img/core-img/foxmula.png' %}" style="height:130px; width:auto;"
+                        alt="">
+                </a>
+            </div>
+            <div class="col-md-4 mx-auto sponsor-single">
+                <h4> Hospitality Partner</h4>
+                <a href="https://foxmula.com/">
+                    <img src="{% static 'main_page/img/core-img/offbeat.png' %}" style="height:130px; width:auto;"
+                        alt="">
+                </a>
+            </div>
+
+            <div class="col-12 text-center"><br><br>
+                <h2>Media Partners</h2><br>
+            </div>
+
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/youth.png' %}" style="height:120px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/download.png' %}" style="height:120px; width:auto;"
+                        alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/feevin.jpg' %}" style="height:120px; width:auto;"
+                        alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/faadoo.png' %}" style="height:120px; width:auto;"
+                        alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/know.png' %}" style="height:120px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/duex.png' %}" style="height:120px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/chand.png' %}" style="height:120px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/dunia.png' %}" style="height:120px; width:auto;" alt="">
+                </a>
+            </div>
+            <div class="col-md-3 mx-auto sponsor-single">
+                <a href="https://www.zoomcar.com/">
+                    <img src="{% static 'main_page/img/core-img/tree.png' %}" style="height:120px; width:auto;" alt="">
+                </a>
+            </div>
+
         </div>
     </div>
 </section>
-
-<section class="our-sponsor-client-area section-padding-100">
-    <div class="container">
-        <div class="row">
-
-            <div class="col-12">
-                <div class="section-heading-2 text-center wow fadeInUp" data-wow-delay="300ms">
-                    <br>
-                    <p>Partners &amp; Sponsors</p>
-                    <h4>PREVIOUS SPONSORS</h4>
-                </div>
-            </div>
-    
-             <div class="row">
-                <div class="col-12">
-                    
-                    <div class="our-sponsor-area d-flex flex-wrap">
-                    
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="http://ncclimited.com/"><img src="{% static 'main_page/img/core-img/ncc.jpg' %}" alt=""></a>
-                        </div>
-                    
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="http://teeshood.com/en/"><img src="{% static 'main_page/img/core-img/tees.png' %}" alt=""></a>
-                        </div>
-                    
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://www.grabon.in/"><img src="{% static 'main_page/img/core-img/grab.png' %}" alt=""></a>
-                        </div>
-                        
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://www.spartanpoker.com/"><img src="{% static 'main_page/img/core-img/spartan.jpg' %}" alt=""></a>
-                        </div>
-        
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://www.webstaff.jp/en/"><img src="{% static 'main_page/img/core-img/web.png' %}" alt=""></a>
-                        </div>
-        
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://www.jeol.co.jp/en/"><img src="{% static 'main_page/img/core-img/jeol.png' %}" alt=""></a>
-                        </div>
-                        
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://www.onlinesbi.com/"><img src="{% static 'main_page/img/core-img/sbi.png' %}" alt=""></a>
-                        </div>
-                    
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://hoverrobotix.com/"><img src="{% static 'main_page/img/core-img/hover.jpg' %}" alt=""></a>
-                        </div>
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://www.nvidia.com/en-us/"><img src="{% static 'main_page/img/core-img/nvi.png' %}" alt=""></a>
-                        </div>
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://www.ansys.com/en-in"><img src="{% static 'main_page/img/core-img/ansys.png' %}" alt=""></a>
-                        </div>
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://www.ralson.com/"><img src="{% static 'main_page/img/core-img/ralson.png' %}" alt=""></a>
-                        </div>
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="http://www.safexpress.com/"><img src="{% static 'main_page/img/core-img/safe.png' %}" alt=""></a>
-                        </div>
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://chandigarhx.com/"><img src="{% static 'main_page/img/core-img/chand.png' %}" alt=""></a>
-                        </div>
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://yourstory.com/"><img src="{% static 'main_page/img/core-img/story.png' %}" alt=""></a>
-                        </div>
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://collegedunia.com/"><img src="{% static 'main_page/img/core-img/dunia.png' %}" alt=""></a>
-                        </div>
-                        <div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
-                            <a href="https://punjabkesari.com/"><img src="{% static 'main_page/img/core-img/punjab.jpg' %}" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
 
 {%endblock%}

@@ -13,4 +13,6 @@ urlpatterns=[
     path('payment-form/', views.fee_payment,name='payment_view'),
     path('payment_redirect/', views.payment_redirect, name = 'payment_redirect'),
     path('webhook/', csrf_exempt(views.webhook), name= 'payment_webhook'),
+
+    path('result/', views.result_view,name='result'),
 ]

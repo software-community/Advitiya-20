@@ -3966,7 +3966,6 @@ video {
 }
 
 .our-sponsor-area .single-sponsor {
-  border: 1px solid #444675;
   -webkit-box-flex: 0;
   -ms-flex: 0 0 25%;
   flex: 0 0 25%;
@@ -4009,7 +4008,6 @@ video {
   -o-transition-duration: 300ms;
   transition-duration: 300ms;
   max-height: 110px;
-  opacity: 0.5;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
