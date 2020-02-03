@@ -14,43 +14,32 @@
         }
     }
 </style>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<link href="{% static 'main_page/css/owl_css.css' %}" rel="stylesheet">
 {%endblock%}
 
 {% block body %}
 
 <!-- Welcome Area Start -->
-<section class="welcome-area">
-    <div class="welcome-slides owl-carousel">
-        <!-- Single Slide -->
-        <div class="single-welcome-slide bg-img bg-overlay jarallax slideImage">
-            <div class="container h-100">
-                <div class="row h-100 align-items-center">
-                    <!-- Welcome Text -->
-                    <div class="col-12">
-                        <div class="welcome-text text-right">
-                            <!-- <h2 data-animation="fadeInUp" data-delay="300ms">Science <br>Conference</h2>
-                          <h6 data-animation="fadeInUp" data-delay="500ms">Shangri-La Hotel, Bangkok, Bangkok, Thailand</h6>-->
-                            <div class="hero-btn-group" data-animation="fadeInUp" data-delay="700ms">
-                                <!-- <a href="{% url 'ca:home' %}" class="btn confer-btn">More Information 
-                                        <i class="zmdi zmdi-long-arrow-right"></i></a> -->
-                            </div>
-                        </div>
+<section class="welcome-area" style="background-color:black">
+    <br><br><br><br>
+    <div id="galery">
+        <div class="container">
+            <div class="row">
+                <div id="galery-owl" class="owl-carousel owl-theme">
+                    <div class="galery-item">
+                        <img src="{% static 'main_page/img/bg-img/allevents.jpg' %}" alt="">
+                    </div>
+                    <div class="galery-item">
+                        <img src="{% static 'main_page/img/bg-img/lectures.png' %}" alt="">
+                    </div>
+                    <div class="galery-item">
+                        <img src="{% static 'main_page/img/bg-img/exhibition.jpg' %}" alt="">
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Single Slide -->
-        <div class="single-welcome-slide bg-img bg-overlay jarallax">
-            <div class="container h-100" style="display: table; padding: 0;">
-                <div style="vertical-align: middle; display: table-cell; padding-top: 105px;">
-                    <img src="{% static 'main_page/img/bg-img/web bg.png' %}">
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-
 </section>
 <!-- Welcome Area End -->
 
@@ -775,3 +764,8 @@
 <!-- Our Speakings Area End -->
 
 {% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="{% static 'main_page/js/main.js' %}"></script>
+{%endblock%}
