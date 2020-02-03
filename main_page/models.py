@@ -84,6 +84,7 @@ class Events(models.Model):
     rulebook = models.URLField()
     start_date_time = models.DateTimeField(blank=False)
     end_date_time = models.DateTimeField(blank=False)
+    closed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name+"\t"+self.coordinator.name
