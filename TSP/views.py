@@ -31,7 +31,7 @@ def result_view(request):
             name = form.cleaned_data['name']
             try:
                 data = models.TSPResult.objects.filter(
-                    name__contains=name, advitiya_id=advitiya_id)[0]
+                    name__icontains=name, advitiya_id=advitiya_id)[0]
                 if data.marks == -100:
                     form.add_error(None, error='You didn\'t appear for the test')
                 else:

@@ -24,6 +24,8 @@
                 </div>
 
                 <div class="col-6 text-right">
+                    <a href="{% url 'TSP:result' %}" class="btn btn-secondary"
+                        style="margin-bottom: 3px;">TSP Result</a>
 
                     {% if not user.is_authenticated %}
                     <a href="{% provider_login_url 'google' %}?next={% url 'TSP:profile' %}" class="btn btn-secondary"
