@@ -76,7 +76,7 @@ def event_page(request,num):
         'event' : event,
         'CATEGORY_CHOCIES': CATEGORY_CHOCIES
     }
-    if event.id is 14 or event.id is 44 or event.id is 22 or event.id is 41:
+    if event.closed:
         message=("The registration for "+event.name+" is closed now. Find the rulebook <a href=\""+event.rulebook+
                     "\">here.</a> Contact "+
                     event.coordinator.name+"("+event.coordinator.phone+") for other queries.")
@@ -144,6 +144,12 @@ def registerForEvent(request, event_id):
         event = Events.objects.get(id = event_id)
     except Events.DoesNotExist:
         return HttpResponseNotFound()
+
+    if event.closed:
+        message=("The registration for "+event.name+" is closed now. Find the rulebook <a href=\""+event.rulebook+
+                    "\">here.</a> Contact "+
+                    event.coordinator.name+"("+event.coordinator.phone+") for other queries.")
+        return render(request, 'main_page/show_info.html', {'message':message,})
     
     try:
         participant = Participant.objects.get(user = request.user)
