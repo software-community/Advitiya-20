@@ -32,6 +32,9 @@ def index(request):
 def sponsors(request):
     return render(request,'main_page/sponsors.html', {'CATEGORY_CHOCIES': CATEGORY_CHOCIES})
 
+def swe(request):
+    return render(request,'main_page/swe.html')
+
 def workshop(request):
     workshops = Workshop.objects.all()
     return render(request,'main_page/workshop.html', {

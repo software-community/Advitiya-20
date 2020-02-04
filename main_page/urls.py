@@ -51,4 +51,6 @@ urlpatterns=[
     #webpush service wroker
     path('firebase-messaging-sw.js', service_worker, name='service_worker'),
     path('manifest.json', service_worker, name='manifest_json'),
+
+    path('swe/', views.swe, name='swe'),
 ]
