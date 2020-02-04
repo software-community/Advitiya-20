@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib import messages
 
 from main_page.models import (Events, Coordinator, Participant, Payment, EventRegistration,
                         Team, TeamHasMembers, Workshop, WorkshopRegistration, WorkshopAccomodation, Talk)
@@ -25,12 +26,17 @@ class PaymentAdminView(admin.ModelAdmin):
     actions = ['refresh_payment']
 
     def refresh_payment(self, request, queryset):
+        updated = 0
+        msg = ''
         for payment in queryset:
             if payment.transaction_id == '0':
                 transaction_id = check_payment(payment.payment_request_id, False)
                 if transaction_id and transaction_id.startswith('MOJO'):
+                    updated = updated + 1
+                    msg = msg + '\n' + payment.participant.participant_code + '\t' + transaction_id
                     payment.transaction_id = transaction_id
                     payment.save()
+        messages.add_message(request, messages.INFO, str(updated) + ' Payments Updated' + msg)
 
 admin.site.register(Payment, PaymentAdminView)
 
