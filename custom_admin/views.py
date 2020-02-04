@@ -386,6 +386,8 @@ def refresh_payments(request, refresh_id=None):
             if transaction_id:
                 regs = regs + '\n' + workshop_reg.participant.participant_code + '\t' + transaction_id
                 refreshed = refreshed + 1
+                workshop_reg.transaction_id = transaction_id
+                workshop_reg.save()
         return HttpResponse('Refreshed Payments : ' + str(refreshed) + regs)
     else:
         message=''
