@@ -281,7 +281,6 @@ def event_registration_csv(request):
 #registered_event_csv
 @login_required(login_url='/auth/google/login/')
 def workshop_accommodation_csv(request):
-
     email = request.user.email
     if not email.endswith('@iitrpr.ac.in'):
         return HttpResponse('Forbidden', status=status.HTTP_401_UNAUTHORIZED)
