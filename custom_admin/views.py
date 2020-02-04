@@ -10,7 +10,7 @@ from rest_framework import status
 from django.urls import reverse
 
 from ca.models import Profile
-from main_page.models import (Participant, Payment, WorkshopRegistration, EventRegistration,
+from main_page.models import (Participant, Payment, WorkshopRegistration, EventRegistration, WorkshopAccomodation,
                                 Events, Team, TeamHasMembers, Workshop, Coordinator)
 
 # Create your views here.
@@ -278,6 +278,28 @@ def event_registration_csv(request):
 
     return response
 
+#registered_event_csv
+@login_required(login_url='/auth/google/login/')
+def workshop_accommodation_csv(request):
+
+    email = request.user.email
+    if not email.endswith('@iitrpr.ac.in'):
+        return HttpResponse('Forbidden', status=status.HTTP_401_UNAUTHORIZED)
+    
+    response = HttpResponse(content_type='text/csv')
+    time = str(datetime.datetime.now())
+    response['Content-Disposition'] = 'attachment; filename="workshop_accommodation_'+ time +'.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Advitiya_ID', 'Name', 'College', 'Phone', 'Accommodation on 7th', 'Accommodation on 8th', 'Accommodation on 9th'])
+    workshop_accommodations=WorkshopAccomodation.objects.all()
+    for accommodation in workshop_accommodations:
+        if accommodation.is_paid():
+            writer.writerow(accommodation.participant.participant_code, accommodation.participant.name, 
+                    accommodation.participant.college_name, accommodation.participant.phone_number, 
+                    accommodation.accomodation_on_7th, accommodation.accomodation_on_8th, accommodation.accomodation_on_9th])
+    return response
+
 #get data for payments in workshop and event
 @user_passes_test(lambda u: u.is_superuser)
 def get_event_workshop_payments(request):
@@ -399,13 +421,4 @@ def refresh_payments(request, refresh_id=None):
                 'message':message,
             })
 
-    refreshed = 0
-    regs = ''
-    # for workshop_reg in workshop_regs:
-    #     transaction_id = check_payment(workshop_reg.payment_request_id, True)
-    #     if transaction_id:
-    #         regs = regs + '\n' + workshop_reg.participant.participant_code + '\t' + transaction_id
-    #         refreshed = refreshed + 1
-    #         # workshop_reg.transaction_id = transaction_id
-    #         # workshop_reg.save()
-    return HttpResponse('Refreshed Payments : ' + str(refreshed) + regs)
+    return HttpResponse('Hi bro!!!')
