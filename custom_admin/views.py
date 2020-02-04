@@ -362,7 +362,14 @@ def gen_event_details(request, event_id=None):
 from custom_admin.utils import check_payment
 @user_passes_test(lambda u: u.is_superuser)
 def refresh_payments(request):
-    workshop_regs = WorkshopRegistration.objects.exclude(transaction_id__startswith='MOJO')
+    workshop_regs = WorkshopRegistration.objects.all()
+    count = 20
+    regs=''
+    for workshop_reg in workshop_regs:
+        if not workshop_reg.is_paid():
+            count=count-1
+            regs=regs+'\n'+workshop_reg.participant.name
+    return HttpResponse(regs)
     refreshed = 0
     regs = ''
     for workshop_reg in workshop_regs:
