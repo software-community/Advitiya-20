@@ -26,10 +26,11 @@ class PaymentAdminView(admin.ModelAdmin):
 
     def refresh_payment(self, request, queryset):
         for payment in queryset:
-            transaction_id = check_payment(payment.payment_request_id, False)
-            if transaction_id and transaction_id.startswith('MOJO') and (not payment.is_paid()):
-                payment.transaction_id = transaction_id
-                payment.save()
+            if payment.transaction_id == '0':
+                transaction_id = check_payment(payment.payment_request_id, False)
+                if transaction_id and transaction_id.startswith('MOJO'):
+                    payment.transaction_id = transaction_id
+                    payment.save()
 
 admin.site.register(Payment, PaymentAdminView)
 
