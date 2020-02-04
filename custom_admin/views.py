@@ -361,19 +361,49 @@ def gen_event_details(request, event_id=None):
 
 from custom_admin.utils import check_payment
 @user_passes_test(lambda u: u.is_superuser)
-def refresh_payments(request):
+def refresh_payments(request, refresh_id=None):
+    refreshments_one_time=20
     w_regs = WorkshopRegistration.objects.all()
     workshop_regs=[]
     for w_reg in w_regs:
         if not w_reg.is_paid():
             workshop_regs.append(w_reg)
+    count = len(workshop_regs)
+    if refresh_id is not None:
+
+        from_id=refresh_id*refreshments_one_time
+        to_id=(refresh_id+1)*refreshments_one_time
+        if to_id>(count*refreshments_one_time):
+            to_id=count
+        if from_id>to_id:
+            from_id=to_id-refreshments_one_time
+
+        refreshed = 0
+        regs = ''
+        for i in range(from_id, to_id):
+            workshop_reg=workshop_regs[i]
+            transaction_id = check_payment(workshop_reg.payment_request_id, True)
+            if transaction_id:
+                regs = regs + '\n' + workshop_reg.participant.participant_code + '\t' + transaction_id
+                refreshed = refreshed + 1
+        return HttpResponse('Refreshed Payments : ' + str(refreshed) + regs)
+    else:
+        message=''
+        count=int(count/refreshments_one_time)
+        for i in range(0,count+1):
+            message=(message+"<a href=\""+reverse('custom_admin:refresh_payment', args=[i])+"\">Refresh "+
+                        str(i)+"</a><br>")
+        return render(request, 'main_page/show_info.html',{
+                'message':message,
+            })
+
     refreshed = 0
     regs = ''
-    for workshop_reg in workshop_regs:
-        transaction_id = check_payment(workshop_reg.payment_request_id, True)
-        if transaction_id:
-            regs = regs + '\n' + workshop_reg.participant.participant_code + '\t' + transaction_id
-            refreshed = refreshed + 1
-            # workshop_reg.transaction_id = transaction_id
-            # workshop_reg.save()
+    # for workshop_reg in workshop_regs:
+    #     transaction_id = check_payment(workshop_reg.payment_request_id, True)
+    #     if transaction_id:
+    #         regs = regs + '\n' + workshop_reg.participant.participant_code + '\t' + transaction_id
+    #         refreshed = refreshed + 1
+    #         # workshop_reg.transaction_id = transaction_id
+    #         # workshop_reg.save()
     return HttpResponse('Refreshed Payments : ' + str(refreshed) + regs)
