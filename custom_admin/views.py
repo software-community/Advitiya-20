@@ -297,7 +297,8 @@ def workshop_accommodation_csv(request):
         if accommodation.is_paid():
             writer.writerow([accommodation.participant.participant_code, accommodation.participant.name, 
                     accommodation.participant.college_name, accommodation.participant.phone_number, 
-                    accommodation.accomodation_on_7th, accommodation.accomodation_on_8th, accommodation.accomodation_on_9th])
+                    int(accommodation.accomodation_on_7th), int(accommodation.accomodation_on_8th),
+                    int(accommodation.accomodation_on_9th)])
     return response
 
 #get data for payments in workshop and event
