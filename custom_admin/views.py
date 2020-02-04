@@ -358,3 +358,18 @@ def gen_event_details(request, event_id=None):
     return render(request, 'main_page/show_info.html',{
                 'message':message,
             })
+
+from custom_admin.utils import check_payment
+@user_passes_test(lambda u: u.is_superuser)
+def refresh_payments(request):
+    workshop_regs = WorkshopRegistration.objects.exclude(transaction_id__startswith='MOJO')
+    refreshed = 0
+    regs = ''
+    for workshop_reg in workshop_regs:
+        transaction_id = check_payment(workshop_reg.payment_request_id, True)
+        if transaction_id:
+            regs = regs + '\n' + workshop_reg.participant.participant_code + '\t' + transaction_id
+            refreshed = refreshed + 1
+            # workshop_reg.transaction_id = transaction_id
+            # workshop_reg.save()
+    return HttpResponse('Refreshed Payments : ' + str(refreshed) + regs)
