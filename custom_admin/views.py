@@ -292,12 +292,19 @@ def workshop_accommodation_csv(request):
     writer = csv.writer(response)
     writer.writerow(['Advitiya_ID', 'Name', 'College', 'Phone', 'Accommodation on 7th', 'Accommodation on 8th', 'Accommodation on 9th'])
     workshop_accommodations=WorkshopAccomodation.objects.all()
+    accommodation_7th=0
+    accommodation_8th=0
+    accommodation_9th=0
     for accommodation in workshop_accommodations:
         if accommodation.is_paid():
             writer.writerow([accommodation.participant.participant_code, accommodation.participant.name, 
                     accommodation.participant.college_name, accommodation.participant.phone_number, 
                     int(accommodation.accomodation_on_7th), int(accommodation.accomodation_on_8th),
                     int(accommodation.accomodation_on_9th)])
+            accommodation_7th=accommodation_7th+accommodation.accomodation_on_7th
+            accommodation_8th=accommodation_8th+accommodation.accomodation_on_8th
+            accommodation_9th=accommodation_9th+accommodation.accomodation_on_9th
+    writer.writerow(['','','','Total', accommodation_7th, accommodation_8th, accommodation_9th])
     return response
 
 #get data for payments in workshop and event
