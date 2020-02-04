@@ -34,4 +34,7 @@ urlpatterns=[
 
     path('refresh-payments', views.refresh_payments, name='refresh_payment'),
     path('refresh-payments/<int:refresh_id>', views.refresh_payments, name='refresh_payment'),
+
+    path('workshop_accommodation_csv', views.workshop_accommodation_csv,
+        name='workshop_accommodation_csv'),
 ]
