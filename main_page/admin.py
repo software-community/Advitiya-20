@@ -3,6 +3,8 @@ from django.contrib import admin
 from main_page.models import (Events, Coordinator, Participant, Payment, EventRegistration,
                         Team, TeamHasMembers, Workshop, WorkshopRegistration, WorkshopAccomodation, Talk)
 
+from custom_admin.utils import check_payment
+
 class EventsAdminView(admin.ModelAdmin):
     list_display = [field.name for field in Events._meta.fields]
 
@@ -20,6 +22,14 @@ admin.site.register(Participant, ParticipantAdminView)
 
 class PaymentAdminView(admin.ModelAdmin):
     list_display = [field.name for field in Payment._meta.fields]
+    actions = ['refresh_payment']
+
+    def refresh_payment(self, request, queryset):
+        for payment in queryset:
+            transaction_id = check_payment(payment.payment_request_id, False)
+            if transaction_id and transaction_id.startswith('MOJO') and (not payment.is_paid()):
+                payment.transaction_id = transaction_id
+                payment.save()
 
 admin.site.register(Payment, PaymentAdminView)
 
