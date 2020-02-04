@@ -5,6 +5,8 @@ from django.urls import reverse
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from main_page.forms import WorkshopAccomodationForm
+from custom_admin.utils import check_payment
+
 import os
 import hashlib
 import hmac
@@ -111,6 +113,8 @@ def workshop_accomodation_webhook(request):
             try:
                 payment_detail = WorkshopAccomodation.objects.filter(
                     payment_request_id=data['payment_request_id'])[0]
+                if payment_detail.is_paid():
+                    return HttpResponse(status=200)
                 if data['status'] == "Credit":
                     # Payment was successful, mark it as completed in your database.
                     payment_detail.transaction_id = data['payment_id']
@@ -147,6 +151,16 @@ def workshop_accomodation_payment_redirect(request):
     retry_for_payment = 'Payment was Successfull. You have successfully registered for workshop accomodation.'
     if request.GET['payment_status'] == 'Failed':
         retry_for_payment = '<a href="'+reverse('main_page:workshop')+'">Click Here</a> to go back to Workshops page.'
+    elif request.GET['payment_status'] == 'Credit':
+        transaction_id = check_payment(request.GET['payment_request_id'], False)
+        if transaction_id and transaction_id.startswith('MOJO'):
+            try:
+                payment = WorkshopAccomodation.objects.get(payment_request_id=request.GET['payment_request_id'])
+                if not payment.is_paid():
+                    payment.transaction_id = transaction_id
+                    payment.save()
+            except:
+                pass
 
     return render(request, 'main_page/show_info.html',
             {

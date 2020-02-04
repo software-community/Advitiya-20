@@ -13,6 +13,8 @@ from accomodation.models import Accommodation
 from startup_conclave.models import PayForStalls
 from django.contrib.admin.views.decorators import staff_member_required
 
+from custom_admin.utils import check_payment
+
 from django.urls import reverse
 import os
 import hashlib
@@ -364,6 +366,16 @@ def payment_redirect(request):
                                 for Startup Conclave Registrations.'''
     if request.GET['payment_status'] == 'Failed':
         retry_for_payment = '<a href="/pay">Click Here</a> to retry Payment.'
+    elif request.GET['payment_status'] == 'Credit':
+        transaction_id = check_payment(request.GET['payment_request_id'], False)
+        if transaction_id and transaction_id.startswith('MOJO'):
+            try:
+                payment = Payment.objects.get(payment_request_id=request.GET['payment_request_id'])
+                if not payment.is_paid():
+                    payment.transaction_id = transaction_id
+                    payment.save()
+            except:
+                pass
 
     return render(request, 'main_page/show_info.html',
             {
@@ -479,6 +491,8 @@ def workshop_webhook(request):
             try:
                 payment_detail = WorkshopRegistration.objects.filter(
                     payment_request_id=data['payment_request_id'])[0]
+                if payment_detail.is_paid():
+                    return HttpResponse(status=200)
                 if data['status'] == "Credit":
                     # Payment was successful, mark it as completed in your database.
                     payment_detail.transaction_id = data['payment_id']
@@ -516,6 +530,16 @@ def workshop_payment_redirect(request):
                  give credit at <a href="'''+reverse('main_page:reffer_ca')+'''">'''
     if request.GET['payment_status'] == 'Failed':
         retry_for_payment = '<a href="'+reverse('main_page:workshop')+'">Click Here</a> to go back to Workshops page.'
+    elif request.GET['payment_status'] == 'Credit':
+        try:
+            payment = WorkshopRegistration.objects.get(payment_request_id=request.GET['payment_request_id'])
+            transaction_id = check_payment(request.GET['payment_request_id'], payment.workshop.at_sudhir)
+            if transaction_id and transaction_id.startswith('MOJO'):
+                if not payment.is_paid():
+                    payment.transaction_id = transaction_id
+                    payment.save()
+        except:
+            pass
 
     return render(request, 'main_page/show_info.html',
             {

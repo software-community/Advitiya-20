@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect, HttpResponseServerError, HttpRespo
 from techconnect.models import TechConnect, TechconnectParticipant, Workshops, Centers, WorkshopRegistrations
 from techconnect.forms import TechConnectForm, ParticipationForm
 from techconnect.methods import workshop_payment_request
+from custom_admin.utils import check_payment
 from django.urls import reverse
 
 # Create your views here.
@@ -158,6 +159,8 @@ def workshop_webhook(request):
             try:
                 payment_detail = WorkshopRegistrations.objects.get(
                     payment_request_id=data['payment_request_id'])
+                if payment_detail.is_paid():
+                    return HttpResponse(status=200)
                 if data['status'] == "Credit":
                     # Payment was successful, mark it as completed in your database.
                     payment_detail.transaction_id = data['payment_id']
@@ -189,6 +192,16 @@ def workshop_payment_redirect(request):
     retry_for_payment = 'Payment was Successfull. You have successfully registered for this workshop.'
     if request.GET['payment_status'] == 'Failed':
         retry_for_payment = '<a href="'+reverse('techconnect:centers')+'">Click Here</a> to go back to TechConnect Centers page.'
+    elif request.GET['payment_status'] == 'Credit':
+        transaction_id = check_payment(request.GET['payment_request_id'], False)
+        if transaction_id and transaction_id.startswith('MOJO'):
+            try:
+                payment = WorkshopRegistrations.objects.get(payment_request_id=request.GET['payment_request_id'])
+                if not payment.is_paid():
+                    payment.transaction_id = transaction_id
+                    payment.save()
+            except:
+                pass
 
     return render(request, 'techconnect/show_info.html',
             {
