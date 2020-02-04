@@ -33,4 +33,5 @@ urlpatterns=[
     path('gen_event_details/<int:event_id>',views.gen_event_details,name='gen_event_details'),
 
     path('refresh-payments', views.refresh_payments, name='refresh_payment'),
+    path('refresh-payments/<int:refresh_id>', views.refresh_payments, name='refresh_payment'),
 ]
