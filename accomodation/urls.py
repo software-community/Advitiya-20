@@ -8,4 +8,6 @@ urlpatterns=[
     path('register-for-accommodation',views.registerForAccommodation,name="register_for_accommodation"),
     path('accommodation_payment_redirect/', views.accommodation_payment_redirect, name = 'accommodation_payment_redirect'),
     path('accommodation_webhook/', csrf_exempt(views.accommodation_webhook), name= 'accommodation_webhook'),
+
+    path('book-meal', views.book_meal, name='book_meal'),
 ]

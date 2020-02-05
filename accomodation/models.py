@@ -14,3 +14,9 @@ class Accommodation(models.Model):
             return True
         else:
             return False
+
+class Meal(models.Model):
+    participant = models.OneToOneField(Participant, on_delete = models.CASCADE)
+    meal_on_7th = models.CharField(max_length = 3, default = 'none')
+    meal_on_8th = models.CharField(max_length = 3, default = 'none')
+    meal_on_9th = models.CharField(max_length = 3, default = 'none')

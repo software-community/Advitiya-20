@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from main_page.models import Participant
 from accomodation.methods import accommodation_payment_request
-from accomodation.models import Accommodation
+from accomodation.models import Accommodation, Meal
+from accomodation.forms import MealForm
+
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse, HttpResponseRedirect
@@ -112,3 +114,33 @@ def accommodation_payment_redirect(request):
                             "</p><p><b>Payment Transaction ID:</b> " + request.GET['payment_id'] +
                             "<p>" + retry_for_payment + "</p>",
             })
+
+@login_required(login_url='/auth/google/login/')
+def book_meal(request):
+
+    try:
+        participant = Participant.objects.get(user = request.user)
+        if not participant.has_participated_any_workshop() and  not participant.has_valid_payment():
+            raise Exception('Not A Valid Participant')
+    except:
+        return render(request, 'main_page/show_info.html', {'message':'''You must register for
+            any event or workshop first.
+            '''})
+    try:
+        booked_meal = Meal.objects.get(participant=participant)
+        return render(request, 'main_page/show_info.html', {'message':'''You have already booked your meal.
+            '''})
+    except:
+        pass
+
+    if request.method == 'POST':
+        form = MealForm(request.POST)
+        if form.is_valid():
+            meal = form.save(commit=False)
+            meal.participant = participant
+            meal.save()
+            return render(request, 'main_page/show_info.html', {'message':'''Your meal is booked successfully.
+                '''})
+    else:
+        form = MealForm()
+    return render(request, 'accommodation/bookmeal.html', {'form': form})

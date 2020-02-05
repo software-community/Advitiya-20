@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib import messages
 
 from custom_admin.utils import check_payment
-from accomodation.models import Accommodation
+from accomodation.models import Accommodation, Meal
 
 class AccommodationAdminView(admin.ModelAdmin):
     list_display = [field.name for field in Accommodation._meta.fields]
@@ -22,3 +22,8 @@ class AccommodationAdminView(admin.ModelAdmin):
         messages.add_message(request, messages.INFO, str(updated) + ' Payments Updated' + msg)
 
 admin.site.register(Accommodation, AccommodationAdminView)
+
+class MealAdminView(admin.ModelAdmin):
+    list_display = [field.name for field in Meal._meta.fields]
+
+admin.site.register(Meal, MealAdminView)
