@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib import messages
 
 from custom_admin.utils import check_payment
-from accomodation.models import Accommodation, Meal
+from accomodation.models import Accommodation, Meal, AccommodationDetail
 
 class AccommodationAdminView(admin.ModelAdmin):
     list_display = [field.name for field in Accommodation._meta.fields]
@@ -27,3 +27,8 @@ class MealAdminView(admin.ModelAdmin):
     list_display = [field.name for field in Meal._meta.fields]
 
 admin.site.register(Meal, MealAdminView)
+
+class AccommodationDetailAdminView(admin.ModelAdmin):
+    list_display = [field.name for field in AccommodationDetail._meta.fields]
+
+admin.site.register(AccommodationDetail, AccommodationDetailAdminView)

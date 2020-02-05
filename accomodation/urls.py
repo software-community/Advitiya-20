@@ -10,4 +10,5 @@ urlpatterns=[
     path('accommodation_webhook/', csrf_exempt(views.accommodation_webhook), name= 'accommodation_webhook'),
 
     path('book-meal', views.book_meal, name='book_meal'),
+    path('confirm-acc', views.confirm_acc, name='confirm_acc'),
 ]

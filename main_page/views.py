@@ -53,6 +53,13 @@ def profile(request):
     except:
         events_participated = None
 
+    try:
+        acc = Accommodation.objects.filter(participant=participant)[0]
+        if not acc.is_paid():
+            acc = None
+    except:
+        acc = None
+
     workshops_registered = []
 
     workshop_registrations = WorkshopRegistration.objects.filter(participant=participant)
@@ -63,6 +70,7 @@ def profile(request):
     return render(request,'main_page/profile.html', {'participant' : participant,'CATEGORY_CHOCIES': CATEGORY_CHOCIES,
                 'EVENTS_PARTICIPATED': events_participated,
                 'workshops_registered': workshops_registered,
+                'acc': acc
             })
 
 def events(request):

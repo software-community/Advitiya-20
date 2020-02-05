@@ -19,6 +19,16 @@
                                     <h4>{{participant.name}}</h4>
                                     <h5 style="color: white;"><b>Email : </b>{{participant.user.email}}</h5>
                                     <h5 style="color: white;"><b>Advitiya ID : </b>{{participant.participant_code}}</h5>
+                                    <br>
+                                    <a href="{% url 'accomodation:book_meal' %}" class="btn confer-btn-white">
+                                        Book Meal
+                                    </a>
+                                    <br><br>
+                                    {% if acc %}
+                                    <a href="{% url 'accomodation:confirm_acc' %}" class="btn confer-btn-white">
+                                        Confirm Accomodation
+                                    </a>
+                                    {% endif %}
                                     {% endif %}
                                 </div>
                             </div>
@@ -58,17 +68,24 @@
                                                 <div class="col-12 text-center">
                                                     <ul>
                                                         {% if EVENTS_PARTICIPATED %}
-                                                            {% for event in EVENTS_PARTICIPATED %}
-                                                                <li><h4 style="color: white;">{{event.event.name}}</h4></li>
-                                                            {% endfor %}
+                                                        {% for event in EVENTS_PARTICIPATED %}
+                                                        <li>
+                                                            <h4 style="color: white;">{{event.event.name}}</h4>
+                                                        </li>
+                                                        {% endfor %}
                                                         {% else %}
-                                                            <h4 style="color: white;">You have not participated in any event yet.</h4>
+                                                        <h4 style="color: white;">You have not participated in any event
+                                                            yet.</h4>
                                                         {% endif %}
                                                         {% if workshops_registered %}
-                                                            <center><h3 style="color: blue;">WORKSHOPS REGISTERED</h3></center>
-                                                            {% for workshop in workshops_registered %}
-                                                                <li><h4 style="color: white;">{{workshop}}</h4></li>
-                                                            {% endfor %}
+                                                        <center>
+                                                            <h3 style="color: blue;">WORKSHOPS REGISTERED</h3>
+                                                        </center>
+                                                        {% for workshop in workshops_registered %}
+                                                        <li>
+                                                            <h4 style="color: white;">{{workshop}}</h4>
+                                                        </li>
+                                                        {% endfor %}
                                                         {% endif %}
                                                     </ul>
                                                 </div>
