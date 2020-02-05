@@ -12,6 +12,7 @@ from django.urls import reverse
 from ca.models import Profile
 from main_page.models import (Participant, Payment, WorkshopRegistration, EventRegistration, WorkshopAccomodation,
                                 Events, Team, TeamHasMembers, Workshop, Coordinator)
+from accomodation.models import Accommodation
 
 # Create your views here.
 
@@ -305,6 +306,26 @@ def workshop_accommodation_csv(request):
             accommodation_8th=accommodation_8th+accommodation.accomodation_on_8th
             accommodation_9th=accommodation_9th+accommodation.accomodation_on_9th
     writer.writerow(['','','','Total', accommodation_7th, accommodation_8th, accommodation_9th])
+    return response
+
+@login_required(login_url='/auth/google/login/')
+def event_accommodation_csv(request):
+    email = request.user.email
+    if not email.endswith('@iitrpr.ac.in'):
+        return HttpResponse('Forbidden', status=status.HTTP_401_UNAUTHORIZED)
+    
+    response = HttpResponse(content_type='text/csv')
+    time = str(datetime.datetime.now())
+    response['Content-Disposition'] = 'attachment; filename="event_accommodation_'+ time +'.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Advitiya_ID', 'Name', 'College', 'Phone', 'Email'])
+    accommodations=Accommodation.objects.all()
+    for accommodation in accommodations:
+        if accommodation.is_paid():
+            writer.writerow([accommodation.participant.participant_code, accommodation.participant.name, 
+                    accommodation.participant.college_name, accommodation.participant.phone_number, 
+                    accommodation.participant.user.email])
     return response
 
 #get data for payments in workshop and event
