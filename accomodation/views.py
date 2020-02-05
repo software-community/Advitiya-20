@@ -72,6 +72,8 @@ def accommodation_webhook(request):
             try:
                 payment_detail = Accommodation.objects.filter(
                     payment_request_id=data['payment_request_id'])[0]
+                if payment_detail.is_paid():
+                    return HttpResponse(status=200)
                 if data['status'] == "Credit":
                     # Payment was successful, mark it as completed in your database.
                     payment_detail.transaction_id = data['payment_id']
