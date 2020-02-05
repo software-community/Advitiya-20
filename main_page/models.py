@@ -217,6 +217,16 @@ class WorkshopAccomodation(models.Model):
         if self.accomodation_on_9th == True:
             days= days+1
         return days
+    
+    def detail(self):
+        accs = ''
+        if self.accomodation_on_7th:
+            accs = accs + '7th '
+        if self.accomodation_on_8th:
+            accs = accs + '8th '
+        if self.accomodation_on_9th:
+            accs = accs + '9th '
+        return accs
 
 def get_file_path_talk(instance, filename):
     ext = filename.split('.')[-1]

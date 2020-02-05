@@ -1,0 +1,170 @@
+{% extends "main_page/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block body %}
+<section class="bg-img bg-gradient-overlay jarallax">
+    <div class="container">
+        <style>
+            label {
+                color: white;
+            }
+
+            .invalid-feedback {
+                color: red !important;
+            }
+        </style>
+        <div class="row align-items-center">
+            <div class="col-12">
+                <br><br><br><br><br>
+            </div>
+            <div class="col-md-6 mx-auto">
+                <h2 class="page-title">User Details</h2>
+                {% if participant %}
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>{{ participant.name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>{{ participant.user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Phone</td>
+                                    <td>{{ participant.phone_number }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Advitiya ID</td>
+                                    <td>{{ participant.participant_code }}</td>
+                                </tr>
+                                <tr>
+                                    <td>College</td>
+                                    <td>{{ participant.college_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>City</td>
+                                    <td>{{ participant.city }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h5>Events</h5>
+                        {% if registered_events %}
+                        {% for reg_event in registered_events %}
+                        <p>{{ reg_event.event.name }}</p>
+                        {% endfor %}
+                        {% else %}
+                        <p>No any event to show.</p>
+                        {% endif %}
+
+                        <h5>Workshops</h5>
+                        {% if registered_workshops %}
+                        {% for reg_workshop in registered_workshops %}
+                        <p>{{ reg_workshop.workshop.name }}</p>
+                        {% endfor %}
+                        {% else %}
+                        <p>No any Workshop to show.</p>
+                        {% endif %}
+
+                        <h5>Accommodation</h5>
+                        {% if accommodation.count > 0 %}
+                        <p>Yes
+                            {% if accommodation.0.accommodationdetail %}
+                            for {{ accommodation.0.accommodationdetail.detail }}
+                            {% endif %}
+                        </p>
+                        {% if participant.meal %}
+                        <p>
+                            Meal : {{ participant.meal.detail }}
+                        </p>
+                        <p>Note: b=Breakfast, l=Lunch, d=Dinner | *Meals are not paid.</p>
+                        {% endif %}
+                        {% else %}
+                        <p>No</p>
+                        {% endif %}
+
+                        <h5>Workshop Accommodation</h5>
+                        {% if workshop_accommodation.count > 0 %}
+                        {% for wacc in workshop_accommodation %}
+                        <p>{{ wacc.detail }}</p>
+                        {% endfor %}
+                        {% else %}
+                        <p>No</p>
+                        {% endif %}
+
+                        <h5>Start Up</h5>
+                        {% if start_up.count > 0 %}
+                        {% for startup in start_up %}
+                        <p>{{ startup.team }}</p>
+                        {% endfor %}
+                        {% else %}
+                        <p>None</p>
+                        {% endif %}
+
+                        <h5>Boot Camp</h5>
+                        {% if boot_camp.count > 0 %}
+                        {% for bootcamp in start_up %}
+                        <p>{{ bootcamp.team }}</p>
+                        {% endfor %}
+                        {% else %}
+                        <p>None</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <br>
+                {% endif %}
+                <div class="card">
+                    <div class="card-body">
+                        {% if error %}
+                        <p style="color: red;">{{ error }}</p>
+                        {% endif %}
+                        <form method="GET">
+                            <div class="form-group">
+                                <input name="email" type="email" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="Enter email">
+                            </div>
+                            <p>OR</p>
+                            <div class="form-group">
+                                <input name="advitiya_id" type="text" class="form-control" id="exampleInputPhone"
+                                    placeholder="Enter Advitiya ID">
+                            </div>
+                            <p>OR</p>
+                            <div class="form-group">
+                                <input name="phone" type="text" class="form-control" id="exampleInputPhone"
+                                    placeholder="Enter Phone">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $("form").submit(function (event) {
+            event.preventDefault();
+            var formData = $(this).serializeArray();
+            var email = formData[0].value;
+            var advitiya_id = formData[1].value;
+            var phone = formData[2].value;
+            if (email)
+                window.location = '/cadmin/user-detail/' + email;
+            else if (advitiya_id)
+                window.location = '/cadmin/user-detail/' + advitiya_id;
+            else if (phone)
+                window.location = '/cadmin/user-detail/' + phone;
+        });
+    });
+</script>
+{%endblock%}

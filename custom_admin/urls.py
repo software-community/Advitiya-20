@@ -32,11 +32,11 @@ urlpatterns=[
     path('gen_event_details', views.gen_event_details, name='gen_event_details'),
     path('gen_event_details/<int:event_id>',views.gen_event_details,name='gen_event_details'),
 
-    path('refresh-payments', views.refresh_payments, name='refresh_payment'),
-    path('refresh-payments/<int:refresh_id>', views.refresh_payments, name='refresh_payment'),
-
     path('workshop_accommodation_csv', views.workshop_accommodation_csv,
         name='workshop_accommodation_csv'),
     path('event_accommodation_csv', views.event_accommodation_csv,
         name='event_accommodation_csv'),
+
+    path('user-detail/', views.get_user_details, name='user_detail'),
+    path('user-detail/<str:user_id>', views.get_user_details, name='user_detail'),
 ]

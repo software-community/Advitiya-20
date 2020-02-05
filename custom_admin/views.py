@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth import logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import user_passes_test #For determining Superuser status
@@ -13,6 +14,7 @@ from ca.models import Profile
 from main_page.models import (Participant, Payment, WorkshopRegistration, EventRegistration, WorkshopAccomodation,
                                 Events, Team, TeamHasMembers, Workshop, Coordinator)
 from accomodation.models import Accommodation
+from startup_conclave.models import BootCampTeamHasMembers, StartupTeamHasMembers
 
 # Create your views here.
 
@@ -409,44 +411,52 @@ def gen_event_details(request, event_id=None):
                 'message':message,
             })
 
-from custom_admin.utils import check_payment
-@user_passes_test(lambda u: u.is_superuser)
-def refresh_payments(request, refresh_id=None):
-    refreshments_one_time=20
-    w_regs = WorkshopRegistration.objects.all()
-    workshop_regs=[]
-    for w_reg in w_regs:
-        if not w_reg.is_paid():
-            workshop_regs.append(w_reg)
-    count = len(workshop_regs)
-    if refresh_id is not None:
+@login_required(login_url='/auth/google/login/')
+def get_user_details(request, user_id = None):
+    email = request.user.email
+    if not email.endswith('@iitrpr.ac.in'):
+        logout(request)
+        return HttpResponseRedirect(request.path)
+    participant = None
+    error = None
+    registered_events = None
+    registered_workshops = None
+    accommodation = None
+    workshop_accommodation = None
+    start_up = None
+    boot_camp = None
+    if user_id:
+        try:
+            if '@' in user_id:
+                participant = Participant.objects.filter(user__email=user_id)[0]
+            elif 'ADV_' in user_id:
+                participant = Participant.objects.filter(participant_code=user_id)[0]
+            else:
+                participant = Participant.objects.filter(phone_number__endswith=user_id)[0]
+        except:
+            error = 'User Not Found!'
+            pass
 
-        from_id=refresh_id*refreshments_one_time
-        to_id=(refresh_id+1)*refreshments_one_time
-        if to_id>(count*refreshments_one_time):
-            to_id=count
-        if from_id>to_id:
-            from_id=to_id-refreshments_one_time
+        if participant:
+            registered_events = EventRegistration.objects.filter(participant=participant)
+            registered_workshops = WorkshopRegistration.objects.filter(participant=participant,
+                transaction_id__startswith='MOJO')
+            accommodation = Accommodation.objects.filter(participant=participant,
+                transaction_id__startswith='MOJO')
+            workshop_accommodation = WorkshopAccomodation.objects.filter(participant=participant,
+                transaction_id__startswith='MOJO')
+            start_up = StartupTeamHasMembers.objects.filter(participant=participant)
+            boot_camp = BootCampTeamHasMembers.objects.filter(participant=participant)
 
-        refreshed = 0
-        regs = ''
-        for i in range(from_id, to_id):
-            workshop_reg=workshop_regs[i]
-            transaction_id = check_payment(workshop_reg.payment_request_id, True)
-            if transaction_id:
-                regs = regs + '\n' + workshop_reg.participant.participant_code + '\t' + transaction_id
-                refreshed = refreshed + 1
-                workshop_reg.transaction_id = transaction_id
-                workshop_reg.save()
-        return HttpResponse('Refreshed Payments : ' + str(refreshed) + regs)
-    else:
-        message=''
-        count=int(count/refreshments_one_time)
-        for i in range(0,count+1):
-            message=(message+"<a href=\""+reverse('custom_admin:refresh_payment', args=[i])+"\">Refresh "+
-                        str(i)+"</a><br>")
-        return render(request, 'main_page/show_info.html',{
-                'message':message,
-            })
-
-    return HttpResponse('Hi bro!!!')
+    return render(request, 'custom_admin/user_detail.html',
+        {
+            'error': error,
+            'participant': participant,
+            'registered_events': registered_events,
+            'registered_workshops': registered_workshops,
+            'accommodation': accommodation,
+            'workshop_accommodation': workshop_accommodation,
+            'start_up': start_up,
+            'boot_camp': boot_camp
+        }
+    )
