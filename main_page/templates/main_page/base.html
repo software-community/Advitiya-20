@@ -216,43 +216,6 @@
     {% block scripts %}{%endblock%}
     <!-- <script src="{% static 'main_page/js/jquery.min.js' %}"></script> -->
 
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
-    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-messaging.js"></script>
-    <!-- START INITIALIZATION CODE -->
-    <script>
-        // Initialize Firebase
-        var firebaseConfig = {
-            apiKey: "AIzaSyDbNJ--j-m1WNrMxSHys81rjseH4FMuHys",
-            authDomain: "advitiya2020-719da.firebaseapp.com",
-            databaseURL: "https://advitiya2020-719da.firebaseio.com",
-            projectId: "advitiya2020-719da",
-            storageBucket: "advitiya2020-719da.appspot.com",
-            messagingSenderId: "598295117177",
-            appId: "1:598295117177:web:946a6512b805df9b0203a8",
-            measurementId: "G-WRN5HSTQL9"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-    </script>
-    <!-- END INITIALIZATION CODE -->
-    <!-- ******************************************************** -->
-    <script>
-        // [START get_messaging_object]
-        // Retrieve Firebase Messaging object.
-        const messaging = firebase.messaging();
-        messaging.requestPermission()
-            .then(function () {
-                console.log('Notification permission granted.');
-            })
-            .catch(function (err) {
-                console.log('Unable to get permission to notify.', err);
-            });
-
-    </script>
 </body>
 
 </html>
