@@ -1,6 +1,6 @@
 from django import forms
 
-from accomodation.models import Meal
+from accomodation.models import Meal, AccommodationDetail
 
 
 class MealForm(forms.ModelForm):
@@ -34,3 +34,9 @@ class MealForm(forms.ModelForm):
         meal = self.cleaned_data['meal_on_9th']
         meal = ''.join(meal)
         return meal
+
+class AccommodationDetailForm(forms.ModelForm):
+
+    class Meta:
+        model = AccommodationDetail
+        fields = ['accomodation_on_7th', 'accomodation_on_8th', 'accomodation_on_9th']

@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from main_page.models import Participant
 from accomodation.methods import accommodation_payment_request
-from accomodation.models import Accommodation, Meal
-from accomodation.forms import MealForm
+from accomodation.models import Accommodation, Meal, AccommodationDetail
+from accomodation.forms import MealForm, AccommodationDetailForm
 
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
@@ -144,3 +144,34 @@ def book_meal(request):
     else:
         form = MealForm()
     return render(request, 'accommodation/bookmeal.html', {'form': form})
+
+@login_required(login_url='/auth/google/login/')
+def confirm_acc(request):
+
+    try:
+        participant = Participant.objects.get(user = request.user)
+        acc = Accommodation.objects.filter(participant=participant)[0]
+        if not acc.is_paid():
+            raise Exception('not paid')
+    except:
+        return render(request, 'main_page/show_info.html', {'message':'''You must pay for
+            Accommodation. <a href="/accommodation">Click Here</a> for Accomodation payment.
+            '''})
+    try:
+        booked_acc = AccommodationDetail.objects.get(accommodation=acc)
+        return render(request, 'main_page/show_info.html', {'message':'''You have already booked your accommodation.
+            '''})
+    except:
+        pass
+
+    if request.method == 'POST':
+        form = AccommodationDetailForm(request.POST)
+        if form.is_valid():
+            booked_acc = form.save(commit=False)
+            booked_acc.accommodation = acc
+            booked_acc.save()
+            return render(request, 'main_page/show_info.html', {'message':'''Your accomodation is confirmed successfully.
+                '''})
+    else:
+        form = AccommodationDetailForm()
+    return render(request, 'accommodation/confirm_acc.html', {'form': form})

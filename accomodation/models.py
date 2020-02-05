@@ -8,12 +8,21 @@ class Accommodation(models.Model):
     transaction_id = models.CharField(max_length=100, default='none')
     timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return str(self.participant)
+
     def is_paid(self):
         if (self.transaction_id != 'none' and self.transaction_id != '0'
             and len(self.transaction_id) > 4):
             return True
         else:
             return False
+
+class AccommodationDetail(models.Model):
+    accommodation = models.OneToOneField(Accommodation, on_delete = models.CASCADE)
+    accomodation_on_7th = models.BooleanField(default=False)
+    accomodation_on_8th = models.BooleanField(default=False)
+    accomodation_on_9th = models.BooleanField(default=False)
 
 class Meal(models.Model):
     participant = models.OneToOneField(Participant, on_delete = models.CASCADE)

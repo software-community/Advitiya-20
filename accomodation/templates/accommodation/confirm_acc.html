@@ -19,17 +19,7 @@
                 <br>
             </div>
             <div class="breadcrumb-content">
-                <h2 class="page-title">Book Your Meal</h2>
-                <div class="alert alert-primary" role="alert">
-                    <h5 class="page-title">Important Note:</h5>
-                    <p>
-                        You have to pay for these booked meals at the Registration Desk.
-                    </p>
-                    <p>
-                        *If you have paid for workshop accommodation then your two meals
-                        of <b>that day</b> is free.
-                    </p>
-                </div>
+                <h2 class="page-title">Confirm your Accommodation days</h2>
                 <form method="POST">
                     {% csrf_token %}
                     {{ form | crispy }}
