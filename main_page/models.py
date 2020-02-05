@@ -59,6 +59,22 @@ class Participant(models.Model):
                 bool_participated = True
                 break
         return bool_participated
+    
+    def has_participated_any_workshop(self):
+        participant_registrations = WorkshopRegistration.objects.filter(participant=self)
+        bool_participated = False
+        for participant_registration in participant_registrations:
+            if participant_registration.is_paid():
+                bool_participated = True
+                break
+        return bool_participated
+    
+    def has_valid_payment(self):
+        try:
+            payment = Payment.objects.get(participant=self)
+            return payment.is_paid()
+        except:
+            return False
 
 class Coordinator(models.Model):
     name = models.CharField(max_length=100)
