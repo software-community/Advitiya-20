@@ -37,4 +37,6 @@ urlpatterns=[
 
     path('workshop_accommodation_csv', views.workshop_accommodation_csv,
         name='workshop_accommodation_csv'),
+    path('event_accommodation_csv', views.event_accommodation_csv,
+        name='event_accommodation_csv'),
 ]
