@@ -51,6 +51,14 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <h5>Events Fee</h5>
+                        <p>
+                            {% if participant.has_valid_payment %}
+                            Rs. 400 Paid
+                            {% else %}
+                            Not Paid
+                            {% endif %}
+                        </p>
                         <h5>Events</h5>
                         {% if registered_events %}
                         {% for reg_event in registered_events %}
