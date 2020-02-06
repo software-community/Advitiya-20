@@ -26,7 +26,8 @@ class StartupTeam(models.Model):
     name = models.CharField(max_length = 100, verbose_name = 'Team Name')
     leader = models.ForeignKey(Participant, on_delete = models.CASCADE)
     startup_name= models.CharField(max_length = 100, verbose_name = 'Startup Name', default="Startup Name")
-    cin_no = models.CharField(max_length = 21, verbose_name = 'Corporate Identification Number (CIN Number)')
+    cin_no = models.CharField(max_length = 21, verbose_name = 'Corporate Identification Number (CIN Number)',
+        null=True, blank=True)
     founder_name = models.CharField(max_length = 100, verbose_name = 'Founder Name', null=True, blank=True)
     founder_phone_number = models.CharField(max_length=50, null=True, blank=True,
             verbose_name="Founder Phone Number")
