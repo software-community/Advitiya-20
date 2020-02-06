@@ -99,6 +99,12 @@ def event_page(request,num):
 
 @login_required(login_url='/auth/google/login/')
 def registerAsParticipant(request):
+
+    if os.environ.get('ONLINE_REGISTRATION_CLOSED', '1') == '1':
+        message=('''The online registration is now closed. For offline registration visit 
+            Registration Desk.''')
+        return render(request, 'main_page/show_info.html', {'message':message,})
+
     try:
         prev_participant_registration_details = Participant.objects.get(
             user = request.user
@@ -152,6 +158,11 @@ def registerAsParticipant(request):
 
 @login_required(login_url='/auth/google/login/')
 def registerForEvent(request, event_id):
+
+    if os.environ.get('ONLINE_REGISTRATION_CLOSED', '1') == '1':
+        message=('''The online registration is now closed. For offline registration visit 
+            Registration Desk.''')
+        return render(request, 'main_page/show_info.html', {'message':message,})
 
     try:
         event = Events.objects.get(id = event_id)
@@ -289,6 +300,12 @@ def registerForEvent(request, event_id):
 
 @login_required(login_url='/auth/google/login/')
 def pay_for_participation(request):
+
+    if os.environ.get('ONLINE_REGISTRATION_CLOSED', '1') == '1':
+        message=('''The online registration is now closed. For offline registration visit 
+            Registration Desk.''')
+        return render(request, 'main_page/show_info.html', {'message':message,})
+
     try:
         participant = Participant.objects.get(user = request.user)
     except Participant.DoesNotExist:
@@ -401,6 +418,11 @@ def payment_redirect(request):
 
 @login_required(login_url='/auth/google/login/')
 def workshop_register(request, workshop_id):
+
+    if os.environ.get('ONLINE_REGISTRATION_CLOSED', '1') == '1':
+        message=('''The online registration is now closed. For offline registration visit 
+            Registration Desk.''')
+        return render(request, 'main_page/show_info.html', {'message':message,})
     
     try:
         participant = Participant.objects.get(user = request.user)
@@ -566,6 +588,12 @@ def benefits(request):
 
 @login_required(login_url='/auth/google/login/')
 def workshopParticipant(request):
+
+    if os.environ.get('ONLINE_REGISTRATION_CLOSED', '1') == '1':
+        message=('''The online registration is now closed. For offline registration visit 
+            Registration Desk.''')
+        return render(request, 'main_page/show_info.html', {'message':message,})
+
     try:
         prev_participant_registration_details = Participant.objects.get(
             user = request.user
