@@ -264,18 +264,22 @@ def event_registration_csv(request):
             regs = EventRegistration.objects.filter(event=event)
 
             for reg in regs:
-                writer.writerow([reg.event.name, reg.participant.name, reg.participant.college_name,
-                    'NA', reg.participant.phone_number, reg.participant.user.email, 'NA'])
+                writer.writerow([reg.event.name, reg.participant.name + '(' +
+                    reg.participant.participant_code + ')', reg.participant.college_name,
+                    'NA', reg.participant.phone_number,
+                    reg.participant.user.email, 'NA'])
 
         else:
             teams = Team.objects.filter(event=event)
 
             for team in teams:
-                row = [team.event.name, team.leader.name, team.leader.college_name,
+                row = [team.event.name, team.leader.name + '(' +
+                    reg.participant.participant_code + ')', team.leader.college_name,
                     team.name, team.leader.phone_number, team.leader.user.email]
                 team_members = TeamHasMembers.objects.filter(team=team)
                 for member in team_members:
-                    row.append(member.participant.name)
+                    row.append(member.participant.name + '(' +
+                        reg.participant.participant_code + ')')
                 
                 writer.writerow(row)
 
