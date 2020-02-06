@@ -418,11 +418,6 @@ def payment_redirect(request):
 
 @login_required(login_url='/auth/google/login/')
 def workshop_register(request, workshop_id):
-
-    if os.environ.get('ONLINE_REGISTRATION_CLOSED', '1') == '1':
-        message=('''The online registration is now closed. For offline registration visit 
-            Registration Desk.''')
-        return render(request, 'main_page/show_info.html', {'message':message,})
     
     try:
         participant = Participant.objects.get(user = request.user)
@@ -589,11 +584,6 @@ def benefits(request):
 @login_required(login_url='/auth/google/login/')
 def workshopParticipant(request):
 
-    if os.environ.get('ONLINE_REGISTRATION_CLOSED', '1') == '1':
-        message=('''The online registration is now closed. For offline registration visit 
-            Registration Desk.''')
-        return render(request, 'main_page/show_info.html', {'message':message,})
-
     try:
         prev_participant_registration_details = Participant.objects.get(
             user = request.user
@@ -651,6 +641,12 @@ def reffer_ca_for_workshop(request):
         reffer_ca_form = RefferCAForWorkshop(request.POST)
         if reffer_ca_form.is_valid():
             ca_code = reffer_ca_form.cleaned_data['ca_code']
+
+            if participant.ca_code:
+                return render(request, 'main_page/show_info.html',{
+                'message':  '''You had already referred your CA''',
+            })
+
             participant.ca_code = ca_code
             participant.save()
 
