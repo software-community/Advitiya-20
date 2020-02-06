@@ -22,6 +22,11 @@ def index(request):
 
 @login_required(login_url='/auth/google/login/')
 def registerForAccommodation(request):
+
+    if os.environ.get('ONLINE_REGISTRATION_CLOSED', '1') == '1':
+        message=('''The online registration is now closed. For offline registration visit 
+            Registration Desk.''')
+        return render(request, 'main_page/show_info.html', {'message':message,})
     
     try:
         participant = Participant.objects.get(user = request.user)
