@@ -460,3 +460,16 @@ def get_user_details(request, user_id = None):
             'boot_camp': boot_camp
         }
     )
+
+@staff_member_required
+def participant_email_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    time = str(datetime.datetime.now())
+    response['Content-Disposition'] = 'attachment; filename="all_participants_email_'+ time +'.csv"'
+
+    writer = csv.writer(response)
+    participants = Participant.objects.all()
+    for participant in participants:
+        if participant.has_valid_payment() or participant.has_participated_any_workshop():
+            writer.writerow([participant.user.email])
+    return response
