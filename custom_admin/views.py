@@ -474,6 +474,9 @@ def participant_email_csv(request):
     writer = csv.writer(response)
     participants = Participant.objects.all()
     for participant in participants:
-        if participant.has_valid_payment() or participant.has_participated_any_workshop():
-            writer.writerow([participant.user.email])
+        if participant.has_participated_any_workshop():
+            writer.writerow([participant.user.email, 'workshop'])
+        elif participant.has_valid_payment():
+            writer.writerow([participant.user.email, 'event'])
+    
     return response
