@@ -274,12 +274,12 @@ def event_registration_csv(request):
 
             for team in teams:
                 row = [team.event.name, team.leader.name + '(' +
-                    reg.participant.participant_code + ')', team.leader.college_name,
+                    team.leader.participant_code + ')', team.leader.college_name,
                     team.name, team.leader.phone_number, team.leader.user.email]
                 team_members = TeamHasMembers.objects.filter(team=team)
                 for member in team_members:
                     row.append(member.participant.name + '(' +
-                        reg.participant.participant_code + ')')
+                        member.participant.participant_code + ')')
                 
                 writer.writerow(row)
 
