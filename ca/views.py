@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.conf.urls import include
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.contrib.auth import login, authenticate
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -11,6 +11,7 @@ import os
 
 from ca import models
 from .forms import registerForm
+from ca.utils import get_ca_certifiate
 
 
 def home(request):
@@ -59,3 +60,10 @@ def profile(request):
         return render(request, "ca/profile.html", context=context)
     except:
         return redirect('ca:register_profile')
+
+@login_required(login_url='/auth/google/login/')
+def gen_certificate(request):
+    try:
+        person = models.Profile.objects.filter(user=request.user)[0]
+    except:
+        return HttpResponseForbidden()
