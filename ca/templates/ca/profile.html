@@ -42,6 +42,10 @@
                                 <th scope="row">CA Code:</th>
                                 <td>{{ profile.ca_code }}</td>
                             </tr>
+                            <tr>
+                                <th scope="row">CA Certificate:</th>
+                                <td><a href="{% url 'ca:ca_certificate' %}" class="btn-primary primary">Download</a></td>
+                            </tr>
                         </tbody>
                     </table>
                     <center>

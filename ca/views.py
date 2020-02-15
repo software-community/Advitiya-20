@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.conf.urls import include
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
 from django.contrib.auth import login, authenticate
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -21,6 +21,10 @@ def home(request):
 
 @login_required(login_url='/auth/google/login/')
 def register_profile(request):
+
+    message=('''The registration is now closed.''')
+    return render(request, 'main_page/show_info.html', {'message':message,})
+
     person = models.Profile.objects.filter(user=request.user)
     if(person.count()):
         return redirect('ca:profile')
@@ -65,5 +69,15 @@ def profile(request):
 def gen_certificate(request):
     try:
         person = models.Profile.objects.filter(user=request.user)[0]
-    except:
-        return HttpResponseForbidden()
+        name = person.your_name
+        if person.your_name == 'Your Name':
+            name = request.user.get_full_name()
+        img =  get_ca_certifiate(name, person.college_name)
+        response = HttpResponse(content_type='image/png')
+        img.save(response, 'PNG')
+        response['Content-Disposition'] = 'attachment; filename={}'.format('ca_certificate.png')
+        return response
+    except Exception as err:
+        print(err)
+        message=('''Your are not a Campus Ambassador.''')
+        return render(request, 'main_page/show_info.html', {'message':message,})
