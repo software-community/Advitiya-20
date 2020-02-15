@@ -9,4 +9,5 @@ urlpatterns=[
     path('profile/', views.profile,name='profile'),
     path('profile/edit/', views.register_profile,name='register_profile'),
     path('accounts/google/logout/', auth_views.LogoutView.as_view(), name = "account_logout"),
+    path('download-ca-certificate', views.gen_certificate, name='ca_certificate')
 ]
