@@ -36,6 +36,9 @@ def swe(request):
     return render(request,'main_page/swe.html')
 
 def workshop(request):
+
+    return HttpResponseRedirect('https://www.anfeidrol.com/workshop-registration')
+
     workshops = Workshop.objects.all()
     return render(request,'main_page/workshop.html', {
         'WORKSHOP_CHOCIES': Workshop.WORKSHOP_CHOCIES,
