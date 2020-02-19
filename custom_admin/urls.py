@@ -41,4 +41,5 @@ urlpatterns=[
     path('user-detail/<str:user_id>', views.get_user_details, name='user_detail'),
 
     path('participant-email-csv', views.participant_email_csv, name='participant_email_csv'),
+    path('techconnect_registrations_csv', views.techconnect_registrations_csv, name='techconnect_registrations_csv'),
 ]
