@@ -15,6 +15,7 @@ from main_page.models import (Participant, Payment, WorkshopRegistration, EventR
                                 Events, Team, TeamHasMembers, Workshop, Coordinator)
 from accomodation.models import Accommodation
 from startup_conclave.models import BootCampTeamHasMembers, StartupTeamHasMembers
+from techconnect.models import WorkshopRegistrations
 
 # Create your views here.
 
@@ -479,6 +480,37 @@ def participant_email_csv(request):
         elif participant.has_valid_payment():
             writer.writerow([participant.user.email, 'event'])
     
+    return response
+
+#registered_event_csv
+@login_required(login_url='/auth/google/login/')
+def techconnect_registrations_csv(request):
+
+    email = request.user.email
+    if not email.endswith('@iitrpr.ac.in'):
+        return HttpResponse('Forbidden', status=status.HTTP_401_UNAUTHORIZED)
+    
+    response = HttpResponse(content_type='text/csv')
+    time = str(datetime.datetime.now())
+    response['Content-Disposition'] = 'attachment; filename="techconnect_registrations.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Name', 'Contact', 'Email', 'College', 'Workshop', 'Center', 'Paid'])
+    workshop_registrations = WorkshopRegistrations.objects.all()
+    for registration in workshop_registrations:
+        if registration.is_paid():
+            writer.writerow([registration.participant.name, registration.participant.phone_number,
+                                registration.participant.user.email, registration.participant.college_name,
+                                registration.workshop.workshop_name, registration.workshop.center.city_name,
+                                registration.is_paid()])
+    
+    for registration in workshop_registrations:
+        if not registration.is_paid():
+            writer.writerow([registration.participant.name, registration.participant.phone_number,
+                                registration.participant.user.email, registration.participant.college_name,
+                                registration.workshop.workshop_name, registration.workshop.center.city_name,
+                                registration.is_paid()])
+
     return response
 
 #----- Certificate

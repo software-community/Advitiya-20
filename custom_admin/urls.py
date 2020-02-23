@@ -43,4 +43,5 @@ urlpatterns=[
     path('participant-email-csv', views.participant_email_csv, name='participant_email_csv'),
 
     path('gen-certificate/', views.gen_cerificate, name='gen_certificate'),
+    path('techconnect_registrations_csv', views.techconnect_registrations_csv, name='techconnect_registrations_csv'),
 ]
