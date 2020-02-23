@@ -512,3 +512,31 @@ def techconnect_registrations_csv(request):
                                 registration.is_paid()])
 
     return response
+
+#----- Certificate
+from custom_admin.forms import CertificateForm
+from ca.utils import get_ca_certifiate, get_participant_certifiate
+
+@staff_member_required
+def gen_cerificate(request):
+
+    if request.method == 'POST':
+        form = CertificateForm(request.POST)
+        if form.is_valid():
+            cert_type = form.cleaned_data['cert_type']
+            name = form.cleaned_data['name']
+            college = form.cleaned_data['college']
+            events = form.cleaned_data['events']
+            if cert_type == 'ca':
+                img =  get_ca_certifiate(name, college)
+            else:
+                img = get_participant_certifiate(name, college, events)
+            response = HttpResponse(content_type='image/png')
+            img.save(response, 'PNG')
+            response['Content-Disposition'] = ('attachment; filename='
+                + name.replace(' ','_') + '_' + cert_type + '.png')
+            return response
+    else:
+        form = CertificateForm()
+    return render(request, 'custom_admin/certificate_form.html',
+        {'participationForm': form })
