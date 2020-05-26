@@ -7,3 +7,4 @@
 /media
 service-account.json
 tsp_data.csv
+db.sqlite3
