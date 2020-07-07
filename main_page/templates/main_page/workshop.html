@@ -83,9 +83,9 @@ background: linear-gradient(to right, #fbc7d4, #9796f0); /* W3C, IE 10+/ Edge, F
             {% for w_cat in WORKSHOP_CHOCIES %}
             {% if w_cat.0 == 'm' %}
             {%else%}
-            <div class="col-md-12">
+            <!-- <div class="col-md-12">
                 <h2>{{ w_cat.1 }}</h2><br>
-            </div>
+            </div> -->
             {% for workshop in workshops %}
             {% if workshop.workshop_type == w_cat.0 %}
             {% if workshop.show %}
@@ -112,7 +112,7 @@ background: linear-gradient(to right, #fbc7d4, #9796f0); /* W3C, IE 10+/ Edge, F
                     {% else %}
                     <div class="post-meta">
                         <a class="post-date"><i class="zmdi zmdi-time-interval"></i> 2 Days</a><br>
-                        <a class="post-date"><i class="zmdi zmdi-calendar-check"></i> 8th & 9th February, 2020</a>
+                        <a class="post-date"><i class="zmdi zmdi-calendar-check"></i> 25th & 26th July, 2020</a>
                     </div>
                     {% endif %}
                     <div class="post-meta">
