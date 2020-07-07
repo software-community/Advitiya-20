@@ -37,8 +37,6 @@ def swe(request):
 
 def workshop(request):
 
-    return HttpResponseRedirect('https://www.anfeidrol.com/workshop-registration')
-
     workshops = Workshop.objects.all()
     return render(request,'main_page/workshop.html', {
         'WORKSHOP_CHOCIES': Workshop.WORKSHOP_CHOCIES,
@@ -437,10 +435,7 @@ def workshop_register(request, workshop_id):
         already_participant = WorkshopRegistration.objects.filter(participant=participant, workshop= workshop)[0]
         if already_participant.transaction_id != 'none' and already_participant.transaction_id != '0':
             return render(request, 'main_page/show_info.html',{
-                'message': '''You have already registered for this workshop !! As we offer subsidized charges for 
-                    accomodation to our workshop participants, we wonder if you are interested to book yours before its too 
-                    late, and all the rooms are filled. If you haven't booked your accomodation yet,<a href="'''+
-                        reverse('main_page:workshop_accomodation')+'''"> click Here </a> to get accomodation during the fest dates'''
+                'message': '''You have already registered for this workshop !!'''
             })
     except:
         pass
@@ -533,11 +528,7 @@ def workshop_webhook(request):
                         'Payment confirmation for participation in workshop at' +
                         ' ADVITIYA, IIT Ropar.',
                         'Dear ' + str(payment_detail.participant.user.get_full_name()) + '\n\nThis is to confirm '+
-                        'that your payment for participation in workshop at ADVITIYA, IIT Ropar is successful. \nAs we '+
-                        'charge a subsidized amount for accomodation to our workshop participants, we believe that you might wish to ' +
-                        'book your accomodation during the fest dates before its too late and there are no rooms left. Click '+
-                        'https://advitiya.in'+reverse('main_page:workshop_accomodation')+' to book accomodation during the '+
-                        'fest dates'+
+                        'that your payment for participation in workshop at ADVITIYA, IIT Ropar is successful.'+
                         '\n\nRegards\n\nAdarsh(7355404764)\nWeb Development Head\nADVITIYA\'20',
                         os.environ.get(
                           'EMAIL_HOST_USER', ''),
