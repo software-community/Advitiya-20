@@ -30,7 +30,7 @@ class PaymentAdminView(admin.ModelAdmin):
         msg = ''
         for payment in queryset:
             if payment.transaction_id == '0':
-                transaction_id = check_payment(payment.payment_request_id, False)
+                transaction_id = check_payment(payment.payment_request_id, True)
                 if transaction_id and transaction_id.startswith('MOJO'):
                     updated = updated + 1
                     msg = msg + '\n' + payment.participant.participant_code + '\t' + transaction_id
